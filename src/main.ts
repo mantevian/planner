@@ -3,12 +3,18 @@ import Vec from "./types/Vec.ts";
 import Util from "./util.ts";
 import parseElement from "./xml_to_js.ts";
 
-const res = await fetch("/input.xml");
-const text = await res.text();
+async function main() {
+	const res = await fetch("/input.xml");
+	const text = await res.text();
 
-const doc = new DOMParser().parseFromString(text, "application/xml");
+	const doc = new DOMParser().parseFromString(text, "application/xml");
 
-const plan = parseElement(doc.documentElement);
+	const plan = parseElement(doc.documentElement);
+
+	document.querySelector("#output")!.appendChild(await render(plan));
+}
+
+main();
 
 async function render(plan: Plan): Promise<SVGSVGElement> {
 	console.log(plan);
@@ -142,12 +148,10 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 						height: `${use.size.y}`,
 					},
 					parent: g
-				})
+				});
 			}
 		}
 	}
 
 	return svg;
 }
-
-document.querySelector("#output")!.appendChild(await render(plan));
