@@ -1,67 +1,35 @@
-<plan w="1500" h="1500">
+<plan w="700" h="700">
 	<defs>
-		<color name="wall" value="#112233" />
-		<color name="contour" value="#778899" />
+		<color name="wall" value="#010101" />
+		<color name="contour" value="#cccccc" />
 
-		<template name="test" />
+		<template name="couch" />
+		<template name="table" />
+		<template name="wash" />
 	</defs>
 
 	<space>
 		<contour x="100" y="100" />
-		<contour x="200" y="100" />
 		<contour x="600" y="100" />
 		<contour x="600" y="600" />
 		<contour x="500" y="600" />
-		<contour x="400" y="600" />
-		<contour x="400" y="400" />
+		<contour x="300" y="600" />
 		<contour x="300" y="400" />
-		<contour x="300" y="380" />
-		<contour x="300" y="330" />
-		<contour x="300" y="300" />
-		<contour x="100" y="300" />
+		<contour x="100" y="400" />
 		<contour x="100" y="200" />
 
 		<wall from="0" to="30" />
 		<wall from="0" to="30" />
 		<wall from="0" to="30" />
-		<wall from="0" to="30" />
 		<wall from="0" to="10" />
-		<wall from="0" to="10" />
-		<wall from="0" to="10" />
-		<wall from="0" to="10" />
-		<wall from="0" to="0" />
 		<wall from="0" to="10" />
 		<wall from="0" to="10" />
 		<wall from="0" to="10" />
 		<wall from="0" to="30" />
 
-		<use name="test" x="120" y="120" w="100" h="100" />
-		<use name="test" x="320" y="120" w="150" h="150" />
-	</space>
-
-	<space>
-		<contour x="100" y="310" />
-		<contour x="290" y="310" />
-		<contour x="290" y="330" />
-		<contour x="290" y="380" />
-		<contour x="290" y="600" />
-		<contour x="290" y="680" />
-		<contour x="290" y="730" />
-		<contour x="290" y="800" />
-		<contour x="200" y="800" />
-		<contour x="100" y="800" />
-		<contour x="100" y="600" />
-
-		<wall from="0" to="10" />
-		<wall from="0" to="10" />
-		<wall from="0" to="0" />
-		<wall from="0" to="10" />
-		<wall from="0" to="10" />
-		<wall from="0" to="0" />
-		<wall from="0" to="10" />
-		<wall from="0" to="10" />
-		<wall from="0" to="30" />
-		<wall from="0" to="30" />
-		<wall from="0" to="10" />
+		<use name="couch" x="120" y="50" w="200" h="200" />
+		<use name="table" x="120" y="180" w="200" h="200" />
+		<use name="wash" x="400" y="75" w="200" h="200" />
 	</space>
 </plan>
+

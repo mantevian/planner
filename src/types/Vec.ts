@@ -39,6 +39,10 @@ export default class Vec {
 		return angle;
 	}
 
+	static zero(): Vec {
+		return new Vec(0, 0);
+	}
+
 	length(): number {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}

@@ -19,18 +19,25 @@ main();
 async function render(plan: Plan): Promise<SVGSVGElement> {
 	console.log(plan);
 
-	const svg = Util.create({ name: "svg" });
-
-	svg.setAttribute("viewBox", `0 0 ${plan.size.x} ${plan.size.y}`);
+	const svg = Util.create({
+		name: "svg",
+		attributes: {
+			viewBox: `0 0 ${plan.size.x} ${plan.size.y}`,
+			width: `${plan.size.x}`,
+			height: `${plan.size.y}`
+		}
+	});
 
 	const defs = Util.create({ name: "defs", parent: svg });
 
-	for (const def of plan.defs) {
-		const styleElement = Util.create({
-			name: "style",
-			parent: svg
-		});
+	const styleElement = Util.create({
+		name: "style",
+		parent: svg
+	});
 
+	styleElement.innerHTML += `use { transform-origin: center }`;
+
+	for (const def of plan.defs) {
 		styleElement.innerHTML += `.wall { fill: ${def.color.find(c => c.name == "wall")?.value} }`;
 		styleElement.innerHTML += `.contour { fill: ${def.color.find(c => c.name == "contour")?.value} }`;
 
@@ -149,6 +156,10 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 					},
 					parent: g
 				});
+
+				if (use.rotate && use.rotate != 0) {
+					styleElement.innerHTML += `use[href='#template-${use.name}'] { rotate: ${use.rotate}deg }`;
+				}
 			}
 		}
 	}
