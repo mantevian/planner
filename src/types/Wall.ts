@@ -1,9 +1,5 @@
 export default class Wall {
-	from: number;
-	to: number;
-
-	constructor(from: number, to: number) {
-		this.from = from;
-		this.to = to;
-	}
+	from?: string = "";
+	to?: string = "";
+	width: number = 0.1;
 }

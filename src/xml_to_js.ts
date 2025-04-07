@@ -8,10 +8,10 @@ export default function parseElement(element: Element) {
 
 	for (const attr of element.getAttributeNames()) {
 		const value = element.getAttribute(attr) ?? "";
-		const isFloat = !isNaN(parseFloat(value));
+		const isNumber = !isNaN(Number(value));
 
-		if (isFloat) {
-			result[attr] = parseFloat(value);
+		if (isNumber) {
+			result[attr] = Number(value);
 		} else {
 			result[attr] = value;
 		}

@@ -1,6 +1,6 @@
-<plan w="700" h="700">
+<plan w="7" h="7">
 	<defs>
-		<color name="wall" value="#010101" />
+		<color name="wall" value="#77111188" />
 		<color name="contour" value="#cccccc" />
 
 		<template name="couch" />
@@ -8,28 +8,33 @@
 		<template name="wash" />
 	</defs>
 
-	<space>
-		<contour x="100" y="100" />
-		<contour x="600" y="100" />
-		<contour x="600" y="600" />
-		<contour x="500" y="600" />
-		<contour x="300" y="600" />
-		<contour x="300" y="400" />
-		<contour x="100" y="400" />
-		<contour x="100" y="200" />
+	<axes>
+		<axis id="A" type="vertical" />
+		<axis id="B" type="vertical" offset="1" />
+		<axis id="C" type="vertical" offset="1" />
+		<axis id="D" type="vertical" offset="1" />
+		<axis id="E" type="vertical" offset="1" />
 
-		<wall from="0" to="30" />
-		<wall from="0" to="30" />
-		<wall from="0" to="30" />
-		<wall from="0" to="10" />
-		<wall from="0" to="10" />
-		<wall from="0" to="10" />
-		<wall from="0" to="10" />
-		<wall from="0" to="30" />
+		<axis id="a" type="horizontal" />
+		<axis id="b" type="horizontal" offset="1" />
+		<axis id="c" type="horizontal" offset="1" />
+		<axis id="d" type="horizontal" offset="1" />
+		<axis id="e" type="horizontal" offset="1" />
+	</axes>
 
-		<use name="couch" x="120" y="50" w="200" h="200" />
-		<use name="table" x="120" y="180" w="200" h="200" />
-		<use name="wash" x="400" y="75" w="200" h="200" />
-	</space>
+	<flat>
+		<room>
+			<walls>
+				<wall from="A a" to="B a" width="0.5" />
+				<wall to="B b" width="0.5" />
+				<wall to="D b" width="0.2" />
+				<wall to="E c" width="0.2" />
+				<wall to="E e" width="0.2" />
+				<wall to="C e" width="0.5" />
+				<wall to="B c" width="0.2" />
+				<wall to="A c" width="0.2" />
+				<wall to="A a" width="0.5" />
+			</walls>
+		</room>
+	</flat>
 </plan>
-
