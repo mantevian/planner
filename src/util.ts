@@ -9,7 +9,7 @@ const Util = {
 		let path = this.d("M", points[0]);
 
 		for (let i = 1; i < points.length; i++) {
-			path += this.d("L", points[i]);
+			path += this.d(points[i].action == "line" ? "L" : "M", points[i]);
 		}
 
 		return path;
@@ -29,7 +29,7 @@ const Util = {
 			classes?: string[],
 			attributes?: Record<string, string>,
 			parent?: Element,
-			innerHTML?: string
+			innerHTML?: string;
 		}): SVGElementTagNameMap[K] {
 		const element = document.createElementNS("http://www.w3.org/2000/svg", name);
 
@@ -59,6 +59,6 @@ const Util = {
 	round(n: number): number {
 		return Math.floor(n * 1000) / 1000;
 	}
-}
+};
 
 export default Util;

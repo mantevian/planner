@@ -190,6 +190,8 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 					const c2 = wallPoints[(i + 1) % count];
 					const c3 = wallPoints[(i + 2) % count];
 
+					const l = new Vec(c2.x - c1.x, c2.y - c1.y).length();
+
 					const n = wallNormals[i];
 					const nextWallN = wallNormals[(i + 1) % count];
 
@@ -212,13 +214,37 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 					const dInner = new Vec(c3.x + nextWallN.x * -nw, c3.y + nextWallN.y * -nw);
 					const dOuter = new Vec(c3.x + nextWallN.x * nw, c3.y + nextWallN.y * nw);
 
+					let spaceStartInner: Vec[] = [];
+					let spaceStartOuter: Vec[] = [];
+					let spaceEndInner: Vec[] = [];
+					let spaceEndOuter: Vec[] = [];
+
+					const allSpaces = [...w.door ?? [], ...w.window ?? []];
+					const spaceCount = allSpaces.length;
+
+					for (const space of allSpaces) {
+						const start = space.offset;
+						const end = space.offset + space.width;
+
+						spaceStartInner.push(new Vec(c1.x + (c2.x - c1.x) * start / l + n.x * -cw, c1.y + (c2.y - c1.y) * start / l + n.y * -cw));
+						spaceStartOuter.push(new Vec(c1.x + (c2.x - c1.x) * start / l + n.x * cw, c1.y + (c2.y - c1.y) * start / l + n.y * cw));
+						spaceEndInner.push(new Vec(c1.x + (c2.x - c1.x) * end / l + n.x * -cw, c1.y + (c2.y - c1.y) * end / l + n.y * -cw, "move"));
+						spaceEndOuter.push(new Vec(c1.x + (c2.x - c1.x) * end / l + n.x * cw, c1.y + (c2.y - c1.y) * end / l + n.y * cw));
+					}
+
 					const intersectionInner = intersectionABandCD(aInner, bInner, cInner, dInner) ?? bInner;
 					const intersectionOuter = intersectionABandCD(aOuter, bOuter, cOuter, dOuter) ?? bOuter;
 
+					points.push(aInner, aOuter);
+
+					for (let i = 0; i < spaceCount; i++) {
+						points.push(spaceStartOuter[i], spaceStartInner[i], spaceEndInner[i], spaceEndOuter[i]);
+					}
+
 					if (shouldFillCorner) {
-						points.push(aInner, aOuter, bOuter, intersectionOuter, cOuter, bInner);
+						points.push(bOuter, intersectionOuter, cOuter, bInner);
 					} else {
-						points.push(aInner, aOuter, bOuter, cInner, intersectionInner);
+						points.push(bOuter, cInner, intersectionInner);
 					}
 
 					path += Util.polyline(points);

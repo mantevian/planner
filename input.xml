@@ -1,6 +1,6 @@
 <plan w="7" h="7">
 	<defs>
-		<color name="wall" value="#77111188" />
+		<color name="wall" value="#444444" />
 		<color name="contour" value="#cccccc" />
 
 		<template name="couch" />
@@ -25,15 +25,29 @@
 	<flat>
 		<room>
 			<walls>
-				<wall from="A a" to="B a" width="0.5" />
-				<wall to="B b" width="0.5" />
-				<wall to="D b" width="0.2" />
-				<wall to="E c" width="0.2" />
-				<wall to="E e" width="0.2" />
-				<wall to="C e" width="0.5" />
-				<wall to="B c" width="0.2" />
-				<wall to="A c" width="0.2" />
-				<wall to="A a" width="0.5" />
+				<wall from="A a" to="B a" width="0.1" />
+
+				<wall to="B b" width="0.1" />
+
+				<wall to="D b" width="0.1">
+					<window offset="0.75" width="0.5" />
+				</wall>
+
+				<wall to="E c" width="0.1">
+					<door offset="0.45" width="0.5" />
+				</wall>
+
+				<wall to="E e" width="0.1">
+					<window offset="0.75" width="0.5" />
+				</wall>
+
+				<wall to="C e" width="0.1" />
+
+				<wall to="B d" width="0.1" />
+
+				<wall to="A d" width="0.1" />
+
+				<wall to="A a" width="0.1" />
 			</walls>
 		</room>
 	</flat>
