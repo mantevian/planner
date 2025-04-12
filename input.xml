@@ -1,7 +1,7 @@
 <plan w="7" h="7" mode="debug">
 	<defs>
 		<color name="wall" value="#444444" />
-		<color name="contour" value="#cccccc" />
+		<color name="floor" value="#cccccc" />
 
 		<template name="couch" />
 		<template name="table" />
@@ -24,8 +24,8 @@
 
 	<flat>
 		<features>
-			<window wall="A a, C a" offset="0.75" width="0.5" />
-			<door wall="A c, A a" offset="0.75" width="0.5" />
+			<door wall="A a, C a" offset="0.75" width="0.5" />
+			<door wall="A c, C c" offset="0.75" width="0.5" />
 		</features>
 
 		<room>

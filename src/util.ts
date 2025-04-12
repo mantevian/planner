@@ -81,20 +81,20 @@ const Util = {
 	},
 
 	/** https://www.npmjs.com/package/point-in-polygon */
-	isPointInPolygon(point: Vec, vs: Vec[]): boolean {
+	isPointInPolygon(point: Vec, polygon: Vec[]): boolean {
 		const x = point.x;
 		const y = point.y;
 		const start = 0;
-		const end = vs.length;
+		const end = polygon.length;
 		const len = end - start;
 
 		let inside = false;
 
 		for (let i = 0, j = len - 1; i < len; j = i++) {
-			const xi = vs[i + start].x;
-			const yi = vs[i + start].y;
-			const xj = vs[j + start].x;
-			const yj = vs[j + start].y;
+			const xi = polygon[i + start].x;
+			const yi = polygon[i + start].y;
+			const xj = polygon[j + start].x;
+			const yj = polygon[j + start].y;
 
 			const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
 			if (intersect) {
@@ -106,22 +106,36 @@ const Util = {
 	},
 
 	/** https://stackoverflow.com/a/33670691 */
-	polygonArea(vs: Vec[]): number {
+	polygonArea(polygon: Vec[]): number {
 		let total = 0;
 
-		const len = vs.length;
+		const len = polygon.length;
 
 		for (let i = 0; i < len; i++) {
-			const addX = vs[i].x;
-			const addY = vs[i == vs.length - 1 ? 0 : i + 1].y;
-			const subX = vs[i == vs.length - 1 ? 0 : i + 1].x;
-			const subY = vs[i].y;
+			const addX = polygon[i].x;
+			const addY = polygon[i == polygon.length - 1 ? 0 : i + 1].y;
+			const subX = polygon[i == polygon.length - 1 ? 0 : i + 1].x;
+			const subY = polygon[i].y;
 
 			total += (addX * addY * 0.5);
 			total -= (subX * subY * 0.5);
 		}
 
 		return Math.abs(total);
+	},
+
+	polygonCenter(polygon: Vec[]): Vec {
+		const result = new Vec(0, 0);
+
+		for (const p of polygon) {
+			result.x += p.x;
+			result.y += p.y;
+		}
+
+		result.x /= polygon.length;
+		result.y /= polygon.length;
+
+		return result;
 	}
 };
 

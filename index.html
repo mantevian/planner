@@ -16,15 +16,19 @@
 		<div class="flex flex-col">
 			<p>input</p>
 
-			<textarea class="bg-gray-50 w-full resize-none grow-1">
+			<style>
+				#input .hljs-name {
+					color: red;
+				}
+			</style>
 
-			</textarea>
+			<div id="input" class="bg-gray-50 w-full resize-none grow-1 font-mono text-xs mt-2 p-4"></div>
 		</div>
 
 		<div>
 			<p>output</p>
 
-			<div class="bg-gray-50">
+			<div class="bg-gray-50 mt-2">
 				<div id="output"></div>
 			</div>
 		</div>
