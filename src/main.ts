@@ -1,22 +1,10 @@
 import Plan from "./types/Plan";
 import Vec from "./types/Vec";
-import Wall from "./types/Wall.ts";
+import { getAxes } from "./types/Wall";
 import Util from "./util";
 import parseElement from "./xml_to_js";
 
 main();
-
-function getAxes(wall: Wall) {
-	const axesFrom = (wall.from || "").trim().split(" ");
-	const axesTo = (wall.to || "").trim().split(" ");
-
-	return {
-		from1: axesFrom[0],
-		from2: axesFrom[1],
-		to1: axesTo[0],
-		to2: axesTo[1]
-	};
-}
 
 async function main() {
 	const res = await fetch("/input.xml");
@@ -36,8 +24,6 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 		name: "svg",
 		attributes: {
 			viewBox: `0 0 ${plan.size.x} ${plan.size.y}`,
-			width: `${plan.size.x * 100}`,
-			height: `${plan.size.y * 100}`
 		}
 	});
 
@@ -52,7 +38,7 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 
 	for (const def of plan.defs) {
 		styleElement.innerHTML += `
-			.room {
+			.room, .axes {
 				translate: 1px 1px;
 			}
 
@@ -60,19 +46,20 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 				fill: ${def.color.find(c => c.name == "wall")?.value}
 			}
 
-			.contour {
+			.floor {
 				fill: ${def.color.find(c => c.name == "contour")?.value}
 			}
 		`;
 
-		for (const templ of def.template) {
+		def.template.forEach(async (templ) => {
+
 			const text = await (await fetch(`/templates/${templ.name}.svg`)).text();
 			const templSvg = new DOMParser().parseFromString(text, "image/svg+xml");
 			const symbol = templSvg.createElementNS("http://www.w3.org/2000/svg", "symbol");
 			symbol.id = `template-${templ.name}`;
-			templSvg.childNodes.forEach(c => symbol.appendChild(c));
+			[...templSvg.documentElement.children].forEach(c => symbol.appendChild(c));
 			defs.appendChild(symbol);
-		}
+		});
 	}
 
 	const axesX = new Map<string, number>();
@@ -81,16 +68,53 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 	let currentAxisX = 0;
 	let currentAxisY = 0;
 
+	const axesG = Util.create({
+		name: "g",
+		classes: ["axes"],
+		parent: svg
+	});
+
 	for (const axis of plan.axes[0].axis) {
 		switch (axis.type) {
 			case "horizontal":
 				currentAxisY += axis.offset ?? 0;
 				axesY.set(axis.id, currentAxisY);
+
+				if (plan.mode == "debug") {
+					Util.create({
+						name: "line",
+						attributes: {
+							x1: -plan.size.x.toString(),
+							y1: currentAxisY,
+							x2: plan.size.x.toString(),
+							y2: currentAxisY,
+							stroke: "#ff000055",
+							"stroke-width": "0.01"
+						},
+						parent: axesG
+					});
+				}
+
 				break;
 
 			case "vertical":
 				currentAxisX += axis.offset ?? 0;
 				axesX.set(axis.id, currentAxisX);
+
+				if (plan.mode == "debug") {
+					Util.create({
+						name: "line",
+						attributes: {
+							x1: currentAxisX,
+							y1: -plan.size.y.toString(),
+							x2: currentAxisX,
+							y2: plan.size.y.toString(),
+							stroke: "#ff000055",
+							"stroke-width": "0.01"
+						},
+						parent: axesG
+					});
+				}
 				break;
 		}
 	}
@@ -106,9 +130,9 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 			const wallPoints: Vec[] = [];
 
 			for (const wall of room.walls[0].wall) {
+				const wallAxes = getAxes(wall);
 				let x: number | null = null;
 				let y: number | null = null;
-				const wallAxes = getAxes(wall);
 
 				if (axesX.has(wallAxes.from1)) {
 					x = axesX.get(wallAxes.from1) ?? 0;
@@ -154,12 +178,14 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 				}
 			}
 
-			// contour
+			const wallCount = room.walls[0].wall.length;
+
+			// floor
 			{
 				Util.create({
 					name: "path",
 					attributes: { "d": Util.polyline(wallPoints) },
-					classes: ["contour"],
+					classes: ["floor"],
 					parent: g
 				});
 			}
@@ -170,11 +196,9 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 
 				let wallNormals: Vec[] = [];
 
-				const count = room.walls[0].wall.length;
-
-				for (let i = 0; i < count; i++) {
+				for (let i = 0; i < wallCount; i++) {
 					const c1 = wallPoints[i];
-					const c2 = wallPoints[(i + 1) % count];
+					const c2 = wallPoints[(i + 1) % wallCount];
 
 					const v = new Vec(c2.x - c1.x, c2.y - c1.y);
 					const n = new Vec(v.y, -v.x).normalized();
@@ -182,64 +206,40 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 					wallNormals.push(n);
 				}
 
-				for (let i = 0; i < count; i++) {
+				for (let i = 0; i < wallCount; i++) {
 					const w = room.walls[0].wall[i];
-					const nextWall = room.walls[0].wall[(i + 1) % count];
+					const nextWall = room.walls[0].wall[(i + 1) % wallCount];
 
 					const c1 = wallPoints[i];
-					const c2 = wallPoints[(i + 1) % count];
-					const c3 = wallPoints[(i + 2) % count];
-
-					const l = new Vec(c2.x - c1.x, c2.y - c1.y).length();
+					const c2 = wallPoints[(i + 1) % wallCount];
+					const c3 = wallPoints[(i + 2) % wallCount];
 
 					const n = wallNormals[i];
-					const nextWallN = wallNormals[(i + 1) % count];
+					const nextWallN = wallNormals[(i + 1) % wallCount];
 
 					let shouldFillCorner = Vec.angle(n, nextWallN) < Math.PI;
 
 					let points: Vec[] = [];
 
-					const cw = w.width / 2;
-					const nw = nextWall.width / 2;
+					const ct = w.thickness / 2;
+					const nt = nextWall.thickness / 2;
 
-					const aInner = new Vec(c1.x + n.x * -cw, c1.y + n.y * -cw);
-					const aOuter = new Vec(c1.x + n.x * cw, c1.y + n.y * cw);
+					const aInner = new Vec(c1.x + n.x * -ct, c1.y + n.y * -ct);
+					const aOuter = new Vec(c1.x + n.x * ct, c1.y + n.y * ct);
 
-					const bInner = new Vec(c2.x + n.x * -cw, c2.y + n.y * -cw);
-					const bOuter = new Vec(c2.x + n.x * cw, c2.y + n.y * cw);
+					const bInner = new Vec(c2.x + n.x * -ct, c2.y + n.y * -ct);
+					const bOuter = new Vec(c2.x + n.x * ct, c2.y + n.y * ct);
 
-					const cInner = new Vec(c2.x + nextWallN.x * -nw, c2.y + nextWallN.y * -nw);
-					const cOuter = new Vec(c2.x + nextWallN.x * nw, c2.y + nextWallN.y * nw);
+					const cInner = new Vec(c2.x + nextWallN.x * -nt, c2.y + nextWallN.y * -nt);
+					const cOuter = new Vec(c2.x + nextWallN.x * nt, c2.y + nextWallN.y * nt);
 
-					const dInner = new Vec(c3.x + nextWallN.x * -nw, c3.y + nextWallN.y * -nw);
-					const dOuter = new Vec(c3.x + nextWallN.x * nw, c3.y + nextWallN.y * nw);
+					const dInner = new Vec(c3.x + nextWallN.x * -nt, c3.y + nextWallN.y * -nt);
+					const dOuter = new Vec(c3.x + nextWallN.x * nt, c3.y + nextWallN.y * nt);
 
-					let spaceStartInner: Vec[] = [];
-					let spaceStartOuter: Vec[] = [];
-					let spaceEndInner: Vec[] = [];
-					let spaceEndOuter: Vec[] = [];
-
-					const allSpaces = [...w.door ?? [], ...w.window ?? []];
-					const spaceCount = allSpaces.length;
-
-					for (const space of allSpaces) {
-						const start = space.offset;
-						const end = space.offset + space.width;
-
-						spaceStartInner.push(new Vec(c1.x + (c2.x - c1.x) * start / l + n.x * -cw, c1.y + (c2.y - c1.y) * start / l + n.y * -cw));
-						spaceStartOuter.push(new Vec(c1.x + (c2.x - c1.x) * start / l + n.x * cw, c1.y + (c2.y - c1.y) * start / l + n.y * cw));
-						spaceEndInner.push(new Vec(c1.x + (c2.x - c1.x) * end / l + n.x * -cw, c1.y + (c2.y - c1.y) * end / l + n.y * -cw, "move"));
-						spaceEndOuter.push(new Vec(c1.x + (c2.x - c1.x) * end / l + n.x * cw, c1.y + (c2.y - c1.y) * end / l + n.y * cw));
-					}
-
-					const intersectionInner = intersectionABandCD(aInner, bInner, cInner, dInner) ?? bInner;
-					const intersectionOuter = intersectionABandCD(aOuter, bOuter, cOuter, dOuter) ?? bOuter;
+					const intersectionInner = Util.intersectionABandCD(aInner, bInner, cInner, dInner) ?? bInner;
+					const intersectionOuter = Util.intersectionABandCD(aOuter, bOuter, cOuter, dOuter) ?? bOuter;
 
 					points.push(aInner, aOuter);
-
-					for (let i = 0; i < spaceCount; i++) {
-						points.push(spaceStartOuter[i], spaceStartInner[i], spaceEndInner[i], spaceEndOuter[i]);
-					}
 
 					if (shouldFillCorner) {
 						points.push(bOuter, intersectionOuter, cOuter, bInner);
@@ -256,6 +256,8 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 					classes: ["wall"],
 					parent: g
 				});
+
+				// const features = [...flat.features[0].door, ...flat.features[0].window];
 			}
 
 			// use
@@ -278,24 +280,4 @@ async function render(plan: Plan): Promise<SVGSVGElement> {
 	}
 
 	return svg;
-}
-
-function intersectionABandCD(a: Vec, b: Vec, c: Vec, d: Vec): Vec | null {
-	const x1 = a.x, y1 = a.y;
-	const x2 = b.x, y2 = b.y;
-	const x3 = c.x, y3 = c.y;
-	const x4 = d.x, y4 = d.y;
-
-	const denominator = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
-
-	if (denominator == 0) {
-		return null;
-	}
-
-	const t = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denominator;
-
-	const x = x1 + t * (x2 - x1);
-	const y = y1 + t * (y2 - y1);
-
-	return new Vec(x, y);
 }

@@ -1,4 +1,4 @@
-<plan w="7" h="7">
+<plan w="7" h="7" mode="debug">
 	<defs>
 		<color name="wall" value="#444444" />
 		<color name="contour" value="#cccccc" />
@@ -23,31 +23,26 @@
 	</axes>
 
 	<flat>
+		<features>
+			<window wall="A a, C a" offset="0.75" width="0.5" />
+			<door wall="A c, A a" offset="0.75" width="0.5" />
+		</features>
+
 		<room>
 			<walls>
-				<wall from="A a" to="B a" width="0.1" />
+				<wall from="A a" to="C a" thickness="0.2" />
+				<wall to="C c" thickness="0.1" />
+				<wall to="A c" thickness="0.1" />
+				<wall thickness="0.1" />
+			</walls>
+		</room>
 
-				<wall to="B b" width="0.1" />
-
-				<wall to="D b" width="0.1">
-					<window offset="0.75" width="0.5" />
-				</wall>
-
-				<wall to="E c" width="0.1">
-					<door offset="0.45" width="0.5" />
-				</wall>
-
-				<wall to="E e" width="0.1">
-					<window offset="0.75" width="0.5" />
-				</wall>
-
-				<wall to="C e" width="0.1" />
-
-				<wall to="B d" width="0.1" />
-
-				<wall to="A d" width="0.1" />
-
-				<wall to="A a" width="0.1" />
+		<room>
+			<walls>
+				<wall from="A c" to="D c" thickness="0.1" />
+				<wall to="D e" thickness="0.1" />
+				<wall to="A e" thickness="0.1" />
+				<wall thickness="0.1" />
 			</walls>
 		</room>
 	</flat>

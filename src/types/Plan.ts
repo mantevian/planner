@@ -8,6 +8,7 @@ export default class Plan {
 	flat: Flat[] = [];
 	defs: Defs[] = [];
 	axes: Axes[] = [];
+	mode: "debug" | null = null;
 
 	constructor(size: Vec) {
 		this.size = Vec.clone(size);
