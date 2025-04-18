@@ -186,9 +186,9 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 			);
 
 			const l = new Vec(c2.x - c1.x, c2.y - c1.y).length();
-			const start = f.offset;
-			const end = f.offset + f.width;
-			const center = (start + end) / 2;
+			const start = f.offset - f.width / 2;
+			const end = f.offset + f.width / 2;
+			const center = f.offset;
 			const v = new Vec(c2.x - c1.x, c2.y - c1.y);
 			const n = new Vec(v.y, -v.x).normalized();
 			const ct = w.thickness * 0.54;
@@ -216,7 +216,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 	Util.create({
 		name: "path",
 		attributes: { "d": cutoutPath },
-		classes: ["wall-cutout"],
+		classes: ["wall-cutout", "floor"],
 		parent: g
 	});
 
@@ -276,10 +276,6 @@ async function initDefs(ctx: PlanContext) {
 			}
 
 			.floor {
-				fill: ${def.color?.find(c => c.name == "floor")?.value};
-			}
-
-			.wall-cutout {
 				fill: ${def.color?.find(c => c.name == "floor")?.value};
 			}
 		`;
