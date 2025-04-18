@@ -16,46 +16,73 @@ type PlanContext = {
 		x: Map<string, number>,
 		y: Map<string, number>;
 	};
+	limits: {
+		minX: number,
+		minY: number,
+		maxX: number,
+		maxY: number;
+	};
+	options: PlannerOptions;
+};
+
+type PlannerOptions = {
+	input: string;
+	viewFlatId?: string;
 };
 
 async function main() {
 	const res = await fetch("./input.xml");
 	const text = await res.text();
-	const ctx = await run(text);
-	updateOutput(ctx.svg);
 
-	const inputElement = document.querySelector("#input")! as HTMLElement;
-	inputElement.textContent = text;
+	const viewFlatIdInput: HTMLInputElement = document.querySelector("input[name='view-flat-id']")!;
+	const planInputElement: HTMLDivElement = document.querySelector("#input")!;
+	planInputElement.textContent = text;
 
-	CodeJar(inputElement, () => { });
+	CodeJar(planInputElement, () => { });
 
-	inputElement.addEventListener("input", async () => {
-		const ctx = await run(inputElement.textContent ?? "");
-		updateOutput(ctx.svg);
+	let options: PlannerOptions = { input: text };
+
+	updateOutput(options);
+
+	planInputElement.addEventListener("input", async () => {
+		options.input = planInputElement.textContent ?? "";
+		updateOutput(options);
+	});
+
+	viewFlatIdInput.addEventListener("input", async () => {
+		const id = viewFlatIdInput.value;
+		options.viewFlatId = id;
+		updateOutput(options);
 	});
 }
 
-function updateOutput(svg: SVGSVGElement) {
-	document.querySelector("#output")!.replaceChildren(svg);
+function updateOutput(options: PlannerOptions) {
+	run(options).then(ctx => {
+		document.querySelector("#output")!.replaceChildren(ctx.svg);
+	});
 }
 
-async function run(input: string) {
-	const doc = new DOMParser().parseFromString(input, "application/xml");
+async function run(options: PlannerOptions) {
+	const doc = new DOMParser().parseFromString(options.input, "application/xml");
 
 	const plan: Plan = parseElement(doc.documentElement);
 
 	const ctx: PlanContext = {
 		plan,
 		svg: Util.create({
-			name: "svg",
-			attributes: {
-				viewBox: `0 0 ${plan.size.x} ${plan.size.y}`,
-			}
+			name: "svg"
 		}),
 		axes: {
 			x: new Map<string, number>(),
 			y: new Map<string, number>()
-		}
+		},
+		limits: {
+			minX: 0,
+			minY: 0,
+			maxX: 0,
+			maxY: 0
+		},
+		options
 	};
 
 	await render(ctx);
@@ -70,6 +97,59 @@ async function render(ctx: PlanContext) {
 	initAxes(ctx);
 
 	for (const flat of ctx.plan.flat) {
+		createFlat(ctx, flat);
+	}
+
+	console.log(ctx.limits);
+	ctx.svg.setAttribute("viewBox", `${ctx.limits.minX - 1000} ${ctx.limits.minY - 1000} ${ctx.limits.maxX - ctx.limits.minX + 2000} ${ctx.limits.maxY - ctx.limits.minY + 2000}`);
+}
+
+function getFlatPosition(ctx: PlanContext, flat: Flat) {
+	let minX = 1000000;
+	let minY = 1000000;
+	let maxX = 0;
+	let maxY = 0;
+
+	for (const room of flat.room) {
+		for (const wall of room.walls[0].wall) {
+			const wallAxes = getAxesFromWall(wall);
+			let x = ctx.axes.x.get(wallAxes.from1) ?? ctx.axes.x.get(wallAxes.from2) ?? null;
+			let y = ctx.axes.y.get(wallAxes.from1) ?? ctx.axes.y.get(wallAxes.from2) ?? null;
+
+			if (x != null && y != null) {
+				minX = Math.min(minX, x);
+				minY = Math.min(minY, y);
+				maxX = Math.max(maxX, x);
+				maxY = Math.max(maxY, y);
+			}
+
+			x = ctx.axes.x.get(wallAxes.to1) ?? ctx.axes.x.get(wallAxes.to2) ?? null;
+			y = ctx.axes.y.get(wallAxes.to1) ?? ctx.axes.y.get(wallAxes.to2) ?? null;
+
+			if (x != null && y != null) {
+				minX = Math.min(minX, x);
+				minY = Math.min(minY, y);
+				maxX = Math.max(maxX, x);
+				maxY = Math.max(maxY, y);
+			}
+		}
+	}
+
+	return { minX, minY, maxX, maxY };
+}
+
+function createFlat(ctx: PlanContext, flat: Flat) {
+	let canCreateFlat = true;
+
+	if (ctx.options.viewFlatId) {
+		if (ctx.options.viewFlatId == flat.id) {
+			ctx.limits = getFlatPosition(ctx, flat);
+		} else {
+			canCreateFlat = false;
+		}
+	}
+
+	if (canCreateFlat) {
 		for (const room of flat.room) {
 			createRoom(ctx, flat, room);
 		}
@@ -109,7 +189,6 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 		classes: ["floor"],
 		parent: g
 	});
-
 
 	// walls
 	let wallPath = "";
@@ -267,10 +346,6 @@ async function initDefs(ctx: PlanContext) {
 
 	for (const def of ctx.plan.defs) {
 		styleElement.innerHTML += `
-			.room, .axes {
-				translate: 1000px 1000px;
-			}
-
 			.wall {
 				fill: ${def.color?.find(c => c.name == "wall")?.value};
 			}
@@ -298,46 +373,86 @@ function initAxes(ctx: PlanContext) {
 		parent: ctx.svg
 	});
 
+	let maxX = 0;
+	let maxY = 0;
+
 	for (const axis of ctx.plan.axes[0].axis) {
+		let offset = 0;
+
 		switch (axis.type) {
 			case "horizontal":
-				ctx.axes.y.set(axis.id, axis.offset ?? 0);
+				offset = axis.offset ?? 0;
+				maxY = Math.max(maxY, offset);
+				ctx.axes.y.set(axis.id, offset);
 
 				if (ctx.plan.mode == "debug") {
 					Util.create({
 						name: "line",
 						attributes: {
-							x1: -ctx.plan.size.x.toString(),
-							y1: axis.offset ?? 0,
-							x2: ctx.plan.size.x.toString(),
-							y2: axis.offset ?? 0,
+							x1: -1000000,
+							y1: offset,
+							x2: 1000000,
+							y2: offset,
 							stroke: "#ff000055",
 							"stroke-width": "10"
 						},
 						parent: axesG
+					});
+
+					Util.create({
+						name: "text",
+						attributes: {
+							x: -700,
+							y: offset - 100,
+							"font-size": "200",
+							"text-anchor": "middle",
+							fill: "red"
+						},
+						classes: ["axis-label"],
+						parent: axesG,
+						innerHTML: `${axis.id}`
 					});
 				}
 
 				break;
 
 			case "vertical":
-				ctx.axes.x.set(axis.id, axis.offset ?? 0);
+				offset = axis.offset ?? 0;
+				maxX = Math.max(maxX, offset);
+				ctx.axes.x.set(axis.id, offset);
 
 				if (ctx.plan.mode == "debug") {
 					Util.create({
 						name: "line",
 						attributes: {
-							x1: axis.offset ?? 0,
-							y1: -ctx.plan.size.y.toString(),
-							x2: axis.offset ?? 0,
-							y2: ctx.plan.size.y.toString(),
+							x1: offset,
+							y1: -1000000,
+							x2: offset,
+							y2: 1000000,
 							stroke: "#ff000055",
-							"stroke-width": "10"
+							"stroke-width": "10",
 						},
 						parent: axesG
+					});
+
+					Util.create({
+						name: "text",
+						attributes: {
+							x: offset - 100,
+							y: -700,
+							"font-size": "200",
+							"text-anchor": "middle",
+							fill: "red"
+						},
+						classes: ["axis-label"],
+						parent: axesG,
+						innerHTML: `${axis.id}`
 					});
 				}
 				break;
 		}
 	}
+
+	ctx.limits.maxX = maxX;
+	ctx.limits.maxY = maxY;
 }

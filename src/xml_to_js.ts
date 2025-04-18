@@ -16,7 +16,6 @@ export default function parseElement(element: Element) {
 		}
 
 		if (isNumber) {
-			console.log(value, parseNumberUnit(value));
 			result[attr] = parseNumberUnit(value);
 		} else {
 			result[attr] = value;
