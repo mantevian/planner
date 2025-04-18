@@ -56,8 +56,9 @@ const Util = {
 		return element;
 	},
 
-	round(n: number): number {
-		return Math.floor(n * 1000) / 1000;
+	round(n: number, precision: number = 3): number {
+		const e = Math.pow(10, precision);
+		return Math.floor(n * e) / e;
 	},
 
 	intersectionABandCD(a: Vec, b: Vec, c: Vec, d: Vec): Vec | null {

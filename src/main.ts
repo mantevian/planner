@@ -19,7 +19,7 @@ type PlanContext = {
 };
 
 async function main() {
-	const res = await fetch("/input.xml");
+	const res = await fetch("./input.xml");
 	const text = await res.text();
 	const ctx = await run(text);
 	updateOutput(ctx.svg);
@@ -191,12 +191,12 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 			const center = (start + end) / 2;
 			const v = new Vec(c2.x - c1.x, c2.y - c1.y);
 			const n = new Vec(v.y, -v.x).normalized();
-			const cw = w.thickness * 0.6;
+			const ct = w.thickness * 0.54;
 
-			const p1Inner = new Vec(c1.x + v.x * start / l + n.x * -cw, c1.y + v.y * start / l + n.y * -cw);
-			const p1Outer = new Vec(c1.x + v.x * start / l + n.x * cw, c1.y + v.y * start / l + n.y * cw);
-			const p2Inner = new Vec(c1.x + v.x * end / l + n.x * -cw, c1.y + v.y * end / l + n.y * -cw);
-			const p2Outer = new Vec(c1.x + v.x * end / l + n.x * cw, c1.y + v.y * end / l + n.y * cw);
+			const p1Inner = new Vec(c1.x + v.x * start / l + n.x * -ct, c1.y + v.y * start / l + n.y * -ct);
+			const p1Outer = new Vec(c1.x + v.x * start / l + n.x * ct, c1.y + v.y * start / l + n.y * ct);
+			const p2Inner = new Vec(c1.x + v.x * end / l + n.x * -ct, c1.y + v.y * end / l + n.y * -ct);
+			const p2Outer = new Vec(c1.x + v.x * end / l + n.x * ct, c1.y + v.y * end / l + n.y * ct);
 			const pCenter = new Vec(c1.x + v.x * center / l, c1.y + v.y * center / l);
 			const isFeatureOnThisWall = Util.isPointInPolygon(pCenter, [aInner, aOuter, bOuter, bInner]);
 
@@ -221,6 +221,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 	});
 
 	const area = Util.polygonArea(wallPoints);
+	const areaMeters = Util.round(area / 1000000, 2);
 	const roomCenter = Util.polygonCenter(wallPoints);
 
 	Util.create({
@@ -228,12 +229,12 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 		attributes: {
 			x: roomCenter.x,
 			y: roomCenter.y,
-			"font-size": "0.2",
+			"font-size": "200",
 			"text-anchor": "middle"
 		},
 		classes: ["area"],
 		parent: g,
-		innerHTML: `${area} m²`
+		innerHTML: `${areaMeters} m²`
 	});
 
 	// use
@@ -267,7 +268,7 @@ async function initDefs(ctx: PlanContext) {
 	for (const def of ctx.plan.defs) {
 		styleElement.innerHTML += `
 			.room, .axes {
-				translate: 1px 1px;
+				translate: 1000px 1000px;
 			}
 
 			.wall {
@@ -295,9 +296,6 @@ async function initDefs(ctx: PlanContext) {
 }
 
 function initAxes(ctx: PlanContext) {
-	let currentAxisX = 0;
-	let currentAxisY = 0;
-
 	const axesG = Util.create({
 		name: "g",
 		classes: ["axes"],
@@ -307,19 +305,18 @@ function initAxes(ctx: PlanContext) {
 	for (const axis of ctx.plan.axes[0].axis) {
 		switch (axis.type) {
 			case "horizontal":
-				currentAxisY += axis.offset ?? 0;
-				ctx.axes.y.set(axis.id, currentAxisY);
+				ctx.axes.y.set(axis.id, axis.offset ?? 0);
 
 				if (ctx.plan.mode == "debug") {
 					Util.create({
 						name: "line",
 						attributes: {
 							x1: -ctx.plan.size.x.toString(),
-							y1: currentAxisY,
+							y1: axis.offset ?? 0,
 							x2: ctx.plan.size.x.toString(),
-							y2: currentAxisY,
+							y2: axis.offset ?? 0,
 							stroke: "#ff000055",
-							"stroke-width": "0.01"
+							"stroke-width": "10"
 						},
 						parent: axesG
 					});
@@ -328,19 +325,18 @@ function initAxes(ctx: PlanContext) {
 				break;
 
 			case "vertical":
-				currentAxisX += axis.offset ?? 0;
-				ctx.axes.x.set(axis.id, currentAxisX);
+				ctx.axes.x.set(axis.id, axis.offset ?? 0);
 
 				if (ctx.plan.mode == "debug") {
 					Util.create({
 						name: "line",
 						attributes: {
-							x1: currentAxisX,
+							x1: axis.offset ?? 0,
 							y1: -ctx.plan.size.y.toString(),
-							x2: currentAxisX,
+							x2: axis.offset ?? 0,
 							y2: ctx.plan.size.y.toString(),
 							stroke: "#ff000055",
-							"stroke-width": "0.01"
+							"stroke-width": "10"
 						},
 						parent: axesG
 					});

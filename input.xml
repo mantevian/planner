@@ -1,48 +1,44 @@
-<plan w="7" h="7" mode="debug">
+<plan w="7m" h="7m" mode="debug">
 	<defs>
 		<color name="wall" value="#444444" />
 		<color name="floor" value="#cccccc" />
-
-		<template name="couch" />
-		<template name="table" />
-		<template name="wash" />
 	</defs>
 
 	<axes>
-		<axis id="A" type="vertical" />
-		<axis id="B" type="vertical" offset="1" />
-		<axis id="C" type="vertical" offset="1" />
-		<axis id="D" type="vertical" offset="1" />
-		<axis id="E" type="vertical" offset="1" />
+		<axis id="1" type="vertical" />
+		<axis id="2" type="vertical" offset="1m" />
+		<axis id="3" type="vertical" offset="2m" />
+		<axis id="4" type="vertical" offset="3m" />
+		<axis id="5" type="vertical" offset="4m" />
 
 		<axis id="a" type="horizontal" />
-		<axis id="b" type="horizontal" offset="1" />
-		<axis id="c" type="horizontal" offset="1" />
-		<axis id="d" type="horizontal" offset="1" />
-		<axis id="e" type="horizontal" offset="1" />
+		<axis id="b" type="horizontal" offset="1m" />
+		<axis id="c" type="horizontal" offset="2m" />
+		<axis id="d" type="horizontal" offset="3m" />
+		<axis id="e" type="horizontal" offset="4m" />
 	</axes>
 
 	<flat>
 		<features>
-			<door wall="A a, C a" offset="0.75" width="0.5" />
-			<door wall="A c, C c" offset="0.75" width="0.5" />
+			<door wall="1 a, 3 a" offset="0.75m" width="0.5m" />
+			<door wall="1 c, 3 c" offset="0.75m" width="0.5m" />
 		</features>
 
 		<room>
 			<walls>
-				<wall from="A a" to="C a" thickness="0.2" />
-				<wall to="C c" thickness="0.1" />
-				<wall to="A c" thickness="0.1" />
-				<wall thickness="0.1" />
+				<wall from="1 a" to="3 a" thickness="0.2m" />
+				<wall to="3 c" thickness="0.1m" />
+				<wall to="1 c" thickness="0.1m" />
+				<wall thickness="0.1m" />
 			</walls>
 		</room>
 
 		<room>
 			<walls>
-				<wall from="A c" to="D c" thickness="0.1" />
-				<wall to="D e" thickness="0.1" />
-				<wall to="A e" thickness="0.1" />
-				<wall thickness="0.1" />
+				<wall from="1 c" to="4 c" thickness="0.1m" />
+				<wall to="4 e" thickness="0.1m" />
+				<wall to="1 e" thickness="0.1m" />
+				<wall thickness="0.1m" />
 			</walls>
 		</room>
 	</flat>
