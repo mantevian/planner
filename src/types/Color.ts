@@ -1,4 +1,8 @@
-export default class Color {
+import PlanDocElement from "./PlanDocElement";
+
+export default class Color implements PlanDocElement {
+	readonly _name = "color";
+
 	name: string;
 	value: string;
 

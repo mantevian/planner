@@ -1,6 +1,9 @@
+import PlanDocElement from "./PlanDocElement";
 import Vec from "./Vec";
 
-export default class Use {
+export default class Use implements PlanDocElement {
+	readonly _name = "use";
+
 	name: string;
 	pos: Vec;
 	size: Vec;

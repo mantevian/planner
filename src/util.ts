@@ -23,13 +23,15 @@ const Util = {
 			attributes = {},
 			parent,
 			innerHTML,
+			children
 		}: {
 			name: K,
 			id?: string,
 			classes?: string[],
 			attributes?: Record<string, string | number | boolean>,
 			parent?: Element,
-			innerHTML?: string;
+			innerHTML?: string,
+			children?: Element[];
 		}): SVGElementTagNameMap[K] {
 		const element = document.createElementNS("http://www.w3.org/2000/svg", name);
 
@@ -51,6 +53,12 @@ const Util = {
 
 		if (innerHTML) {
 			element.innerHTML = innerHTML;
+		}
+
+		if (children) {
+			children.forEach(child => {
+				element.appendChild(child);
+			});
 		}
 
 		return element;

@@ -2,6 +2,8 @@
 	<defs>
 		<color name="wall" value="#444444" />
 		<color name="floor" value="#cccccc" />
+
+		<template name="door" />
 	</defs>
 
 	<axes>
@@ -22,8 +24,9 @@
 
 	<flat id="1">
 		<features>
-			<door wall="1 d, 2 d" offset="0.75m" width="0.5m" />
-			<door wall="1 e, 2 e" offset="0.75m" width="0.5m" />
+			<door wall="1 d, 2 d" offset="1m" width="0.5m" side="right" />
+			<door wall="1 e, 2 e" offset="1m" width="0.5m" side="right" />
+			<door wall="2 e, 2 d" offset="1m" width="0.5m" side="right" />
 		</features>
 
 		<room>
@@ -31,6 +34,17 @@
 				<wall from="1 d" to="2 d" thickness="0.1m" />
 				<wall to="2 e" thickness="0.1m" />
 				<wall to="1 e" thickness="0.1m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2 d" to="4 d" thickness="0.1m" />
+				<wall to="4 f" thickness="0.1m" />
+				<wall to="3 f" thickness="0.1m" />
+				<wall to="3 e" thickness="0.1m" />
+				<wall to="2 e" thickness="0.1m" />
 				<wall thickness="0.1m" />
 			</walls>
 		</room>

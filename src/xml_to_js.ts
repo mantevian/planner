@@ -6,6 +6,8 @@ export default function parseElement(element: Element) {
 		parseCoordinatesToVec(element, "size", "w", "h", result);
 	}
 
+	result["_name"] = element.tagName.toLowerCase();
+
 	for (const attr of element.getAttributeNames()) {
 		const value = element.getAttribute(attr) ?? "";
 		const isNumber = isNum(value);

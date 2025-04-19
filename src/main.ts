@@ -6,6 +6,7 @@ import Vec from "./types/Vec";
 import { getAxesFromWall, getAxesFromWallString } from "./types/Wall";
 import Util from "./util";
 import parseElement from "./xml_to_js";
+import Door from "./types/Door";
 
 main();
 
@@ -100,7 +101,6 @@ async function render(ctx: PlanContext) {
 		createFlat(ctx, flat);
 	}
 
-	console.log(ctx.limits);
 	ctx.svg.setAttribute("viewBox", `${ctx.limits.minX - 1000} ${ctx.limits.minY - 1000} ${ctx.limits.maxX - ctx.limits.minX + 2000} ${ctx.limits.maxY - ctx.limits.minY + 2000}`);
 }
 
@@ -164,6 +164,8 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 	});
 
 	const wallPoints: Vec[] = [];
+	const doors: SVGUseElement[] = [];
+	const windows: SVGUseElement[] = [];
 
 	for (const wall of room.walls[0].wall) {
 		const wallAxes = getAxesFromWall(wall);
@@ -269,18 +271,45 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 			const end = f.offset + f.width / 2;
 			const center = f.offset;
 			const v = new Vec(c2.x - c1.x, c2.y - c1.y);
-			const n = new Vec(v.y, -v.x).normalized();
-			const ct = w.thickness * 0.54;
 
-			const p1Inner = new Vec(c1.x + v.x * start / l + n.x * -ct, c1.y + v.y * start / l + n.y * -ct);
-			const p1Outer = new Vec(c1.x + v.x * start / l + n.x * ct, c1.y + v.y * start / l + n.y * ct);
-			const p2Inner = new Vec(c1.x + v.x * end / l + n.x * -ct, c1.y + v.y * end / l + n.y * -ct);
-			const p2Outer = new Vec(c1.x + v.x * end / l + n.x * ct, c1.y + v.y * end / l + n.y * ct);
+			const pStart = new Vec(c1.x + v.x * start / l, c1.y + v.y * start / l);
 			const pCenter = new Vec(c1.x + v.x * center / l, c1.y + v.y * center / l);
+			const pEnd = new Vec(c1.x + v.x * end / l, c1.y + v.y * end / l);
+			const vFeature = new Vec(pEnd.x - pStart.x, pEnd.y - pStart.y);
 			const isFeatureOnThisWall = Util.isPointInPolygon(pCenter, [aInner, aOuter, bOuter, bInner]);
 
 			if (isFeatureOnThisWall) {
+				const n = new Vec(v.y, -v.x).normalized();
+				const ct = w.thickness * 0.54;
+
+				const p1Inner = new Vec(c1.x + v.x * start / l + n.x * -ct, c1.y + v.y * start / l + n.y * -ct);
+				const p1Outer = new Vec(c1.x + v.x * start / l + n.x * ct, c1.y + v.y * start / l + n.y * ct);
+				const p2Inner = new Vec(c1.x + v.x * end / l + n.x * -ct, c1.y + v.y * end / l + n.y * -ct);
+				const p2Outer = new Vec(c1.x + v.x * end / l + n.x * ct, c1.y + v.y * end / l + n.y * ct);
+
 				cutoutPath += Util.polyline([p1Inner, p1Outer, p2Outer, p2Inner]);
+
+				console.log(vFeature);
+
+				if (f._name == "door") {
+					const el = Util.create({
+						name: "use",
+						attributes: {
+							href: `#template-door`,
+							x: pCenter.x,
+							y: pCenter.y,
+							width: Math.max(Math.abs(vFeature.x), Math.abs(vFeature.y)),
+							height: Math.max(Math.abs(vFeature.x), Math.abs(vFeature.y)),
+							style: `
+								transform-origin: ${pCenter.x + vFeature.x / 2}px ${pCenter.y + vFeature.x / 2}px;
+								rotate: ${Math.atan2(vFeature.y, vFeature.x)}rad;
+								translate: ${-vFeature.x / 2}px ${-vFeature.y / 2}px;
+							`.trim()
+						}
+					});
+					console.log(el);
+					doors.push(el);
+				}
 			}
 		}
 	}
@@ -297,6 +326,12 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 		attributes: { "d": cutoutPath },
 		classes: ["wall-cutout", "floor"],
 		parent: g
+	});
+
+	Util.create({
+		name: "g",
+		parent: g,
+		children: doors
 	});
 
 	const area = Util.polygonArea(wallPoints);
@@ -331,7 +366,6 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 	// 		parent: g
 	// 	});
 	// }
-
 }
 
 async function initDefs(ctx: PlanContext) {
@@ -361,6 +395,9 @@ async function initDefs(ctx: PlanContext) {
 			const symbol = templSvg.createElementNS("http://www.w3.org/2000/svg", "symbol");
 			symbol.id = `template-${templ.name}`;
 			[...templSvg.documentElement.children].forEach(c => symbol.appendChild(c));
+			for (const attrName of templSvg.documentElement.getAttributeNames()) {
+				symbol.setAttribute(attrName, templSvg.documentElement.getAttribute(attrName) ?? "");
+			}
 			defs.appendChild(symbol);
 		});
 	}
@@ -413,7 +450,6 @@ function initAxes(ctx: PlanContext) {
 						innerHTML: `${axis.id}`
 					});
 				}
-
 				break;
 
 			case "vertical":

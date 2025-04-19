@@ -1,7 +1,10 @@
 import Door from "./Door";
+import PlanDocElement from "./PlanDocElement";
 import Window from "./Window";
 
-export default class Wall {
+export default class Wall implements PlanDocElement {
+	readonly _name = "wall";
+
 	from?: string = "";
 	to?: string = "";
 	thickness: number = 0;
