@@ -24,6 +24,7 @@ type PlanContext = {
 		maxY: number;
 	};
 	options: PlannerOptions;
+	templates: { [key: string]: SVGSymbolElement; };
 };
 
 type PlannerOptions = {
@@ -83,7 +84,8 @@ async function run(options: PlannerOptions) {
 			maxX: 0,
 			maxY: 0
 		},
-		options
+		options,
+		templates: {}
 	};
 
 	await render(ctx);
@@ -94,7 +96,7 @@ async function run(options: PlannerOptions) {
 async function render(ctx: PlanContext) {
 	console.log(ctx.plan);
 
-	initDefs(ctx);
+	await initDefs(ctx);
 	initAxes(ctx);
 
 	for (const flat of ctx.plan.flat) {
@@ -251,7 +253,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 
 		wallPath += Util.polyline(points);
 
-		const features = [...(flat.features[0].door ?? []), ...(flat.features[0].window ?? [])];
+		const features = [...(flat.features[0].door ?? []), ...(flat.features[0].window ?? []), ...(flat.features[0].template ?? [])];
 
 		for (const f of features) {
 			const axes = getAxesFromWallString(f.wall);
@@ -272,10 +274,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 			const center = f.offset;
 			const v = new Vec(c2.x - c1.x, c2.y - c1.y);
 
-			const pStart = new Vec(c1.x + v.x * start / l, c1.y + v.y * start / l);
 			const pCenter = new Vec(c1.x + v.x * center / l, c1.y + v.y * center / l);
-			const pEnd = new Vec(c1.x + v.x * end / l, c1.y + v.y * end / l);
-			const vFeature = new Vec(pEnd.x - pStart.x, pEnd.y - pStart.y);
 			const isFeatureOnThisWall = Util.isPointInPolygon(pCenter, [aInner, aOuter, bOuter, bInner]);
 
 			if (isFeatureOnThisWall) {
@@ -289,25 +288,42 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 
 				cutoutPath += Util.polyline([p1Inner, p1Outer, p2Outer, p2Inner]);
 
-				console.log(vFeature);
+				const pStart = new Vec(c1.x + v.x * start / l, c1.y + v.y * start / l);
+				const pEnd = new Vec(c1.x + v.x * end / l, c1.y + v.y * end / l);
+				const vFeature = new Vec(pEnd.x - pStart.x, pEnd.y - pStart.y);
 
-				if (f._name == "door") {
+				const featureLength = vFeature.length();
+
+				const template = f._name == "template" ? ctx.templates[f.name] : ctx.templates[f._name];
+
+				if (template) {
+					const useWidth = featureLength;
+					const aspectRatio = parseFloat(template.getAttribute("width") ?? "0") / parseFloat(template.getAttribute("height") ?? "0");
+					const useHeight = useWidth / aspectRatio;
+
+					const translate = new Vec(-useWidth / 2, -useHeight / 2);
+
+					if (f._name == "door") {
+						translate.x = p1Outer.x - pCenter.x;
+						translate.y = p1Outer.y - pCenter.y;
+					}
+
 					const el = Util.create({
 						name: "use",
 						attributes: {
-							href: `#template-door`,
+							href: `#template-${f._name}`,
 							x: pCenter.x,
 							y: pCenter.y,
-							width: Math.max(Math.abs(vFeature.x), Math.abs(vFeature.y)),
-							height: Math.max(Math.abs(vFeature.x), Math.abs(vFeature.y)),
+							width: useWidth,
+							height: useHeight,
 							style: `
-								transform-origin: ${pCenter.x + vFeature.x / 2}px ${pCenter.y + vFeature.x / 2}px;
+								transform-origin: ${pCenter.x}px ${pCenter.y}px;
 								rotate: ${Math.atan2(vFeature.y, vFeature.x)}rad;
-								translate: ${-vFeature.x / 2}px ${-vFeature.y / 2}px;
+								translate: ${translate.x}px ${translate.y}px;
 							`.trim()
 						}
 					});
-					console.log(el);
+
 					doors.push(el);
 				}
 			}
@@ -389,7 +405,7 @@ async function initDefs(ctx: PlanContext) {
 			}
 		`;
 
-		def.template?.forEach(async (templ) => {
+		for (const templ of def.template ?? []) {
 			const text = await (await fetch(`/templates/${templ.name}.svg`)).text();
 			const templSvg = new DOMParser().parseFromString(text, "image/svg+xml");
 			const symbol = templSvg.createElementNS("http://www.w3.org/2000/svg", "symbol");
@@ -399,7 +415,8 @@ async function initDefs(ctx: PlanContext) {
 				symbol.setAttribute(attrName, templSvg.documentElement.getAttribute(attrName) ?? "");
 			}
 			defs.appendChild(symbol);
-		});
+			ctx.templates[templ.name] = symbol;
+		}
 	}
 }
 
