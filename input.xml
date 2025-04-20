@@ -1,32 +1,35 @@
 <plan mode="debug">
 	<defs>
 		<color name="wall" value="#444444" />
-		<color name="floor" value="#cccccc" />
+		<color name="floor" value="#dddddd" />
 
 		<template name="door" />
+		<template name="window" />
 	</defs>
 
 	<axes>
 		<axis id="1" type="vertical" />
 		<axis id="2" type="vertical" offset="2m" />
-		<axis id="3" type="vertical" offset="4m" />
-		<axis id="4" type="vertical" offset="6m" />
-		<axis id="5" type="vertical" offset="8m" />
-		<axis id="6" type="vertical" offset="10m" />
+		<axis id="3" type="vertical" offset="5m" />
+		<axis id="4" type="vertical" offset="8m" />
+		<axis id="5" type="vertical" offset="11m" />
+		<axis id="6" type="vertical" offset="13m" />
 
 		<axis id="a" type="horizontal" />
-		<axis id="b" type="horizontal" offset="2m" />
-		<axis id="c" type="horizontal" offset="4m" />
-		<axis id="d" type="horizontal" offset="5m" />
-		<axis id="e" type="horizontal" offset="7m" />
-		<axis id="f" type="horizontal" offset="9m" />
+		<axis id="b" type="horizontal" offset="3m" />
+		<axis id="c" type="horizontal" offset="5m" />
+		<axis id="d" type="horizontal" offset="8m" />
+		<axis id="e" type="horizontal" offset="11m" />
+		<axis id="f" type="horizontal" offset="13m" />
 	</axes>
 
 	<flat id="1">
 		<features>
-			<door wall="1 d, 2 d" offset="1m" width="0.5m" side="right" />
-			<door wall="1 e, 2 e" offset="1m" width="0.5m" side="right" />
-			<door wall="2 e, 2 d" offset="1m" width="0.5m" side="right" />
+			<door wall="2 d, 1 d" offset="1m" width="0.9m" side="right" />
+			<door wall="1 e, 2 e" offset="2m" width="0.9m" side="right" />
+			<door wall="2 e, 2 d" offset="1m" width="0.9m" side="right" />
+			<window wall="1 e, 2 f" offset="1.41m" width="1m" />
+			<window wall="3 f, 4 f" offset="1.5m" width="1.5m" />
 		</features>
 
 		<room>
@@ -53,7 +56,7 @@
 			<walls>
 				<wall from="1 e" to="3 e" thickness="0.1m" />
 				<wall to="3 f" thickness="0.1m" />
-				<wall to="1 f" thickness="0.1m" />
+				<wall to="2 f" thickness="0.1m" />
 				<wall thickness="0.1m" />
 			</walls>
 		</room>
@@ -61,8 +64,9 @@
 
 	<flat id="2">
 		<features>
-			<door wall="1 b, 2 b" offset="0.75m" width="0.5m" />
-			<door wall="1 c, 2 c" offset="0.75m" width="0.5m" />
+			<door wall="1 b, 2 b" offset="1m" width="0.9m" />
+			<door wall="1 c, 2 c" offset="1m" width="0.9m" />
+			<window wall="1 a, 3 a" offset="2m" width="2m" />
 		</features>
 
 		<room>

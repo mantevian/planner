@@ -297,15 +297,14 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 				const template = f._name == "template" ? ctx.templates[f.name] : ctx.templates[f._name];
 
 				if (template) {
-					const useWidth = featureLength;
 					const aspectRatio = parseFloat(template.getAttribute("width") ?? "0") / parseFloat(template.getAttribute("height") ?? "0");
-					const useHeight = useWidth / aspectRatio;
+					let useWidth = featureLength;
+					let useHeight = useWidth / aspectRatio;
 
-					const translate = new Vec(-useWidth / 2, -useHeight / 2);
+					const translate = new Vec(p1Outer.x - pCenter.x, p1Outer.y - pCenter.y);
 
-					if (f._name == "door") {
-						translate.x = p1Outer.x - pCenter.x;
-						translate.y = p1Outer.y - pCenter.y;
+					if (f._name == "window") {
+						useHeight = ct * 2;
 					}
 
 					const el = Util.create({
@@ -324,7 +323,13 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 						}
 					});
 
-					doors.push(el);
+					if (f._name == "door") {
+						doors.push(el);
+					}
+
+					if (f._name == "window") {
+						windows.push(el);
+					}
 				}
 			}
 		}
@@ -347,7 +352,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 	Util.create({
 		name: "g",
 		parent: g,
-		children: doors
+		children: [...doors, ...windows]
 	});
 
 	const area = Util.polygonArea(wallPoints);
@@ -414,6 +419,7 @@ async function initDefs(ctx: PlanContext) {
 			for (const attrName of templSvg.documentElement.getAttributeNames()) {
 				symbol.setAttribute(attrName, templSvg.documentElement.getAttribute(attrName) ?? "");
 			}
+			symbol.setAttribute("preserveAspectRatio", "none");
 			defs.appendChild(symbol);
 			ctx.templates[templ.name] = symbol;
 		}
