@@ -6,7 +6,6 @@ import Vec from "./types/Vec";
 import { getAxesFromWall, getAxesFromWallString } from "./types/Wall";
 import Util from "./util";
 import parseElement from "./xml_to_js";
-import Door from "./types/Door";
 
 main();
 
@@ -411,7 +410,7 @@ async function initDefs(ctx: PlanContext) {
 		`;
 
 		for (const templ of def.template ?? []) {
-			const text = await (await fetch(`/templates/${templ.name}.svg`)).text();
+			const text = await (await fetch(`./templates/${templ.name}.svg`)).text();
 			const templSvg = new DOMParser().parseFromString(text, "image/svg+xml");
 			const symbol = templSvg.createElementNS("http://www.w3.org/2000/svg", "symbol");
 			symbol.id = `template-${templ.name}`;

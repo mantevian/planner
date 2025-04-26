@@ -69,6 +69,7 @@ const Util = {
 		return Math.floor(n * e) / e;
 	},
 
+	/** https://stackoverflow.com/questions/13937782/calculating-the-point-of-intersection-of-two-lines */
 	intersectionABandCD(a: Vec, b: Vec, c: Vec, d: Vec): Vec | null {
 		const x1 = a.x, y1 = a.y;
 		const x2 = b.x, y2 = b.y;
@@ -114,7 +115,7 @@ const Util = {
 		return inside;
 	},
 
-	/** https://stackoverflow.com/a/33670691 */
+	/** https://stackoverflow.com/questions/16285134/calculating-polygon-area/ */
 	polygonArea(polygon: Vec[]): number {
 		let total = 0;
 
