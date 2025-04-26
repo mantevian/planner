@@ -3,12 +3,10 @@ import Util from "../util";
 export default class Vec {
 	x: number;
 	y: number;
-	action: "move" | "line" = "line";
 
-	constructor(x: number, y: number, action: "move" | "line" = "line") {
+	constructor(x: number, y: number) {
 		this.x = Util.round(x);
 		this.y = Util.round(y);
-		this.action = action;
 	}
 
 	static clone(vec: Vec): Vec {

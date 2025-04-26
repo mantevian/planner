@@ -9,7 +9,7 @@ const Util = {
 		let path = this.d("M", points[0]);
 
 		for (let i = 1; i < points.length; i++) {
-			path += this.d(points[i].action == "line" ? "L" : "M", points[i]);
+			path += this.d("L", points[i]);
 		}
 
 		return path;
@@ -146,6 +146,17 @@ const Util = {
 		result.y /= polygon.length;
 
 		return result;
+	},
+
+	getWrapped<T>(array: T[], index: number): T {
+		const length = array.length;
+		let wrappedIndex = index % length;
+
+		if (wrappedIndex < 0) {
+			wrappedIndex += length;
+		}
+
+		return array[wrappedIndex];
 	}
 };
 
