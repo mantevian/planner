@@ -242,7 +242,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 
 				if (isFeatureOnThisWall) {
 					const n = new Vec(wallV.y, -wallV.x).normalized();
-					const ct = walls.curr.thickness * 0.7;
+					const ct = walls.curr.thickness * 0.5;
 
 					const p1Inner = new Vec(wallP1.x + wallV.x * start / wallLength + n.x * -ct, wallP1.y + wallV.y * start / wallLength + n.y * -ct);
 					const p1Outer = new Vec(wallP1.x + wallV.x * start / wallLength + n.x * ct, wallP1.y + wallV.y * start / wallLength + n.y * ct);
