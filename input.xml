@@ -1,4 +1,4 @@
-<plan mode="debug">
+<plan>
 	<defs>
 		<color name="wall" value="#444444" />
 		<color name="floor" value="#dddddd" />
@@ -9,28 +9,362 @@
 
 	<axes>
 		<axis id="1" type="vertical" />
-		<axis id="2" type="vertical" offset="2m" />
-		<axis id="3" type="vertical" offset="4m" />
-		<axis id="4" type="vertical" offset="6m" />
+		<axis id="1/1" type="vertical" offset="2m" />
+		<axis id="2" type="vertical" offset="3.5m" />
+		<axis id="2/1" type="vertical" offset="5.5m" />
+		<axis id="3" type="vertical" offset="7m" />
+		<axis id="3/1" type="vertical" offset="8.5m" />
+		<axis id="4" type="vertical" offset="10.5m" />
+		<axis id="4/1" type="vertical" offset="12.5m" />
+		<axis id="5" type="vertical" offset="14m" />
+		<axis id="5/1" type="vertical" offset="15.5m" />
+		<axis id="6" type="vertical" offset="17.5m" />
+		<axis id="6/1" type="vertical" offset="19m" />
+		<axis id="7" type="vertical" offset="21m" />
 
 		<axis id="a" type="horizontal" />
-		<axis id="b" type="horizontal" offset="2m" />
-		<axis id="c" type="horizontal" offset="4m" />
-		<axis id="d" type="horizontal" offset="6m" />
+		<axis id="b" type="horizontal" offset="3m" />
+		<axis id="c" type="horizontal" offset="5m" />
+		<axis id="d" type="horizontal" offset="7m" />
+		<axis id="e" type="horizontal" offset="9m" />
+		<axis id="f" type="horizontal" offset="11m" />
+		<axis id="g" type="horizontal" offset="12m" />
+		<axis id="h" type="horizontal" offset="15.5m" />
 	</axes>
 
-	<flat id="2">
+	<flat id="999">
+		<room>
+			<walls>
+				<wall from="1 d" to="1 e" thickness="0.2m" />
+				<wall to="7 e" thickness="0.1m" />
+				<wall to="7 d" thickness="0.2m" />
+				<wall to="6/1 d" thickness="0.1m" />
+				<wall to="6/1 c" thickness="0.1m" />
+				<wall to="5 c" thickness="0.1m" />
+				<wall to="5 a" thickness="0.1m" />
+				<wall to="3 a" thickness="0.3m" />
+				<wall to="3 c" thickness="0.1m" />
+				<wall to="1/1 c" thickness="0.1m" />
+				<wall to="1/1 d" thickness="0.1m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="1">
 		<features>
-			<door wall="2 b, 3 a" offset="1m" width="1m" />
-			<window wall="1 a, 3 a" offset="1m" width="1m" />
+			<window wall="1 a, 2 a" offset="1m" width="0.9m" />
+			<window wall="1 a, 2 a" offset="2.5m" width="0.9m" />
+			<window wall="2 a, 3 a" offset="1.7m" width="2m" />
+
+			<door wall="2 a, 2 b" offset="2m" width="0.9m" />
+			<door wall="1/1 c, 2 c" offset="0.75m" width="0.9m" />
+			<door wall="3 b, 2 b" offset="1.75m" width="0.9m" />
 		</features>
 
 		<room>
 			<walls>
-				<wall from="1 a" to="1 b" thickness="0.1m" />
-				<wall to="2 b" thickness="0.5m" />
-				<wall to="3 a" thickness="0.5m" />
-				<wall thickness="0.5m" />
+				<wall from="1 a" to="2 a" thickness="0.3m" />
+				<wall to="2 c" thickness="0.07m" />
+				<wall to="1/1 c" thickness="0.1m" />
+				<wall to="1/1 d" thickness="0.1m" />
+				<wall to="1 d" thickness="0.1m" />
+				<wall thickness="0.2m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2 a" to="3 a" thickness="0.3m" />
+				<wall to="3 b" thickness="0.1m" />
+				<wall to="2 b" thickness="0.1m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2 b" to="3 b" thickness="0.07m" />
+				<wall to="3 c" thickness="0.1m" />
+				<wall to="2 c" thickness="0.1m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="2">
+		<features>
+			<window wall="7 a, 6 a" offset="1m" width="0.9m" />
+			<window wall="7 a, 6 a" offset="2.5m" width="0.9m" />
+			<window wall="6 a, 5 a" offset="1.7m" width="2m" />
+
+			<door wall="6 b, 6 a" offset="1m" width="0.9m" />
+			<door wall="6 c, 6/1 c" offset="0.75m" width="0.9m" />
+			<door wall="6 b, 5 b" offset="1.75m" width="0.9m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="7 a" to="6 a" thickness="0.3m" />
+				<wall to="6 c" thickness="0.07m" />
+				<wall to="6/1 c" thickness="0.1m" />
+				<wall to="6/1 d" thickness="0.1m" />
+				<wall to="7 d" thickness="0.1m" />
+				<wall thickness="0.2m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="6 a" to="5 a" thickness="0.3m" />
+				<wall to="5 b" thickness="0.1m" />
+				<wall to="6 b" thickness="0.1m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="6 b" to="5 b" thickness="0.07m" />
+				<wall to="5 c" thickness="0.1m" />
+				<wall to="6 c" thickness="0.1m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="3">
+		<features>
+			<window wall="1 h, 2 h" offset="1m" width="0.9m" />
+			<window wall="1 h, 2 h" offset="2.5m" width="0.9m" />
+
+			<door wall="2 e, 1/1 e" offset="0.75m" width="0.9m" />
+			<door wall="1/1 g, 2 g" offset="0.75m" width="0.9m" />
+			<door wall="1/1 e, 1/1 g" offset="1.5m" width="0.9m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="1 g" to="1 h" thickness="0.2m" />
+				<wall to="2 h" thickness="0.3m" />
+				<wall to="2 g" thickness="0.1m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="1 e" to="1 g" thickness="0.2m" />
+				<wall to="1/1 g" thickness="0.07m" />
+				<wall to="1/1 e" thickness="0.07m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="1/1 e" to="2 e" thickness="0.1m" />
+				<wall to="2 g" thickness="0.1m" />
+				<wall to="1/1 g" thickness="0.07m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="4">
+		<features>
+			<window wall="2 h, 3 h" offset="1m" width="0.9m" />
+			<window wall="2 h, 3 h" offset="2.5m" width="0.9m" />
+
+			<door wall="3 e, 2/1 e" offset="0.75m" width="0.9m" />
+			<door wall="2/1 f, 3 f" offset="0.75m" width="0.9m" />
+			<door wall="2/1 e, 2/1 g" offset="1.25m" width="0.9m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="2 g" to="2/1 g" thickness="0.07m" />
+				<wall to="2/1 f" thickness="0.07m" />
+				<wall to="3 f" thickness="0.07m" />
+				<wall to="3 h" thickness="0.1m" />
+				<wall to="2 h" thickness="0.3m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2 e" to="2 g" thickness="0.1m" />
+				<wall to="2/1 g" thickness="0.07m" />
+				<wall to="2/1 e" thickness="0.07m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2/1 e" to="3 e" thickness="0.1m" />
+				<wall to="3 f" thickness="0.1m" />
+				<wall to="2/1 f" thickness="0.07m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="5">
+		<features>
+			<window wall="3 h, 4 h" offset="1m" width="0.9m" />
+			<window wall="3 h, 4 h" offset="2.5m" width="0.9m" />
+
+			<door wall="3/1 e, 3 e" offset="0.75m" width="0.9m" />
+			<door wall="3 f, 3/1 f" offset="0.75m" width="0.9m" />
+			<door wall="3/1 g, 3/1 e" offset="1.75m" width="0.9m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="3 f" to="3/1 f" thickness="0.07m" />
+				<wall to="3/1 g" thickness="0.07m" />
+				<wall to="4 g" thickness="0.07m" />
+				<wall to="4 h" thickness="0.1m" />
+				<wall to="3 h" thickness="0.3m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="3 e" to="3 f" thickness="0.1m" />
+				<wall to="3/1 f" thickness="0.07m" />
+				<wall to="3/1 e" thickness="0.07m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="3/1 e" to="4 e" thickness="0.1m" />
+				<wall to="4 g" thickness="0.1m" />
+				<wall to="3/1 g" thickness="0.07m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="6">
+		<features>
+			<window wall="4 h, 5 h" offset="1m" width="0.9m" />
+			<window wall="4 h, 5 h" offset="2.5m" width="0.9m" />
+
+			<door wall="5 e, 4/1 e" offset="0.75m" width="0.9m" />
+			<door wall="4/1 f, 5 f" offset="0.75m" width="0.9m" />
+			<door wall="4/1 e, 4/1 g" offset="1.25m" width="0.9m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="4 g" to="4/1 g" thickness="0.07m" />
+				<wall to="4/1 f" thickness="0.07m" />
+				<wall to="5 f" thickness="0.07m" />
+				<wall to="5 h" thickness="0.1m" />
+				<wall to="4 h" thickness="0.3m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="4 e" to="4 g" thickness="0.1m" />
+				<wall to="4/1 g" thickness="0.07m" />
+				<wall to="4/1 e" thickness="0.07m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="4/1 e" to="5 e" thickness="0.1m" />
+				<wall to="5 f" thickness="0.1m" />
+				<wall to="4/1 f" thickness="0.07m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="7">
+		<features>
+			<window wall="5 h, 6 h" offset="1m" width="0.9m" />
+			<window wall="5 h, 6 h" offset="2.5m" width="0.9m" />
+
+			<door wall="5/1 e, 5 e" offset="0.75m" width="0.9m" />
+			<door wall="5 f, 5/1 f" offset="0.75m" width="0.9m" />
+			<door wall="5/1 g, 5/1 e" offset="1.75m" width="0.9m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="5 f" to="5/1 f" thickness="0.07m" />
+				<wall to="5/1 g" thickness="0.07m" />
+				<wall to="6 g" thickness="0.07m" />
+				<wall to="6 h" thickness="0.1m" />
+				<wall to="5 h" thickness="0.3m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="5 e" to="5 f" thickness="0.1m" />
+				<wall to="5/1 f" thickness="0.07m" />
+				<wall to="5/1 e" thickness="0.07m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="5/1 e" to="6 e" thickness="0.1m" />
+				<wall to="6 g" thickness="0.1m" />
+				<wall to="5/1 g" thickness="0.07m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="8">
+		<features>
+			<window wall="6 h, 7 h" offset="1m" width="0.9m" />
+			<window wall="6 h, 7 h" offset="2.5m" width="0.9m" />
+
+			<door wall="6/1 e, 6 e" offset="0.75m" width="0.9m" />
+			<door wall="6 g, 6/1 g" offset="0.75m" width="0.9m" />
+			<door wall="6/1 g, 6/1 e" offset="1.5m" width="0.9m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="7 g" to="7 h" thickness="0.2m" />
+				<wall to="6 h" thickness="0.3m" />
+				<wall to="6 g" thickness="0.1m" />
+				<wall thickness="0.07m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="7 e" to="7 g" thickness="0.2m" />
+				<wall to="6/1 g" thickness="0.07m" />
+				<wall to="6/1 e" thickness="0.07m" />
+				<wall thickness="0.1m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="6/1 e" to="6 e" thickness="0.1m" />
+				<wall to="6 g" thickness="0.1m" />
+				<wall to="6/1 g" thickness="0.07m" />
+				<wall thickness="0.07m" />
 			</walls>
 		</room>
 	</flat>

@@ -7,7 +7,7 @@ async function main() {
 	const text = await res.text();
 
 	const viewFlatIdInput: HTMLInputElement = document.querySelector("input[name='view-flat-id']")!;
-	const planInputElement: HTMLTextAreaElement = document.querySelector("#input")!;
+	const planInputElement: HTMLTextAreaElement = document.querySelector("textarea")!;
 	planInputElement.textContent = text;
 
 	let options: PlannerOptions = { input: text };

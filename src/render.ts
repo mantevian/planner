@@ -21,6 +21,7 @@ type PlanContext = {
 	};
 	options: PlannerOptions;
 	templates: { [key: string]: SVGSymbolElement; };
+	viewPadding: number;
 };
 
 export type PlannerOptions = {
@@ -49,7 +50,8 @@ export async function render(options: PlannerOptions) {
 			maxY: 0
 		},
 		options,
-		templates: {}
+		templates: {},
+		viewPadding: 500
 	};
 
 	await initDefs(ctx);
@@ -63,7 +65,7 @@ export async function render(options: PlannerOptions) {
 		createFlat(ctx, flat);
 	}
 
-	ctx.svg.setAttribute("viewBox", `${ctx.limits.minX - 1000} ${ctx.limits.minY - 1000} ${ctx.limits.maxX - ctx.limits.minX + 2000} ${ctx.limits.maxY - ctx.limits.minY + 2000}`);
+	ctx.svg.setAttribute("viewBox", `${ctx.limits.minX - ctx.viewPadding} ${ctx.limits.minY - ctx.viewPadding} ${ctx.limits.maxX - ctx.limits.minX + ctx.viewPadding * 2} ${ctx.limits.maxY - ctx.limits.minY + ctx.viewPadding * 2}`);
 
 	return ctx;
 }
@@ -122,8 +124,15 @@ function createFlat(ctx: PlanContext, flat: Flat) {
 			return;
 		}
 
+		const g = Util.create({
+			name: "g",
+			classes: ["flat"],
+			parent: ctx.svg,
+			id: `flat-${flat.id}`
+		});
+
 		for (const room of flat.room) {
-			createRoom(ctx, flat, room);
+			createRoom(ctx, flat, room, g);
 		}
 	}
 }
@@ -142,7 +151,7 @@ function getWallPoints(c1: Vec, c2: Vec, thickness: number) {
 	};
 }
 
-function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
+function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGElement) {
 	if (!room.walls || !room.walls[0]) {
 		return;
 	}
@@ -150,7 +159,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 	const g = Util.create({
 		name: "g",
 		classes: ["room"],
-		parent: ctx.svg
+		parent: flatGroup
 	});
 
 	const wallPoints: Vec[] = [];
@@ -254,15 +263,10 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room) {
 						let useWidth = featureLength;
 						let useHeight = useWidth / aspectRatio;
 
-						let translate = new Vec(0, 0);
-
-						if (f._name == "door") {
-							translate = new Vec(pStart.x - pCenter.x, pStart.y - pCenter.y);
-						}
+						let translate = new Vec(p1Outer.x - pCenter.x, p1Outer.y - pCenter.y);
 
 						if (f._name == "window") {
 							useHeight = ct * 2;
-							translate = new Vec(p1Outer.x - pCenter.x, p1Outer.y - pCenter.y);
 						}
 
 						const el = Util.create({
@@ -394,6 +398,10 @@ function initAxes(ctx: PlanContext) {
 
 	let maxX = 0;
 	let maxY = 0;
+
+	if (ctx.plan.mode == "debug") {
+		ctx.viewPadding = 1000;
+	}
 
 	for (const axis of ctx.plan.axes[0].axis) {
 		let offset = 0;
