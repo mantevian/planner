@@ -1,6 +1,6 @@
 import Door from "./Door";
+import Furniture from "./Furniture";
 import PlanDocElement from "./PlanDocElement";
-import Template from "./Template";
 import Window from "./Window";
 
 export default class Features implements PlanDocElement {
@@ -8,5 +8,5 @@ export default class Features implements PlanDocElement {
 
 	window: Window[] = [];
 	door: Door[] = [];
-	template: Template[] = [];
+	furniture: Furniture[] = [];
 }

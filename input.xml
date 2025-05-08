@@ -1,10 +1,10 @@
-<plan>
+<plan mode="debug">
 	<defs>
 		<color name="wall" value="#444444" />
 		<color name="floor" value="#dddddd" />
 
-		<template name="door" />
-		<template name="window" />
+		<template name="door" path="door.svg" />
+		<template name="window" path="window.svg" />
 	</defs>
 
 	<axes>
@@ -139,8 +139,8 @@
 			<window wall="1 h, 2 h" offset="2.5m" width="0.9m" />
 
 			<door wall="2 e, 1/1 e" offset="0.75m" width="0.9m" />
-			<door wall="1/1 g, 2 g" offset="0.75m" width="0.9m" />
-			<door wall="1/1 e, 1/1 g" offset="1.5m" width="0.9m" />
+			<door wall="1/1 g, 2 g" offset="0.75m" width="0.9m" side="left" />
+			<door wall="1/1 e, 1/1 g" offset="1.5m" width="0.9m" side="left" />
 		</features>
 
 		<room>
@@ -177,8 +177,8 @@
 			<window wall="2 h, 3 h" offset="2.5m" width="0.9m" />
 
 			<door wall="3 e, 2/1 e" offset="0.75m" width="0.9m" />
-			<door wall="2/1 f, 3 f" offset="0.75m" width="0.9m" />
-			<door wall="2/1 e, 2/1 g" offset="1.25m" width="0.9m" />
+			<door wall="2/1 f, 3 f" offset="0.75m" width="0.9m" side="left" />
+			<door wall="2/1 e, 2/1 g" offset="1.25m" width="0.9m" side="left" />
 		</features>
 
 		<room>
@@ -217,8 +217,8 @@
 			<window wall="3 h, 4 h" offset="2.5m" width="0.9m" />
 
 			<door wall="3/1 e, 3 e" offset="0.75m" width="0.9m" />
-			<door wall="3 f, 3/1 f" offset="0.75m" width="0.9m" />
-			<door wall="3/1 g, 3/1 e" offset="1.75m" width="0.9m" />
+			<door wall="3 f, 3/1 f" offset="0.75m" width="0.9m" side="left" />
+			<door wall="3/1 g, 3/1 e" offset="1.75m" width="0.9m" side="left" />
 		</features>
 
 		<room>
@@ -257,8 +257,8 @@
 			<window wall="4 h, 5 h" offset="2.5m" width="0.9m" />
 
 			<door wall="5 e, 4/1 e" offset="0.75m" width="0.9m" />
-			<door wall="4/1 f, 5 f" offset="0.75m" width="0.9m" />
-			<door wall="4/1 e, 4/1 g" offset="1.25m" width="0.9m" />
+			<door wall="4/1 f, 5 f" offset="0.75m" width="0.9m" side="left" />
+			<door wall="4/1 e, 4/1 g" offset="1.25m" width="0.9m" side="left" />
 		</features>
 
 		<room>
@@ -297,8 +297,8 @@
 			<window wall="5 h, 6 h" offset="2.5m" width="0.9m" />
 
 			<door wall="5/1 e, 5 e" offset="0.75m" width="0.9m" />
-			<door wall="5 f, 5/1 f" offset="0.75m" width="0.9m" />
-			<door wall="5/1 g, 5/1 e" offset="1.75m" width="0.9m" />
+			<door wall="5 f, 5/1 f" offset="0.75m" width="0.9m" side="left" />
+			<door wall="5/1 g, 5/1 e" offset="1.75m" width="0.9m" side="left" />
 		</features>
 
 		<room>
@@ -337,8 +337,8 @@
 			<window wall="6 h, 7 h" offset="2.5m" width="0.9m" />
 
 			<door wall="6/1 e, 6 e" offset="0.75m" width="0.9m" />
-			<door wall="6 g, 6/1 g" offset="0.75m" width="0.9m" />
-			<door wall="6/1 g, 6/1 e" offset="1.5m" width="0.9m" />
+			<door wall="6 g, 6/1 g" offset="0.75m" width="0.9m" side="left" />
+			<door wall="6/1 g, 6/1 e" offset="1.5m" width="0.9m" side="left" />
 		</features>
 
 		<room>

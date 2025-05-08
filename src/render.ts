@@ -217,7 +217,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 		wallPath += Util.polyline([intersectionInnerPrevCurr, intersectionOuterPrevCurr, intersectionOuterCurrNext, intersectionInnerCurrNext]);
 
 		if (flat.features && flat.features.length > 0) {
-			const features = [...(flat.features[0].door ?? []), ...(flat.features[0].window ?? []), ...(flat.features[0].template ?? [])];
+			const features = [...(flat.features[0].door ?? []), ...(flat.features[0].window ?? []), ...(flat.features[0].furniture ?? [])];
 
 			for (const f of features) {
 				const axes = getAxesFromWallString(f.wall);
@@ -243,20 +243,21 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 				if (isFeatureOnThisWall) {
 					const n = new Vec(wallV.y, -wallV.x).normalized();
 					const ct = walls.curr.thickness * 0.5;
-
-					const p1Inner = new Vec(wallP1.x + wallV.x * start / wallLength + n.x * -ct, wallP1.y + wallV.y * start / wallLength + n.y * -ct);
-					const p1Outer = new Vec(wallP1.x + wallV.x * start / wallLength + n.x * ct, wallP1.y + wallV.y * start / wallLength + n.y * ct);
-					const p2Inner = new Vec(wallP1.x + wallV.x * end / wallLength + n.x * -ct, wallP1.y + wallV.y * end / wallLength + n.y * -ct);
-					const p2Outer = new Vec(wallP1.x + wallV.x * end / wallLength + n.x * ct, wallP1.y + wallV.y * end / wallLength + n.y * ct);
-					cutoutPath += Util.polyline([p1Inner, p1Outer, p2Outer, p2Inner]);
+					const [nx, ny] = [n.x * ct, n.y * ct];
 
 					const pStart = new Vec(wallP1.x + wallV.x * start / wallLength, wallP1.y + wallV.y * start / wallLength);
 					const pEnd = new Vec(wallP1.x + wallV.x * end / wallLength, wallP1.y + wallV.y * end / wallLength);
-					const vFeature = new Vec(pEnd.x - pStart.x, pEnd.y - pStart.y);
 
+					const p1Inner = new Vec(pStart.x -nx, pStart.y - ny);
+					const p1Outer = new Vec(pStart.x + nx, pStart.y + ny);
+					const p2Inner = new Vec(pEnd.x - nx, pEnd.y - ny);
+					const p2Outer = new Vec(pEnd.x + nx, pEnd.y + ny);
+					cutoutPath += Util.polyline([p1Inner, p1Outer, p2Outer, p2Inner]);
+
+					let vFeature = new Vec(pEnd.x - pStart.x, pEnd.y - pStart.y);
 					const featureLength = vFeature.length();
 
-					const template = f._name == "template" ? ctx.templates[f.name] : ctx.templates[f._name];
+					const template = f._name == "furniture" ? ctx.templates[f.name] : ctx.templates[f._name];
 
 					if (template) {
 						const aspectRatio = parseFloat(template.getAttribute("width") ?? "0") / parseFloat(template.getAttribute("height") ?? "0");
@@ -264,6 +265,11 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 						let useHeight = useWidth / aspectRatio;
 
 						let translate = new Vec(p1Outer.x - pCenter.x, p1Outer.y - pCenter.y);
+
+						if (f._name == "door" && f.side == "left") {
+							vFeature = new Vec(pStart.x - pEnd.x, pStart.y - pEnd.y);
+							translate = new Vec(p2Inner.x - pCenter.x, p2Inner.y - pCenter.y);
+						}
 
 						if (f._name == "window") {
 							useHeight = ct * 2;
@@ -374,7 +380,7 @@ async function initDefs(ctx: PlanContext) {
 		`;
 
 		for (const templ of def.template ?? []) {
-			const text = await (await fetch(`./templates/${templ.name}.svg`)).text();
+			const text = await (await fetch(`./templates/${templ.path}`)).text();
 			const templSvg = new DOMParser().parseFromString(text, "image/svg+xml");
 			const symbol = templSvg.createElementNS("http://www.w3.org/2000/svg", "symbol");
 			symbol.id = `template-${templ.name}`;
