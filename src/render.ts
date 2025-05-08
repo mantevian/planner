@@ -1,8 +1,11 @@
+import Door from "./types/Door";
 import Flat from "./types/Flat";
+import Furniture from "./types/Furniture";
 import Plan from "./types/Plan";
 import Room from "./types/Room";
 import Vec from "./types/Vec";
 import { getAxesFromWall, getAxesFromWallString } from "./types/Wall";
+import Window from "./types/Window";
 import Util from "./util";
 import parseElement from "./xml_to_js";
 
@@ -22,6 +25,7 @@ type PlanContext = {
 	options: PlannerOptions;
 	templates: { [key: string]: SVGSymbolElement; };
 	viewPadding: number;
+	style: string;
 };
 
 export type PlannerOptions = {
@@ -51,7 +55,8 @@ export async function render(options: PlannerOptions) {
 		},
 		options,
 		templates: {},
-		viewPadding: 500
+		viewPadding: 500,
+		style: ""
 	};
 
 	await initDefs(ctx);
@@ -66,6 +71,12 @@ export async function render(options: PlannerOptions) {
 	}
 
 	ctx.svg.setAttribute("viewBox", `${ctx.limits.minX - ctx.viewPadding} ${ctx.limits.minY - ctx.viewPadding} ${ctx.limits.maxX - ctx.limits.minX + ctx.viewPadding * 2} ${ctx.limits.maxY - ctx.limits.minY + ctx.viewPadding * 2}`);
+
+	Util.create({
+		name: "style",
+		parent: ctx.svg,
+		innerHTML: ctx.style
+	});
 
 	return ctx;
 }
@@ -165,6 +176,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 	const wallPoints: Vec[] = [];
 	const doors: SVGUseElement[] = [];
 	const windows: SVGUseElement[] = [];
+	const furnitures: SVGUseElement[] = [];
 
 	for (const wall of room.walls[0].wall) {
 		const wallAxes = getAxesFromWall(wall);
@@ -216,90 +228,33 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 
 		wallPath += Util.polyline([intersectionInnerPrevCurr, intersectionOuterPrevCurr, intersectionOuterCurrNext, intersectionInnerCurrNext]);
 
-		if (flat.features && flat.features.length > 0) {
-			const features = [...(flat.features[0].door ?? []), ...(flat.features[0].window ?? []), ...(flat.features[0].furniture ?? [])];
+		if (!flat.features || flat.features.length == 0) {
+			continue;
+		}
 
-			for (const f of features) {
-				const axes = getAxesFromWallString(f.wall);
+		const features = [...(flat.features[0].door ?? []), ...(flat.features[0].window ?? []), ...(flat.features[0].furniture ?? [])];
 
-				const wallP1 = new Vec(
-					ctx.axes.x.get(axes.from1) ?? ctx.axes.x.get(axes.from2) ?? 0,
-					ctx.axes.y.get(axes.from1) ?? ctx.axes.y.get(axes.from2) ?? 0
-				);
+		for (const f of features) {
+			const { element, cutoutPath: c } = placeFeature(ctx, walls, points, f) ?? { element: null, c: "" };
 
-				const wallP2 = new Vec(
-					ctx.axes.x.get(axes.to1) ?? ctx.axes.x.get(axes.to2) ?? 0,
-					ctx.axes.y.get(axes.to1) ?? ctx.axes.y.get(axes.to2) ?? 0
-				);
+			if (!element) {
+				continue;
+			}
 
-				const wallV = new Vec(wallP2.x - wallP1.x, wallP2.y - wallP1.y);
-				const wallLength = wallV.length();
-				const start = f.offset - f.width / 2;
-				const end = f.offset + f.width / 2;
-				const center = f.offset;
-				const pCenter = new Vec(wallP1.x + wallV.x * center / wallLength, wallP1.y + wallV.y * center / wallLength);
-				const isFeatureOnThisWall = Util.isPointInPolygon(pCenter, [points.curr.p1Inner, points.curr.p1Outer, points.curr.p2Outer, points.curr.p2Inner]);
+			cutoutPath += c;
 
-				if (isFeatureOnThisWall) {
-					const n = new Vec(wallV.y, -wallV.x).normalized();
-					const ct = walls.curr.thickness * 0.5;
-					const [nx, ny] = [n.x * ct, n.y * ct];
+			if (f._name == "door") {
+				doors.push(element);
+			}
 
-					const pStart = new Vec(wallP1.x + wallV.x * start / wallLength, wallP1.y + wallV.y * start / wallLength);
-					const pEnd = new Vec(wallP1.x + wallV.x * end / wallLength, wallP1.y + wallV.y * end / wallLength);
+			if (f._name == "window") {
+				windows.push(element);
+			}
 
-					const p1Inner = new Vec(pStart.x -nx, pStart.y - ny);
-					const p1Outer = new Vec(pStart.x + nx, pStart.y + ny);
-					const p2Inner = new Vec(pEnd.x - nx, pEnd.y - ny);
-					const p2Outer = new Vec(pEnd.x + nx, pEnd.y + ny);
-					cutoutPath += Util.polyline([p1Inner, p1Outer, p2Outer, p2Inner]);
-
-					let vFeature = new Vec(pEnd.x - pStart.x, pEnd.y - pStart.y);
-					const featureLength = vFeature.length();
-
-					const template = f._name == "furniture" ? ctx.templates[f.name] : ctx.templates[f._name];
-
-					if (template) {
-						const aspectRatio = parseFloat(template.getAttribute("width") ?? "0") / parseFloat(template.getAttribute("height") ?? "0");
-						let useWidth = featureLength;
-						let useHeight = useWidth / aspectRatio;
-
-						let translate = new Vec(p1Outer.x - pCenter.x, p1Outer.y - pCenter.y);
-
-						if (f._name == "door" && f.side == "left") {
-							vFeature = new Vec(pStart.x - pEnd.x, pStart.y - pEnd.y);
-							translate = new Vec(p2Inner.x - pCenter.x, p2Inner.y - pCenter.y);
-						}
-
-						if (f._name == "window") {
-							useHeight = ct * 2;
-						}
-
-						const el = Util.create({
-							name: "use",
-							attributes: {
-								href: `#template-${f._name}`,
-								x: pCenter.x,
-								y: pCenter.y,
-								width: useWidth,
-								height: useHeight,
-								style: `
-								transform-origin: ${pCenter.x}px ${pCenter.y}px;
-								rotate: ${Math.atan2(vFeature.y, vFeature.x)}rad;
-								translate: ${translate.x}px ${translate.y}px;
-							`.trim()
-							}
-						});
-
-						if (f._name == "door") {
-							doors.push(el);
-						}
-
-						if (f._name == "window") {
-							windows.push(el);
-						}
-					}
-				}
+			switch (f._name) {
+				case "door": doors.push(element); break;
+				case "window": windows.push(element); break;
+				case "furniture": furnitures.push(element); break;
 			}
 		}
 	}
@@ -321,7 +276,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 	Util.create({
 		name: "g",
 		parent: g,
-		children: [...doors, ...windows]
+		children: [...doors, ...windows, ...furnitures]
 	});
 
 	const area = Util.polygonArea(wallPoints);
@@ -340,36 +295,106 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 		parent: g,
 		innerHTML: `${areaMeters} м²`
 	});
+}
 
-	// use
+function placeFeature(ctx: PlanContext, walls: any, points: any, f: Door | Window | Furniture): null | {
+	element: SVGUseElement,
+	cutoutPath: string
+} {
+	const axes = getAxesFromWallString(f.wall);
 
-	// for (const use of room.use ?? []) {
-	// 	Util.create({
-	// 		name: "use",
-	// 		attributes: {
-	// 			href: `#template-${use.name}`,
-	// 			x: `${use.pos.x}`,
-	// 			y: `${use.pos.y}`,
-	// 			width: `${use.size.x}`,
-	// 			height: `${use.size.y}`,
-	// 		},
-	// 		parent: g
-	// 	});
-	// }
+	const wallP1 = new Vec(
+		ctx.axes.x.get(axes.from1) ?? ctx.axes.x.get(axes.from2) ?? 0,
+		ctx.axes.y.get(axes.from1) ?? ctx.axes.y.get(axes.from2) ?? 0
+	);
+
+	const wallP2 = new Vec(
+		ctx.axes.x.get(axes.to1) ?? ctx.axes.x.get(axes.to2) ?? 0,
+		ctx.axes.y.get(axes.to1) ?? ctx.axes.y.get(axes.to2) ?? 0
+	);
+
+	const wallV = new Vec(wallP2.x - wallP1.x, wallP2.y - wallP1.y);
+	const wallLength = wallV.length();
+	const start = f.offset - f.width / 2;
+	const end = f.offset + f.width / 2;
+	const center = f.offset;
+	const pCenter = new Vec(wallP1.x + wallV.x * center / wallLength, wallP1.y + wallV.y * center / wallLength);
+	const isFeatureOnThisWall = Util.isPointInPolygon(pCenter, [points.curr.p1Inner, points.curr.p1Outer, points.curr.p2Outer, points.curr.p2Inner]);
+
+	if (!isFeatureOnThisWall) {
+		return null;
+	}
+
+	const n = new Vec(wallV.y, -wallV.x).normalized();
+	const ct = walls.curr.thickness * 0.5 + (f._name == "furniture" ? f.offset_normal : 0);
+	const [nx, ny] = [n.x * ct, n.y * ct];
+
+	const pStart = new Vec(wallP1.x + wallV.x * start / wallLength, wallP1.y + wallV.y * start / wallLength);
+	const pEnd = new Vec(wallP1.x + wallV.x * end / wallLength, wallP1.y + wallV.y * end / wallLength);
+
+	const p1Inner = new Vec(pStart.x -nx, pStart.y - ny);
+	const p1Outer = new Vec(pStart.x + nx, pStart.y + ny);
+	const p2Inner = new Vec(pEnd.x - nx, pEnd.y - ny);
+	const p2Outer = new Vec(pEnd.x + nx, pEnd.y + ny);
+	const cutoutPath = f._name == "furniture" ? "" : Util.polyline([p1Inner, p1Outer, p2Outer, p2Inner]);
+
+	let vFeature = new Vec(pEnd.x - pStart.x, pEnd.y - pStart.y);
+	const featureLength = vFeature.length();
+
+	const name = f._name == "furniture" ? f.name : f._name;
+
+	const template = ctx.templates[name];
+
+	if (!template) {
+		return null;
+	}
+
+	const aspectRatio = parseFloat(template.getAttribute("width") ?? "0") / parseFloat(template.getAttribute("height") ?? "0");
+	let useWidth = featureLength;
+	let useHeight = useWidth / aspectRatio;
+
+	let translate = new Vec(p1Outer.x - pCenter.x, p1Outer.y - pCenter.y);
+
+	if (f._name == "door" && f.side == "left") {
+		vFeature = new Vec(pStart.x - pEnd.x, pStart.y - pEnd.y);
+		translate = new Vec(p2Inner.x - pCenter.x, p2Inner.y - pCenter.y);
+	}
+
+	if (f._name == "window") {
+		useHeight = ct * 2;
+	}
+
+	if (f._name == "furniture") {
+		translate = new Vec(p1Inner.x - pCenter.x, p1Inner.y - pCenter.y);
+	}
+
+	return {
+		element: Util.create({
+			name: "use",
+			attributes: {
+				href: `#template-${name}`,
+				x: pCenter.x,
+				y: pCenter.y,
+				width: useWidth,
+				height: useHeight,
+				style: `
+					transform-origin: ${pCenter.x}px ${pCenter.y}px;
+					rotate: ${Math.atan2(vFeature.y, vFeature.x)}rad;
+					translate: ${translate.x}px ${translate.y}px;
+				`.trim()
+			}
+		}),
+		cutoutPath
+	};
 }
 
 async function initDefs(ctx: PlanContext) {
 	const defs = Util.create({ name: "defs", parent: ctx.svg });
 
-	const styleElement = Util.create({
-		name: "style",
-		parent: ctx.svg
-	});
-
-	styleElement.innerHTML += `use { transform-origin: center }`;
+	ctx.style += `use { transform-origin: center }`;
 
 	for (const def of ctx.plan.defs) {
-		styleElement.innerHTML += `
+		ctx.style += `
 			.wall {
 				fill: ${def.color?.find(c => c.name == "wall")?.value};
 			}
@@ -407,6 +432,12 @@ function initAxes(ctx: PlanContext) {
 
 	if (ctx.plan.mode == "debug") {
 		ctx.viewPadding = 1000;
+
+		ctx.style += `
+			.wall-cutout {
+				fill: #ff0000;
+			}
+		`;
 	}
 
 	for (const axis of ctx.plan.axes[0].axis) {

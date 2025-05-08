@@ -5,6 +5,7 @@
 
 		<template name="door" path="door.svg" />
 		<template name="window" path="window.svg" />
+		<template name="couch" path="couch.svg" />
 	</defs>
 
 	<axes>
@@ -57,9 +58,11 @@
 			<window wall="1 a, 2 a" offset="2.5m" width="0.9m" />
 			<window wall="2 a, 3 a" offset="1.7m" width="2m" />
 
-			<door wall="2 a, 2 b" offset="2m" width="0.9m" />
-			<door wall="1/1 c, 2 c" offset="0.75m" width="0.9m" />
-			<door wall="3 b, 2 b" offset="1.75m" width="0.9m" />
+			<door wall="2 a, 2 b" offset="2m" width="2m" />
+			<door wall="1/1 c, 2 c" offset="0.75m" width="2m" />
+			<door wall="3 b, 2 b" offset="1.75m" width="2m" />
+
+			<furniture name="couch" wall="1 d, 1 a" offset="5m" width="2m" offset_normal="1m" />
 		</features>
 
 		<room>
