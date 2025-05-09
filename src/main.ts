@@ -29,5 +29,8 @@ async function main() {
 function updateOutput(options: PlannerOptions) {
 	render(options).then(ctx => {
 		document.querySelector("#output")!.replaceChildren(ctx.svg);
+		document.querySelector("#output-errors")!.innerHTML = ctx.errors.filter(e => ctx.showErrorTypes.includes(e.level)).map(e => `
+				<p data-plan-error-level="${e.level}">[${e.level}] ${e.message}</p>
+			`).join("");
 	});
 }

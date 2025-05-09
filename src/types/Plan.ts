@@ -10,4 +10,5 @@ export default class Plan implements PlanDocElement {
 	defs: Defs[] = [];
 	axes: Axes[] = [];
 	mode: "debug" | null = null;
+	errors: string = "note warn error";
 }

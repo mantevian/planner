@@ -2,7 +2,7 @@ import Door from "./types/Door";
 import Flat from "./types/Flat";
 import Furniture from "./types/Furniture";
 import Plan from "./types/Plan";
-import Room from "./types/Room";
+import planErrors, { PlanError } from "./types/PlanError";
 import Vec from "./types/Vec";
 import { getAxesFromWall, getAxesFromWallString } from "./types/Wall";
 import Window from "./types/Window";
@@ -26,6 +26,8 @@ type PlanContext = {
 	templates: { [key: string]: SVGSymbolElement; };
 	viewPadding: number;
 	style: string;
+	errors: PlanError[];
+	showErrorTypes: ("note" | "warn" | "error")[]
 };
 
 export type PlannerOptions = {
@@ -34,12 +36,8 @@ export type PlannerOptions = {
 };
 
 export async function render(options: PlannerOptions) {
-	const doc = new DOMParser().parseFromString(options.input, "application/xml");
-
-	const plan: Plan = parseElement(doc.documentElement);
-
 	const ctx: PlanContext = {
-		plan,
+		plan: new Plan(),
 		svg: Util.create({
 			name: "svg"
 		}),
@@ -56,13 +54,25 @@ export async function render(options: PlannerOptions) {
 		options,
 		templates: {},
 		viewPadding: 500,
-		style: ""
+		style: "",
+		showErrorTypes: [],
+		errors: []
 	};
+
+	try {
+		const doc = new DOMParser().parseFromString(options.input, "application/xml");
+		ctx.plan = parseElement(doc.documentElement);
+		ctx.showErrorTypes = ctx.plan.errors.split(" ") as ("note" | "warn" | "error")[];
+	} catch {
+		ctx.showErrorTypes = ["note", "warn", "error"];
+		ctx.errors.push(planErrors.cant_parse_xml_input());
+	}
 
 	await initDefs(ctx);
 	initAxes(ctx);
 
 	if (!ctx.plan.flat || ctx.plan.flat.length == 0) {
+		ctx.errors.push(planErrors.no_flats())
 		return ctx;
 	}
 
@@ -132,6 +142,7 @@ function createFlat(ctx: PlanContext, flat: Flat) {
 
 	if (canCreateFlat) {
 		if (!flat.room || flat.room.length == 0) {
+			ctx.errors.push(planErrors.flat_no_rooms(flat.id));
 			return;
 		}
 
@@ -142,8 +153,8 @@ function createFlat(ctx: PlanContext, flat: Flat) {
 			id: `flat-${flat.id}`
 		});
 
-		for (const room of flat.room) {
-			createRoom(ctx, flat, room, g);
+		for (const i of flat.room.keys()) {
+			createRoom(ctx, flat, i, g);
 		}
 	}
 }
@@ -162,9 +173,15 @@ function getWallPoints(c1: Vec, c2: Vec, thickness: number) {
 	};
 }
 
-function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGElement) {
+function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup: SVGGElement) {
+	const room = flat.room[roomNumber];
 	if (!room.walls || !room.walls[0]) {
+		ctx.errors.push(planErrors.room_not_enough_walls(flat.id, roomNumber, 0));
 		return;
+	}
+
+	if (room.walls[0].wall.length < 2) {
+		ctx.errors.push(planErrors.room_not_enough_walls(flat.id, roomNumber, room.walls.length));
 	}
 
 	const g = Util.create({
@@ -194,6 +211,10 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 	}
 
 	const wallCount = room.walls[0].wall.length ?? 0;
+
+	if (wallPoints.length != wallCount) {
+		ctx.errors.push(planErrors.room_walls_incorrect(flat.id, roomNumber));
+	}
 
 	// floor
 	Util.create({
@@ -235,7 +256,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 		const features = [...(flat.features[0].door ?? []), ...(flat.features[0].window ?? []), ...(flat.features[0].furniture ?? [])];
 
 		for (const f of features) {
-			const { element, cutoutPath: c } = placeFeature(ctx, walls, points, f) ?? { element: null, c: "" };
+			const { element, cutoutPath: c } = placeFeature(ctx, flat, walls, points, f) ?? { element: null, c: "" };
 
 			if (!element) {
 				continue;
@@ -297,7 +318,7 @@ function createRoom(ctx: PlanContext, flat: Flat, room: Room, flatGroup: SVGGEle
 	});
 }
 
-function placeFeature(ctx: PlanContext, walls: any, points: any, f: Door | Window | Furniture): null | {
+function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: Door | Window | Furniture): null | {
 	element: SVGUseElement,
 	cutoutPath: string
 } {
@@ -346,6 +367,7 @@ function placeFeature(ctx: PlanContext, walls: any, points: any, f: Door | Windo
 	const template = ctx.templates[name];
 
 	if (!template) {
+		ctx.errors.push(planErrors.template_not_found(name, flat.id));
 		return null;
 	}
 
@@ -393,20 +415,28 @@ async function initDefs(ctx: PlanContext) {
 
 	ctx.style += `use { transform-origin: center }`;
 
-	for (const def of ctx.plan.defs) {
-		ctx.style += `
-			.wall {
-				fill: ${def.color?.find(c => c.name == "wall")?.value};
-			}
+	const def = ctx.plan.defs[0];
 
-			.floor {
-				fill: ${def.color?.find(c => c.name == "floor")?.value};
-			}
-		`;
+	ctx.style += `
+		.wall {
+			fill: ${def.color?.find(c => c.name == "wall")?.value ?? "black"};
+		}
 
-		for (const templ of def.template ?? []) {
+		.floor {
+			fill: ${def.color?.find(c => c.name == "floor")?.value ?? "white"};
+		}
+	`;
+
+	for (const templ of def.template ?? []) {
+		try {
 			const text = await (await fetch(`./templates/${templ.path}`)).text();
+
 			const templSvg = new DOMParser().parseFromString(text, "image/svg+xml");
+			if (templSvg.querySelector("parsererror")) {
+				ctx.errors.push(planErrors.cant_parse_template(templ.name));
+				continue;
+			}
+
 			const symbol = templSvg.createElementNS("http://www.w3.org/2000/svg", "symbol");
 			symbol.id = `template-${templ.name}`;
 			[...templSvg.documentElement.children].forEach(c => symbol.appendChild(c));
@@ -416,6 +446,8 @@ async function initDefs(ctx: PlanContext) {
 			symbol.setAttribute("preserveAspectRatio", "none");
 			defs.appendChild(symbol);
 			ctx.templates[templ.name] = symbol;
+		} catch {
+			ctx.errors.push(planErrors.cant_parse_template(templ.name));
 		}
 	}
 }
@@ -442,6 +474,10 @@ function initAxes(ctx: PlanContext) {
 
 	for (const axis of ctx.plan.axes[0].axis) {
 		let offset = 0;
+
+		if (axis.offset && typeof axis.offset != "number") {
+			ctx.errors.push(planErrors.axis_offset_not_number(axis.id));
+		}
 
 		switch (axis.type) {
 			case "horizontal":

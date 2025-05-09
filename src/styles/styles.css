@@ -20,7 +20,9 @@ main {
 
 textarea {
 	width: 100%;
-	height: 100%;
+	height: 50%;
+
+	margin-bottom: 1rem;
 
 	resize: none;
 	overflow-y: scroll;
@@ -38,7 +40,8 @@ svg {
 	max-height: 100%;
 }
 
-.floor {
+.floor,
+text.area {
 	transition: fill 0.3s ease;
 }
 
@@ -54,6 +57,10 @@ g.flat:not(#flat-999):hover .floor {
 	fill: #ffffff;
 }
 
+g.flat:not(#flat-999):hover text.area {
+	fill: black;
+}
+
 #flat-999 .floor {
 	fill: #eeeeee;
 }
@@ -64,4 +71,16 @@ g.flat:not(#flat-999):hover .floor {
 
 svg:has(g.flat:not(#flat-999):hover) g.flat:not(:hover) {
 	opacity: 0.5;
+}
+
+p[data-plan-error-level="note"] {
+	color: #000066;
+}
+
+p[data-plan-error-level="warn"] {
+	color: #996600;
+}
+
+p[data-plan-error-level="error"] {
+	color: #990000;
 }
