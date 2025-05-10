@@ -1,35 +1,50 @@
-<plan mode="debug" errors="note warn error">
+<plan>
 	<defs>
 		<color name="wall" value="#444444" />
-		<color name="floor" value="#dddddd" />
+		<color name="floor" value="#eeeeee" />
 
 		<template name="door" path="door.svg" />
 		<template name="window" path="window.svg" />
+		<template name="bath" path="bath.svg" />
+		<template name="bed_double" path="bed_double.svg" />
+		<template name="chair" path="chair.svg" />
+		<template name="closet_medium" path="closet_medium.svg" />
+		<template name="closet_small" path="closet_small.svg" />
+		<template name="computer" path="computer.svg" />
+		<template name="cooking" path="cooking.svg" />
 		<template name="couch" path="couch.svg" />
+		<template name="fridge" path="fridge.svg" />
+		<template name="kitchen_sink" path="kitchen_sink.svg" />
+		<template name="sink" path="sink.svg" />
+		<template name="table_rectangle" path="table_rectangle.svg" />
+		<template name="table_square" path="table_square.svg" />
+		<template name="television" path="television.svg" />
+		<template name="toilet" path="toilet.svg" />
+		<template name="washing_machine" path="washing_machine.svg" />
 	</defs>
 
 	<axes>
 		<axis id="1" type="vertical" />
-		<axis id="1/1" type="vertical" offset="2m" />
-		<axis id="2" type="vertical" offset="3.5m" />
-		<axis id="2/1" type="vertical" offset="5.5m" />
-		<axis id="3" type="vertical" offset="7m" />
-		<axis id="3/1" type="vertical" offset="8.5m" />
-		<axis id="4" type="vertical" offset="10.5m" />
-		<axis id="4/1" type="vertical" offset="12.5m" />
-		<axis id="5" type="vertical" offset="14m" />
-		<axis id="5/1" type="vertical" offset="15.5m" />
-		<axis id="6" type="vertical" offset="17.5m" />
-		<axis id="6/1" type="vertical" offset="19m" />
-		<axis id="7" type="vertical" offset="21m" />
+		<axis id="1/1" type="vertical" offset="2.5m" />
+		<axis id="2" type="vertical" offset="4m" />
+		<axis id="2/1" type="vertical" offset="6m" />
+		<axis id="3" type="vertical" offset="7.5m" />
+		<axis id="3/1" type="vertical" offset="9.5m" />
+		<axis id="4" type="vertical" offset="11.5m" />
+		<axis id="4/1" type="vertical" offset="13.5m" />
+		<axis id="5" type="vertical" offset="15.5m" />
+		<axis id="5/1" type="vertical" offset="17m" />
+		<axis id="6" type="vertical" offset="19m" />
+		<axis id="6/1" type="vertical" offset="20.5m" />
+		<axis id="7" type="vertical" offset="23m" />
 
 		<axis id="a" type="horizontal" />
 		<axis id="b" type="horizontal" offset="3m" />
 		<axis id="c" type="horizontal" offset="5m" />
 		<axis id="d" type="horizontal" offset="7m" />
 		<axis id="e" type="horizontal" offset="9m" />
-		<axis id="f" type="horizontal" offset="11m" />
-		<axis id="g" type="horizontal" offset="12m" />
+		<axis id="f" type="horizontal" offset="11.5m" />
+		<axis id="g" type="horizontal" offset="12.5m" />
 		<axis id="h" type="horizontal" offset="15.5m" />
 	</axes>
 
@@ -54,15 +69,13 @@
 
 	<flat id="1">
 		<features>
-			<window wall="1 a, 2 a" offset="1m" width="0.9m" />
-			<window wall="1 a, 2 a" offset="2.5m" width="0.9m" />
+			<window wall="1 a, 2 a" offset="1m" width="0.8m" />
+			<window wall="1 a, 2 a" offset="2.5m" width="0.8m" />
 			<window wall="2 a, 3 a" offset="1.7m" width="2m" />
 
-			<door wall="2 a, 2 b" offset="2m" width="1m" />
-			<door wall="1/1 c, 2 c" offset="0.75m" width="1m" />
-			<door wall="3 b, 2 b" offset="1.75m" width="1m" />
-
-			<furniture name="couch" wall="1 d, 1 a" offset="5m" width="2m" offset_normal="1m" />
+			<door wall="2 a, 2 b" offset="2m" width="0.8m" />
+			<door wall="1/1 c, 2 c" offset="0.75m" width="0.8m" />
+			<door wall="3 b, 2 b" offset="1.75m" width="0.8m" />
 		</features>
 
 		<room>
@@ -97,13 +110,13 @@
 
 	<flat id="2">
 		<features>
-			<window wall="7 a, 6 a" offset="1m" width="0.9m" />
-			<window wall="7 a, 6 a" offset="2.5m" width="0.9m" />
+			<window wall="7 a, 6 a" offset="1m" width="0.8m" />
+			<window wall="7 a, 6 a" offset="2.5m" width="0.8m" />
 			<window wall="6 a, 5 a" offset="1.7m" width="2m" />
 
-			<door wall="6 b, 6 a" offset="1m" width="0.9m" />
-			<door wall="6 c, 6/1 c" offset="0.75m" width="0.9m" />
-			<door wall="6 b, 5 b" offset="1.75m" width="0.9m" />
+			<door wall="6 b, 6 a" offset="1m" width="0.8m" />
+			<door wall="6 c, 6/1 c" offset="0.75m" width="0.8m" />
+			<door wall="6 b, 5 b" offset="1.75m" width="0.8m" />
 		</features>
 
 		<room>
@@ -138,12 +151,12 @@
 
 	<flat id="3">
 		<features>
-			<window wall="1 h, 2 h" offset="1m" width="0.9m" />
-			<window wall="1 h, 2 h" offset="2.5m" width="0.9m" />
+			<window wall="1 h, 2 h" offset="1m" width="0.8m" />
+			<window wall="1 h, 2 h" offset="2.5m" width="0.8m" />
 
-			<door wall="2 e, 1/1 e" offset="0.75m" width="0.9m" />
-			<door wall="1/1 g, 2 g" offset="0.75m" width="0.9m" side="left" />
-			<door wall="1/1 e, 1/1 g" offset="1.5m" width="0.9m" side="left" />
+			<door wall="2 e, 1/1 e" offset="0.75m" width="0.8m" />
+			<door wall="1/1 g, 2 g" offset="0.75m" width="0.8m" side="left" />
+			<door wall="1/1 e, 1/1 g" offset="1.5m" width="0.8m" side="left" />
 		</features>
 
 		<room>
@@ -176,12 +189,12 @@
 
 	<flat id="4">
 		<features>
-			<window wall="2 h, 3 h" offset="1m" width="0.9m" />
-			<window wall="2 h, 3 h" offset="2.5m" width="0.9m" />
+			<window wall="2 h, 3 h" offset="1m" width="0.8m" />
+			<window wall="2 h, 3 h" offset="2.5m" width="0.8m" />
 
-			<door wall="3 e, 2/1 e" offset="0.75m" width="0.9m" />
-			<door wall="2/1 f, 3 f" offset="0.75m" width="0.9m" side="left" />
-			<door wall="2/1 e, 2/1 g" offset="1.25m" width="0.9m" side="left" />
+			<door wall="3 e, 2/1 e" offset="0.75m" width="0.8m" />
+			<door wall="2/1 f, 3 f" offset="0.75m" width="0.8m" side="left" />
+			<door wall="2/1 e, 2/1 g" offset="1.25m" width="0.8m" side="left" />
 		</features>
 
 		<room>
@@ -216,12 +229,12 @@
 
 	<flat id="5">
 		<features>
-			<window wall="3 h, 4 h" offset="1m" width="0.9m" />
-			<window wall="3 h, 4 h" offset="2.5m" width="0.9m" />
+			<window wall="3 h, 4 h" offset="1m" width="0.8m" />
+			<window wall="3 h, 4 h" offset="2.5m" width="0.8m" />
 
-			<door wall="3/1 e, 3 e" offset="0.75m" width="0.9m" />
-			<door wall="3 f, 3/1 f" offset="0.75m" width="0.9m" side="left" />
-			<door wall="3/1 g, 3/1 e" offset="1.75m" width="0.9m" side="left" />
+			<door wall="3/1 e, 3 e" offset="0.75m" width="0.8m" />
+			<door wall="3 f, 3/1 f" offset="0.75m" width="0.8m" side="left" />
+			<door wall="3/1 g, 3/1 e" offset="1.75m" width="0.8m" side="left" />
 		</features>
 
 		<room>
@@ -256,12 +269,12 @@
 
 	<flat id="6">
 		<features>
-			<window wall="4 h, 5 h" offset="1m" width="0.9m" />
-			<window wall="4 h, 5 h" offset="2.5m" width="0.9m" />
+			<window wall="4 h, 5 h" offset="1m" width="0.8m" />
+			<window wall="4 h, 5 h" offset="2.5m" width="0.8m" />
 
-			<door wall="5 e, 4/1 e" offset="0.75m" width="0.9m" />
-			<door wall="4/1 f, 5 f" offset="0.75m" width="0.9m" side="left" />
-			<door wall="4/1 e, 4/1 g" offset="1.25m" width="0.9m" side="left" />
+			<door wall="5 e, 4/1 e" offset="0.75m" width="0.8m" />
+			<door wall="4/1 f, 5 f" offset="0.75m" width="0.8m" side="left" />
+			<door wall="4/1 e, 4/1 g" offset="1.25m" width="0.8m" side="left" />
 		</features>
 
 		<room>
@@ -296,12 +309,25 @@
 
 	<flat id="7">
 		<features>
-			<window wall="5 h, 6 h" offset="1m" width="0.9m" />
-			<window wall="5 h, 6 h" offset="2.5m" width="0.9m" />
+			<window wall="5 h, 6 h" offset="1m" width="0.8m" />
+			<window wall="5 h, 6 h" offset="2.5m" width="0.8m" />
 
-			<door wall="5/1 e, 5 e" offset="0.75m" width="0.9m" />
-			<door wall="5 f, 5/1 f" offset="0.75m" width="0.9m" side="left" />
-			<door wall="5/1 g, 5/1 e" offset="1.75m" width="0.9m" side="left" />
+			<door wall="5/1 e, 5 e" offset="0.75m" width="0.8m" />
+			<door wall="5 f, 5/1 f" offset="0.75m" width="0.8m" side="left" />
+			<door wall="5/1 g, 5/1 e" offset="1.75m" width="0.8m" side="left" />
+
+			<furniture wall="5 f, 5 e" name="closet_small" width="90cm" offset="1.5m" />
+			<furniture wall="5/1 e, 6 e" name="bath" width="2m" offset="1m" />
+			<furniture wall="6 e, 6 f" name="sink" width="0.8m" offset="1.25m" />
+			<furniture wall="6 e, 6 f" name="toilet" width="0.6m" offset="2m" />
+			<furniture wall="6 g, 5/1 g" name="washing_machine" width="0.6m" offset="1.6m" />
+
+			<furniture wall="5 h, 5 f" name="kitchen_sink" width="0.7m" offset="2.9m" />
+			<furniture wall="5 h, 5 f" name="cooking" width="0.7m" offset="2.2m" />
+			<furniture wall="5 h, 5 f" name="table_rectangle" width="1.4m" offset="1.1m" />
+
+			<furniture wall="5/1 g, 6 g" name="closet_medium" width="1.1m" offset="0.9m" />
+			<furniture wall="6 g, 6 h" name="bed_double" width="2m" offset="1.8m" />
 		</features>
 
 		<room>
@@ -336,12 +362,12 @@
 
 	<flat id="8">
 		<features>
-			<window wall="6 h, 7 h" offset="1m" width="0.9m" />
-			<window wall="6 h, 7 h" offset="2.5m" width="0.9m" />
+			<window wall="6 h, 7 h" offset="1m" width="0.8m" />
+			<window wall="6 h, 7 h" offset="2.5m" width="0.8m" />
 
-			<door wall="6/1 e, 6 e" offset="0.75m" width="0.9m" />
-			<door wall="6 g, 6/1 g" offset="0.75m" width="0.9m" side="left" />
-			<door wall="6/1 g, 6/1 e" offset="1.5m" width="0.9m" side="left" />
+			<door wall="6/1 e, 6 e" offset="0.75m" width="0.8m" />
+			<door wall="6 g, 6/1 g" offset="0.75m" width="0.8m" side="left" />
+			<door wall="6/1 g, 6/1 e" offset="1.5m" width="0.8m" side="left" />
 		</features>
 
 		<room>

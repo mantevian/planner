@@ -14,18 +14,25 @@
 <body>
 	<main>
 		<div>
-			<textarea></textarea>
+			<textarea class="border"></textarea>
 
-			<div id="output-errors"></div>
+			<div id="output-errors" class="border"></div>
 		</div>
 
 		<div>
-			<label>
-				<span>view flat id:</span>
-				<input type="text" name="view-flat-id">
-			</label>
+			<div class="controls border">
+				<label>
+					<span>view flat id:</span>
+					<input type="text" name="view-flat-id">
+				</label>
 
-			<div id="output"></div>
+				<label>
+					<span>debug mode:</span>
+					<input type="checkbox" name="debug-mode">
+				</label>
+			</div>
+
+			<div id="output" class="border"></div>
 		</div>
 	</main>
 </body>

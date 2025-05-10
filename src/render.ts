@@ -27,12 +27,13 @@ type PlanContext = {
 	viewPadding: number;
 	style: string;
 	errors: PlanError[];
-	showErrorTypes: ("note" | "warn" | "error")[]
 };
 
 export type PlannerOptions = {
 	input: string;
 	viewFlatId?: string;
+	debugMode: boolean;
+	showErrorLevels: ("note" | "warn" | "error")[];
 };
 
 export async function render(options: PlannerOptions) {
@@ -55,16 +56,13 @@ export async function render(options: PlannerOptions) {
 		templates: {},
 		viewPadding: 500,
 		style: "",
-		showErrorTypes: [],
 		errors: []
 	};
 
 	try {
 		const doc = new DOMParser().parseFromString(options.input, "application/xml");
 		ctx.plan = parseElement(doc.documentElement);
-		ctx.showErrorTypes = ctx.plan.errors.split(" ") as ("note" | "warn" | "error")[];
 	} catch {
-		ctx.showErrorTypes = ["note", "warn", "error"];
 		ctx.errors.push(planErrors.cant_parse_xml_input());
 	}
 
@@ -78,6 +76,10 @@ export async function render(options: PlannerOptions) {
 
 	for (const flat of ctx.plan.flat) {
 		createFlat(ctx, flat);
+	}
+
+	if (options.debugMode) {
+		drawAxes(ctx);
 	}
 
 	ctx.svg.setAttribute("viewBox", `${ctx.limits.minX - ctx.viewPadding} ${ctx.limits.minY - ctx.viewPadding} ${ctx.limits.maxX - ctx.limits.minX + ctx.viewPadding * 2} ${ctx.limits.maxY - ctx.limits.minY + ctx.viewPadding * 2}`);
@@ -347,7 +349,11 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: 
 	}
 
 	const n = new Vec(wallV.y, -wallV.x).normalized();
-	const ct = walls.curr.thickness * 0.5 + (f._name == "furniture" ? f.offset_normal : 0);
+	let totalOffsetNormal = 0;
+	if (f._name == "furniture") {
+		totalOffsetNormal = f.offset_normal ?? 0;
+	}
+	const ct = walls.curr.thickness * 0.5 + totalOffsetNormal;
 	const [nx, ny] = [n.x * ct, n.y * ct];
 
 	const pStart = new Vec(wallP1.x + wallV.x * start / wallLength, wallP1.y + wallV.y * start / wallLength);
@@ -453,24 +459,8 @@ async function initDefs(ctx: PlanContext) {
 }
 
 function initAxes(ctx: PlanContext) {
-	const axesG = Util.create({
-		name: "g",
-		classes: ["axes"],
-		parent: ctx.svg
-	});
-
 	let maxX = 0;
 	let maxY = 0;
-
-	if (ctx.plan.mode == "debug") {
-		ctx.viewPadding = 1000;
-
-		ctx.style += `
-			.wall-cutout {
-				fill: #ff0000;
-			}
-		`;
-	}
 
 	for (const axis of ctx.plan.axes[0].axis) {
 		let offset = 0;
@@ -484,74 +474,92 @@ function initAxes(ctx: PlanContext) {
 				offset = axis.offset ?? 0;
 				maxY = Math.max(maxY, offset);
 				ctx.axes.y.set(axis.id, offset);
-
-				if (ctx.plan.mode == "debug") {
-					Util.create({
-						name: "line",
-						attributes: {
-							x1: -1000000,
-							y1: offset,
-							x2: 1000000,
-							y2: offset,
-							stroke: "#ff000055",
-							"stroke-width": "10"
-						},
-						parent: axesG
-					});
-
-					Util.create({
-						name: "text",
-						attributes: {
-							x: -700,
-							y: offset - 100,
-							"font-size": "200",
-							"text-anchor": "middle",
-							fill: "red"
-						},
-						classes: ["axis-label"],
-						parent: axesG,
-						innerHTML: `${axis.id}`
-					});
-				}
 				break;
 
 			case "vertical":
 				offset = axis.offset ?? 0;
 				maxX = Math.max(maxX, offset);
 				ctx.axes.x.set(axis.id, offset);
-
-				if (ctx.plan.mode == "debug") {
-					Util.create({
-						name: "line",
-						attributes: {
-							x1: offset,
-							y1: -1000000,
-							x2: offset,
-							y2: 1000000,
-							stroke: "#ff000055",
-							"stroke-width": "10",
-						},
-						parent: axesG
-					});
-
-					Util.create({
-						name: "text",
-						attributes: {
-							x: offset - 100,
-							y: -700,
-							"font-size": "200",
-							"text-anchor": "middle",
-							fill: "red"
-						},
-						classes: ["axis-label"],
-						parent: axesG,
-						innerHTML: `${axis.id}`
-					});
-				}
 				break;
 		}
 	}
 
 	ctx.limits.maxX = maxX;
 	ctx.limits.maxY = maxY;
+}
+
+function drawAxes(ctx: PlanContext) {
+	const axesG = Util.create({
+		name: "g",
+		classes: ["axes"],
+		parent: ctx.svg
+	});
+
+	if (ctx.options.debugMode) {
+		// ctx.viewPadding = 1000;
+
+		ctx.style += `
+			.wall-cutout {
+				fill: #ff0000;
+			}
+		`;
+	}
+
+	ctx.axes.y.forEach((offset, id) => {
+		Util.create({
+			name: "line",
+			attributes: {
+				x1: -1000000,
+				y1: offset,
+				x2: 1000000,
+				y2: offset,
+				stroke: "#ff000055",
+				"stroke-width": "10"
+			},
+			parent: axesG
+		});
+
+		Util.create({
+			name: "text",
+			attributes: {
+				x: -300,
+				y: offset - 100,
+				"font-size": "200",
+				"text-anchor": "middle",
+				fill: "red"
+			},
+			classes: ["axis-label"],
+			parent: axesG,
+			innerHTML: id
+		});
+	});
+
+	ctx.axes.x.forEach((offset, id) => {
+		Util.create({
+			name: "line",
+			attributes: {
+				x1: offset,
+				y1: -1000000,
+				x2: offset,
+				y2: 1000000,
+				stroke: "#ff000055",
+				"stroke-width": "10",
+			},
+			parent: axesG
+		});
+
+		Util.create({
+			name: "text",
+			attributes: {
+				x: offset - 100,
+				y: -300,
+				"font-size": "200",
+				"text-anchor": "middle",
+				fill: "red"
+			},
+			classes: ["axis-label"],
+			parent: axesG,
+			innerHTML: id
+		});
+	});
 }

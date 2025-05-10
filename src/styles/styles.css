@@ -18,20 +18,41 @@ main {
 	padding: 1rem;
 }
 
+main > div:nth-child(1) {
+	display: grid;
+	grid-template-rows: 7fr 3fr;
+	gap: 1rem;
+}
+
 textarea {
 	width: 100%;
-	height: 50%;
-
-	margin-bottom: 1rem;
 
 	resize: none;
 	overflow-y: scroll;
 	tab-size: 2ch;
+
+	padding: 0.5rem;
 }
 
 main > div:nth-child(2) {
 	display: grid;
-	grid-template-rows: 2rem calc(100% - 2rem);
+	grid-template-rows: auto 1fr;
+	gap: 1rem;
+}
+
+.border {
+	border: 1px solid black;
+}
+
+.controls {
+	display: flex;
+	gap: 2rem;
+
+	padding: 1rem;
+}
+
+#output-errors {
+	padding: 0.5rem;
 }
 
 svg {
