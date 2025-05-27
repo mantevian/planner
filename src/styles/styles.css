@@ -27,10 +27,17 @@ main {
 	gap: 0.25rem;
 
 	width: 33%;
-	min-width: 50px;
-	max-width: 50%;
 
 	resize: horizontal;
+}
+
+#left-side:not(:has(input[name="expand-left-side"]:checked)) {
+	width: 55px;
+	overflow-x: clip;
+}
+
+#left-side:not(:has(input[name="expand-left-side"]:checked)) section {
+	display: none;
 }
 
 textarea {
