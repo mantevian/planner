@@ -5,4 +5,5 @@ export default class Template implements PlanDocElement {
 
 	name: string = "";
 	path: string = "";
+	no_rotate?: any = null;
 }

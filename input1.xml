@@ -1,0 +1,49 @@
+<plan>
+	<defs>
+		<color name="wall" value="#444444" />
+		<color name="floor" value="#eeeeee" />
+
+		<template name="door" path="door.svg" />
+		<template name="window" path="window.svg" />
+
+		<template name="chair" path="chair.svg" />
+		<template name="closet" path="closet_medium.svg" />
+		<template name="couch" path="couch.svg" />
+		<template name="table" path="table_rectangle.svg" />
+	</defs>
+
+	<axes>
+		<axis id="1" type="vertical" />
+		<axis id="2" type="vertical" offset="2.5m" />
+		<axis id="3" type="vertical" offset="4m" />
+
+		<axis id="a" type="horizontal" />
+		<axis id="b" type="horizontal" offset="3m" />
+		<axis id="c" type="horizontal" offset="5m" />
+	</axes>
+
+	<flat id="1">
+		<features>
+			<window wall="1 a, 2 a" offset="1m" width="0.8m" />
+			<window wall="3 a, 3 b" offset="2m" width="1.2m" />
+
+			<door wall="2 c, 2 b" offset="1m" width="0.8m" />
+
+			<furniture wall="1 c, 1 a" name="couch" offset="1.5m" width="1.5m" />
+			<furniture wall="1 c, 1 a" name="closet" offset="3.5m" width="1.5m" />
+			<furniture wall="1 c, 1 a" name="chair" offset="3.5m" offset_normal="2m" width="0.7m" rotate="45" />
+			<furniture wall="3 a, 3 b" name="table" offset="1.5m" width="1.5m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="1 a" to="3 a" thickness="0.4m" />
+				<wall to="3 b" thickness="0.15m" />
+				<wall to="2 b" thickness="0.15m" />
+				<wall to="2 c" thickness="0.15m" />
+				<wall to="1 c" thickness="0.15m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+	</flat>
+</plan>

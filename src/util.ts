@@ -15,24 +15,23 @@ const Util = {
 		return path;
 	},
 
-	create<K extends keyof SVGElementTagNameMap>(
-		{
-			name,
-			id = "",
-			classes = [],
-			attributes = {},
-			parent,
-			innerHTML,
-			children
-		}: {
-			name: K,
-			id?: string,
-			classes?: string[],
-			attributes?: Record<string, string | number | boolean>,
-			parent?: Element,
-			innerHTML?: string,
-			children?: Element[];
-		}): SVGElementTagNameMap[K] {
+	create<K extends keyof SVGElementTagNameMap>({
+		name,
+		id = "",
+		classes = [],
+		attributes = {},
+		parent,
+		innerHTML,
+		children,
+	}: {
+		name: K;
+		id?: string;
+		classes?: string[];
+		attributes?: Record<string, string | number | boolean>;
+		parent?: Element;
+		innerHTML?: string;
+		children?: Element[];
+	}): SVGElementTagNameMap[K] {
 		const element = document.createElementNS("http://www.w3.org/2000/svg", name);
 
 		if (id) {
@@ -56,7 +55,7 @@ const Util = {
 		}
 
 		if (children) {
-			children.forEach(child => {
+			children.forEach((child) => {
 				element.appendChild(child);
 			});
 		}
@@ -71,10 +70,14 @@ const Util = {
 
 	/** https://stackoverflow.com/questions/13937782/calculating-the-point-of-intersection-of-two-lines */
 	intersectionABandCD(a: Vec, b: Vec, c: Vec, d: Vec): Vec | null {
-		const x1 = a.x, y1 = a.y;
-		const x2 = b.x, y2 = b.y;
-		const x3 = c.x, y3 = c.y;
-		const x4 = d.x, y4 = d.y;
+		const x1 = a.x;
+		const y1 = a.y;
+		const x2 = b.x;
+		const y2 = b.y;
+		const x3 = c.x;
+		const y3 = c.y;
+		const x4 = d.x;
+		const y4 = d.y;
 
 		const denominator = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
 
@@ -106,7 +109,7 @@ const Util = {
 			const xj = polygon[j + start].x;
 			const yj = polygon[j + start].y;
 
-			const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+			const intersect = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
 			if (intersect) {
 				inside = !inside;
 			}
@@ -127,11 +130,11 @@ const Util = {
 			const subX = polygon[i == polygon.length - 1 ? 0 : i + 1].x;
 			const subY = polygon[i].y;
 
-			total += (addX * addY * 0.5);
-			total -= (subX * subY * 0.5);
+			total += addX * addY;
+			total -= subX * subY;
 		}
 
-		return Math.abs(total);
+		return Math.abs(total) * 0.5;
 	},
 
 	polygonCenter(polygon: Vec[]): Vec {
@@ -148,6 +151,55 @@ const Util = {
 		return result;
 	},
 
+	rotateRectangle(c: Vec, size: Vec, angle: number): Vec[] {
+		const halfWidth = size.x / 2;
+		const halfHeight = size.y / 2;
+
+		const corners = [
+			{ x: -halfWidth, y: -halfHeight },
+			{ x: halfWidth, y: -halfHeight },
+			{ x: halfWidth, y: halfHeight },
+			{ x: -halfWidth, y: halfHeight },
+		];
+
+		const cosAngle = Math.cos(angle);
+		const sinAngle = Math.sin(angle);
+
+		const rotatedCorners = corners.map(({ x, y }) => {
+			const xRot = x * cosAngle - y * sinAngle;
+			const yRot = x * sinAngle + y * cosAngle;
+
+			return new Vec(c.x + xRot, c.y + yRot)
+		});
+
+		return rotatedCorners;
+	},
+
+	computeAABB(points: Vec[]) {
+		let xmin = points[0].x;
+		let xmax = points[0].x;
+		let ymin = points[0].y;
+		let ymax = points[0].y;
+
+		for (const point of points) {
+			if (point.x < xmin) xmin = point.x;
+			if (point.x > xmax) xmax = point.x;
+			if (point.y < ymin) ymin = point.y;
+			if (point.y > ymax) ymax = point.y;
+		}
+
+		return {
+			xmin: xmin,
+			ymin: ymin,
+			xmax: xmax,
+			ymax: ymax,
+			width: xmax - xmin,
+			height: ymax - ymin,
+			xcenter: (xmax + xmin) * 0.5,
+			ycenter: (ymax + ymin) * 0.5
+		};
+	},
+
 	getWrapped<T>(array: T[], index: number): T {
 		const length = array.length;
 		let wrappedIndex = index % length;
@@ -157,7 +209,7 @@ const Util = {
 		}
 
 		return array[wrappedIndex];
-	}
+	},
 };
 
 export default Util;

@@ -3,6 +3,7 @@ import Flat from "./types/Flat";
 import Furniture from "./types/Furniture";
 import Plan from "./types/Plan";
 import planErrors, { PlanError } from "./types/PlanError";
+import Template from "./types/Template";
 import Vec from "./types/Vec";
 import { getAxesFromWall, getAxesFromWallString } from "./types/Wall";
 import Window from "./types/Window";
@@ -23,7 +24,12 @@ type PlanContext = {
 		maxY: number;
 	};
 	options: PlannerOptions;
-	templates: { [key: string]: SVGSymbolElement; };
+	templates: {
+		[key: string]: {
+			element: SVGSymbolElement,
+			data: Template
+		};
+	};
 	viewPadding: number;
 	style: string;
 	errors: PlanError[];
@@ -83,6 +89,7 @@ export async function render(options: PlannerOptions) {
 	}
 
 	ctx.svg.setAttribute("viewBox", `${ctx.limits.minX - ctx.viewPadding} ${ctx.limits.minY - ctx.viewPadding} ${ctx.limits.maxX - ctx.limits.minX + ctx.viewPadding * 2} ${ctx.limits.maxY - ctx.limits.minY + ctx.viewPadding * 2}`);
+	ctx.svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 
 	Util.create({
 		name: "style",
@@ -304,13 +311,15 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 
 	const area = Util.polygonArea(wallPoints);
 	const areaMeters = Util.round(area / 1000000, 2);
+
 	const roomCenter = Util.polygonCenter(wallPoints);
+	let areaTextPosition = new Vec(roomCenter.x, roomCenter.y);
 
 	Util.create({
 		name: "text",
 		attributes: {
-			x: roomCenter.x,
-			y: roomCenter.y,
+			x: areaTextPosition.x,
+			y: areaTextPosition.y,
 			"font-size": "200",
 			"text-anchor": "middle"
 		},
@@ -377,7 +386,7 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: 
 		return null;
 	}
 
-	const aspectRatio = parseFloat(template.getAttribute("width") ?? "0") / parseFloat(template.getAttribute("height") ?? "0");
+	const aspectRatio = parseFloat(template.element.getAttribute("width") ?? "0") / parseFloat(template.element.getAttribute("height") ?? "0");
 	let useWidth = featureLength;
 	let useHeight = useWidth / aspectRatio;
 
@@ -451,7 +460,10 @@ async function initDefs(ctx: PlanContext) {
 			}
 			symbol.setAttribute("preserveAspectRatio", "none");
 			defs.appendChild(symbol);
-			ctx.templates[templ.name] = symbol;
+			ctx.templates[templ.name] = {
+				element: symbol,
+				data: templ
+			};
 		} catch {
 			ctx.errors.push(planErrors.cant_parse_template(templ.name));
 		}

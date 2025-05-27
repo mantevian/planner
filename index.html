@@ -13,25 +13,222 @@
 
 <body>
 	<main>
-		<div>
-			<textarea class="border"></textarea>
+		<div id="left-side" class="border">
+			<menu id="tab-menu">
+				<li>
+					<label>
+						<p>Разметка</p>
+						<input type="radio" name="menu-tab" value="markup" checked>
+					</label>
+				</li>
 
-			<div id="output-errors" class="border"></div>
+				<li>
+					<label>
+						<p>Опции</p>
+						<input type="radio" name="menu-tab" value="options">
+					</label>
+				</li>
+
+				<li>
+					<label>
+						<p>Отладка</p>
+						<input type="radio" name="menu-tab" value="debug">
+					</label>
+				</li>
+
+				<li>
+					<label>
+						<p>Документация</p>
+						<input type="radio" name="menu-tab" value="docs">
+					</label>
+				</li>
+			</menu>
+
+			<section data-tab="markup">
+				<textarea class="border"></textarea>
+			</section>
+
+			<section data-tab="options">
+				<label>
+					<span>Режим отладки</span>
+					<input type="checkbox" name="debug-mode">
+				</label>
+
+				<label>
+					<span>Выбрать квартиру</span>
+					<input type="text" name="view-flat-id" size="2" placeholder="№">
+				</label>
+
+				<label for="null">
+					<span>Скачать</span>
+
+					<div id="download-options">
+						<button id="download-full">Весь этаж</button>
+						<button id="download-current">Выбранную квартиру</button>
+					</div>
+				</label>
+			</section>
+
+			<section data-tab="debug">
+				<p id="no-errors">Нет ошибок</p>
+				<div id="output-errors" class="border"></div>
+			</section>
+
+			<section data-tab="docs">
+				<div class="markup">
+					<h2>Типы значений</h2>
+
+					<p>Атрибуты элементов языка разметки могут иметь один из возможных типов значений. В документации по элементам у атрибутов, не являющихся обычными строковыми, указан тип.</p>
+
+					<h3>Строка</h3>
+					<p>Стандартный тип в разметке, принимает любое текстовое значение.</p>
+
+					<h3>Размер</h3>
+					<p>Размеры можно указывать в единицах измерения:</p>
+					<ul>
+						<li>mm — миллиметры</li>
+						<li>cm — сантиметры</li>
+						<li>dm — дециметры</li>
+						<li>m — метры</li>
+					</ul>
+
+					<h3>Точка</h3>
+					<p>Точка в планировке является местом пересечения двух осей. Для задания атрибута этого типа нужно указать id двух координационных осей через пробел.</p>
+					<p>Если требуется указать несколько точек, нужно разделять их запятой.</p>
+					<ul>
+						<li><code>1 a</code> — точка пересечения осей 1 и a</li>
+						<li><code>1 a, 2 a</code> — две точки</li>
+					</ul>
+
+					<h2>Элементы</h2>
+
+					<h3>plan</h3>
+					<p>Корневой элемент документа.</p>
+					<p>Вкладываемые элементы:</p>
+					<ul>
+						<li>flat</li>
+						<li>defs</li>
+						<li>axes</li>
+					</ul>
+
+					<h3>defs</h3>
+					<p>Корневой элемент для задания стилистических метаданных планировки.</p>
+					<p>Вкладываемые элементы:</p>
+					<ul>
+						<li>color</li>
+						<li>template</li>
+					</ul>
+
+					<h3>color</h3>
+					<p>Используется для задания цвета элементов планировки.</p>
+					<p>Атрибуты:</p>
+					<ul>
+						<li>name — название, одно из: floor, wall</li>
+						<li>value — код цвета (HEX, RGB, HSV)</li>
+					</ul>
+
+					<h3>template</h3>
+					<p>Используется для создания переиспользуемых шаблонов мебели.</p>
+					<p>Атрибуты:</p>
+					<ul>
+						<li>name — название шаблона</li>
+						<li>path — путь к файлу, должен быть формата SVG, корневая директория templates</li>
+					</ul>
+
+					<h3>axes</h3>
+					<p>Контейнер для всех координационных осей планировки.</p>
+					<p>Вкладываемые элементы:</p>
+					<ul>
+						<li>axis</li>
+					</ul>
+
+					<h3>axis</h3>
+					<p>Создаёт координационную ось в планировке.</p>
+					<p>Атрибуты:</p>
+					<ul>
+						<li>id — уникальный идентификатор</li>
+						<li>type — направление оси, одно из: horizontal, vertical</li>
+						<li>offset (размер) — отступ от начала отсчёта</li>
+					</ul>
+
+					<h3>flat</h3>
+					<p>Создаёт одну квартиру на этаже.</p>
+					<p>Атрибуты:</p>
+					<ul>
+						<li>id — уникальный идентификатор</li>
+					</ul>
+					<p>Вкладываемые элементы:</p>
+					<ul>
+						<li>room</li>
+						<li>features</li>
+					</ul>
+
+					<h3>room</h3>
+					<p>Создаёт одну комнату в квартире.</p>
+					<p>Вкладываемые элементы:</p>
+					<ul>
+						<li>walls</li>
+					</ul>
+
+					<h3>walls</h3>
+					<p>Контейнер для всех стен одной комнаты.</p>
+					<p>Вкладываемые элементы:</p>
+					<ul>
+						<li>wall</li>
+					</ul>
+
+					<h3>wall</h3>
+					<p>Создаёт стену в комнате.</p>
+					<p>Атрибуты:</p>
+					<ul>
+						<li>from (точка) — первая точка стены</li>
+						<li>to (точка) — вторая точка стены</li>
+						<li>thickness (размер) — толщина стены</li>
+					</ul>
+
+					<h3>features</h3>
+					<p>Контейнер для всех окон, дверей и мебели в квартире.</p>
+					<p>Вкладываемые элементы:</p>
+					<ul>
+						<li>window</li>
+						<li>door</li>
+						<li>furniture</li>
+					</ul>
+
+					<h3>window</h3>
+					<p>Создаёт окно в квартире.</p>
+					<p>Атрибуты:</p>
+					<ul>
+						<li>wall (две точки) — стена, в которой располагается окно</li>
+						<li>offset (размер) — расстояние от первой точки стены до центра окна</li>
+						<li>width (размер) — ширина окна</li>
+					</ul>
+
+					<h3>door</h3>
+					<p>Создаёт дверь в квартире.</p>
+					<p>Атрибуты:</p>
+					<ul>
+						<li>wall (две точки) — стена, в которой располагается окно</li>
+						<li>offset (размер) — расстояние от первой точки стены до центра окна</li>
+						<li>width (размер) — ширина окна</li>
+						<li>side — сторона стены, в которую направлена дверь, одно из: left, right</li>
+					</ul>
+
+					<h3>furniture</h3>
+					<p>Создаёт предмет мебели в квартире. Подгружает шаблон по заданному имени.</p>
+					<p>Атрибуты:</p>
+					<ul>
+						<li>wall (две точки) — стена, в которой располагается окно</li>
+						<li>name — название шаблона</li>
+						<li>offset (размер) — расстояние от первой точки стены до центра окна</li>
+						<li>offset_normal (размер) — расстояние перпендикулярно стене</li>
+						<li>width (размер) — ширина окна</li>
+					</ul>
+				</div>
+			</section>
 		</div>
 
 		<div>
-			<div class="controls border">
-				<label>
-					<span>view flat id:</span>
-					<input type="text" name="view-flat-id">
-				</label>
-
-				<label>
-					<span>debug mode:</span>
-					<input type="checkbox" name="debug-mode">
-				</label>
-			</div>
-
 			<div id="output" class="border"></div>
 		</div>
 	</main>

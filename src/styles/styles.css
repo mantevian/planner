@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 * {
 	box-sizing: border-box;
 	margin: 0;
-	overflow: hidden;
 }
 
 html,
@@ -9,23 +10,32 @@ body {
 	height: 100svh;
 }
 
-main {
-	height: 100%;
-	display: grid;
-	grid-template-columns: 1fr 2fr;
-	grid-template-rows: 1fr;
-	gap: 1rem;
-	padding: 1rem;
+body {
+	font-family: 'Inter', sans-serif;
 }
 
-main > div:nth-child(1) {
+main {
+	height: 100%;
+	display: flex;
+	gap: 0.25rem;
+	padding: 0.25rem;
+}
+
+#left-side {
 	display: grid;
-	grid-template-rows: 7fr 3fr;
-	gap: 1rem;
+	grid-template-rows: 3rem 1fr;
+	gap: 0.25rem;
+
+	width: 33%;
+	min-width: 50px;
+	max-width: 50%;
+
+	resize: horizontal;
 }
 
 textarea {
 	width: 100%;
+	height: 100%;
 
 	resize: none;
 	overflow-y: scroll;
@@ -35,9 +45,7 @@ textarea {
 }
 
 main > div:nth-child(2) {
-	display: grid;
-	grid-template-rows: auto 1fr;
-	gap: 1rem;
+	flex: 1;
 }
 
 .border {
@@ -51,8 +59,54 @@ main > div:nth-child(2) {
 	padding: 1rem;
 }
 
+#output {
+	height: 100%;
+}
+
 #output-errors {
+	height: 100%;
 	padding: 0.5rem;
+	overflow: hidden;
+}
+
+section[data-tab='debug']:has([data-plan-error-level]) #no-errors {
+	display: none;
+}
+
+menu label {
+	display: block;
+}
+
+menu label:has(input[name='menu-tab'][value='debug']) {
+	position: relative;
+}
+
+main:has([data-plan-error-level]) menu label:has(input[name='menu-tab'][value='debug'])::before {
+	background: #990000;
+	color: white;
+	border-radius: 100%;
+
+	position: absolute;
+	top: -8px;
+	right: -12px;
+
+	display: block;
+	width: 1rem;
+	height: 1rem;
+	font-size: 0.6rem;
+	text-align: center;
+	font-weight: 600;
+	line-height: 1rem;
+
+	content: attr(data-error-count);
+}
+
+main:has([data-plan-error-level]) menu label:has(input[name='menu-tab'][value='debug']) {
+	color: #990000;
+}
+
+#no-errors {
+	margin-bottom: 0.5rem;
 }
 
 svg {
@@ -83,7 +137,7 @@ g.flat:not(#flat-999):hover text.area {
 }
 
 #flat-999 .floor {
-	fill: #eeeeee;
+	fill: #fafafa;
 }
 
 #flat-999 text.area {
@@ -92,6 +146,14 @@ g.flat:not(#flat-999):hover text.area {
 
 svg:has(g.flat:not(#flat-999):hover) g.flat:not(:hover) {
 	opacity: 0.5;
+}
+
+use {
+	transition: opacity 0.3s ease;
+}
+
+svg:has(g.flat:not(#flat-999):hover) g.flat:not(:hover) use {
+	opacity: 0.25;
 }
 
 p[data-plan-error-level="note"] {
@@ -104,4 +166,107 @@ p[data-plan-error-level="warn"] {
 
 p[data-plan-error-level="error"] {
 	color: #990000;
+}
+
+#tab-menu {
+	display: flex;
+	gap: 1em;
+	padding-inline: 1rem;
+	align-items: center;
+
+	border-bottom: 1px solid black;
+}
+
+#tab-menu input {
+	display: none;
+}
+
+#tab-menu label:has(input:checked) {
+	text-decoration: underline;
+}
+
+#tab-menu label,
+#tab-menu li {
+	overflow: visible;
+}
+
+#left-side:has(input[name='menu-tab'][value='markup']:checked) section:not([data-tab='markup']) {
+	display: none;
+}
+
+#left-side:has(input[name='menu-tab'][value='options']:checked) section:not([data-tab='options']) {
+	display: none;
+}
+
+#left-side:has(input[name='menu-tab'][value='debug']:checked) section:not([data-tab='debug']) {
+	display: none;
+}
+
+#left-side:has(input[name='menu-tab'][value='docs']:checked) section:not([data-tab='docs']) {
+	display: none;
+}
+
+section {
+	padding: 1rem;
+}
+
+section[data-tab='options'] {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+section[data-tab='options'] > label {
+	display: grid;
+	grid-template-columns: 20ch 1fr;
+	align-items: center;
+	justify-items: start;
+	padding-bottom: 1em;
+	border-bottom: 1px solid #cccccc;
+}
+
+ul,
+ol,
+li,
+menu {
+	list-style: none;
+}
+
+#download-options {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+section[data-tab='docs'] {
+	overflow-y: scroll;
+}
+
+div.markup h3 {
+	margin: 1.25em 0 0.5em 0;
+}
+
+div.markup li {
+	list-style-type: disc;
+}
+
+div.markup p {
+	margin: 0.5em 0 0.25em 0;
+}
+
+div.markup ul {
+	margin: 0.5em 0 0.25em 0;
+}
+
+div.markup li:not(:last-child) {
+	margin-bottom: 0.25em;
+}
+
+div.markup h2:not(:first-of-type) {
+	margin-top: 2em;
+}
+
+div.markup code {
+	font-size: 1rem;
+	background: #eeeeee;
 }
