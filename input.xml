@@ -1,4 +1,5 @@
-<plan>
+<plan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="planner.xsd">
 	<defs>
 		<color name="wall" value="#444444" />
 		<color name="floor" value="#ffefef" />
@@ -87,7 +88,8 @@
 			<furniture wall="1 d, 1 a" name="table_rectangle" width="1.4m" offset="2m" />
 			<furniture wall="1 d, 1 a" name="couch" width="1.4m" offset="5m" />
 
-			<furniture wall="3 b, 2 b" name="closet_medium" width="1.1m" offset="3m" offset_normal="0.05m" />
+			<furniture wall="3 b, 2 b" name="closet_medium" width="1.1m" offset="3m"
+				offset_normal="0.05m" />
 			<furniture wall="3 a, 3 b" name="bed_double" width="2m" offset="1.2m" />
 		</features>
 
@@ -141,7 +143,8 @@
 			<furniture wall="7 a, 7 d" name="table_rectangle" width="1.4m" offset="5m" />
 			<furniture wall="7 a, 7 d" name="couch" width="1.4m" offset="2m" />
 
-			<furniture wall="6 b, 5 b" name="closet_medium" width="1.1m" offset="2m" offset_normal="0.05m" />
+			<furniture wall="6 b, 5 b" name="closet_medium" width="1.1m" offset="2m"
+				offset_normal="0.05m" />
 			<furniture wall="5 b, 5 a" name="bed_double" width="2m" offset="1.8m" />
 		</features>
 

@@ -9,6 +9,7 @@ import { getAxesFromWall, getAxesFromWallString } from "./types/Wall";
 import Window from "./types/Window";
 import Util from "./util";
 import parseElement from "./xml_to_js";
+import * as xmllint from 'xmllint-wasm/index-browser';
 
 type PlanContext = {
 	plan: Plan;
@@ -27,7 +28,7 @@ type PlanContext = {
 	templates: {
 		[key: string]: {
 			element: SVGSymbolElement,
-			data: Template
+			data: Template;
 		};
 	};
 	viewPadding: number;
@@ -40,6 +41,7 @@ export type PlannerOptions = {
 	viewFlatId?: string;
 	debugMode: boolean;
 	showErrorLevels: ("note" | "warn" | "error")[];
+	xsd?: string;
 };
 
 export async function render(options: PlannerOptions) {
@@ -72,11 +74,22 @@ export async function render(options: PlannerOptions) {
 		ctx.errors.push(planErrors.cant_parse_xml_input());
 	}
 
+	const validationResult = await xmllint.validateXML({
+		xml: options.input,
+		schema: options.xsd ?? ""
+	});
+
+	if (!validationResult.valid) {
+		for (let error of validationResult.errors) {
+			ctx.errors.push(planErrors.xsd_error(error.loc?.lineNumber || 1, error.message));
+		}
+	}
+
 	await initDefs(ctx);
 	initAxes(ctx);
 
 	if (!ctx.plan.flat || ctx.plan.flat.length == 0) {
-		ctx.errors.push(planErrors.no_flats())
+		ctx.errors.push(planErrors.no_flats());
 		return ctx;
 	}
 
@@ -331,7 +344,7 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 
 function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: Door | Window | Furniture): null | {
 	element: SVGUseElement,
-	cutoutPath: string
+	cutoutPath: string;
 } {
 	const axes = getAxesFromWallString(f.wall);
 
@@ -368,7 +381,7 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: 
 	const pStart = new Vec(wallP1.x + wallV.x * start / wallLength, wallP1.y + wallV.y * start / wallLength);
 	const pEnd = new Vec(wallP1.x + wallV.x * end / wallLength, wallP1.y + wallV.y * end / wallLength);
 
-	const p1Inner = new Vec(pStart.x -nx, pStart.y - ny);
+	const p1Inner = new Vec(pStart.x - nx, pStart.y - ny);
 	const p1Outer = new Vec(pStart.x + nx, pStart.y + ny);
 	const p2Inner = new Vec(pEnd.x - nx, pEnd.y - ny);
 	const p2Outer = new Vec(pEnd.x + nx, pEnd.y + ny);
@@ -382,7 +395,7 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: 
 	const template = ctx.templates[name];
 
 	if (!template) {
-		ctx.errors.push(planErrors.template_not_found(name, flat.id));
+		// ctx.errors.push(planErrors.template_not_found(name, flat.id));
 		return null;
 	}
 
@@ -478,7 +491,7 @@ function initAxes(ctx: PlanContext) {
 		let offset = 0;
 
 		if (axis.offset && typeof axis.offset != "number") {
-			ctx.errors.push(planErrors.axis_offset_not_number(axis.id));
+			// ctx.errors.push(planErrors.axis_offset_not_number(axis.id));
 		}
 
 		switch (axis.type) {

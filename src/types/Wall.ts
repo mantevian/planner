@@ -1,6 +1,4 @@
-import Door from "./Door";
 import PlanDocElement from "./PlanDocElement";
-import Window from "./Window";
 
 export default class Wall implements PlanDocElement {
 	readonly _name = "wall";
@@ -8,9 +6,6 @@ export default class Wall implements PlanDocElement {
 	from?: string = "";
 	to?: string = "";
 	thickness: number = 0;
-
-	window: Window[] = [];
-	door: Door[] = [];
 }
 
 export function getAxesFromWall(wall: Wall) {

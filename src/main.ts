@@ -3,19 +3,20 @@ import { PlannerOptions, render } from "./render";
 main();
 
 async function main() {
-	const res = await fetch("./input.xml");
-	const text = await res.text();
+	const input = await (await fetch("./input.xml")).text();
+	const xsd = await (await fetch("./planner.xsd")).text();
 
 	const viewFlatIdInput: HTMLInputElement = document.querySelector("input[name='view-flat-id']")!;
 	const debugModeInput: HTMLInputElement = document.querySelector("input[name='debug-mode']")!;
 	const planInputElement: HTMLTextAreaElement = document.querySelector("textarea")!;
 	const output = document.querySelector("#output")!;
-	planInputElement.textContent = text;
+	planInputElement.textContent = input;
 
 	let options: PlannerOptions = {
-		input: text,
+		input: input,
 		debugMode: debugModeInput.checked,
-		showErrorLevels: ["note", "warn", "error"]
+		showErrorLevels: ["note", "warn", "error"],
+		xsd: xsd
 	};
 
 	updateOutput(options);
