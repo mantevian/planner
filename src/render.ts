@@ -346,6 +346,8 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: 
 	element: SVGUseElement,
 	cutoutPath: string;
 } {
+	flat;
+
 	const axes = getAxesFromWallString(f.wall);
 
 	const wallP1 = new Vec(

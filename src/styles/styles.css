@@ -74,6 +74,9 @@ main > div:nth-child(2) {
 	height: 100%;
 	padding: 0.5rem;
 	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
 }
 
 section[data-tab='debug']:has([data-plan-error-level]) #no-errors {
