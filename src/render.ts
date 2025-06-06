@@ -423,6 +423,7 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: 
 	return {
 		element: Util.create({
 			name: "use",
+			classes: [f._name],
 			attributes: {
 				href: `#template-${name}`,
 				x: pCenter.x,

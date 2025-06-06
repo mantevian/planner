@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Демо</title>
+
+	<script src="./script.js" type="module" defer></script>
+
+	<link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+	<main>
+
+		<section class="breadcrumbs">
+			<p>главная / выбор квартиры</p>
+		</section>
+
+		<section class="chooser">
+			<h1>Секция А, 3 этаж</h1>
+
+			<div class="plan"></div>
+
+			<div class="floors">
+				<p>этаж</p>
+				<ul>
+					<li>7</li>
+					<li>6</li>
+					<li>5</li>
+					<li>4</li>
+					<li class="current">3</li>
+					<li>2</li>
+					<li>1</li>
+				</ul>
+			</div>
+
+			<div class="tooltip hide">
+				<p>Квартира № <span data-param="flat-number"></span></p>
+				<p>Площадь <span data-param="flat-area"></span> м²</p>
+				<p class="click">Нажмите для перехода к квартире</p>
+			</div>
+		</section>
+
+		<section class="apartment-card hide">
+			<h1>Секция А, 3 этаж, квартира <span data-param="flat-number"></span>
+				<br>
+				<button>К этажу</button>
+			</h1>
+
+			<div class="plan"></div>
+		</section>
+	</main>
+</body>

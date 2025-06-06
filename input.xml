@@ -187,7 +187,7 @@
 			<door wall="1/1 g, 2 g" offset="0.75m" width="0.8m" side="left" />
 			<door wall="1/1 e, 1/1 g" offset="1.5m" width="0.8m" side="left" />
 
-			<furniture wall="1 e, 1/1 e" name="bath" width="1.8m" offset="1m" />
+			<furniture wall="1 e, 1/1 e" name="bath" width="1.9m" offset="1m" />
 			<furniture wall="1 f, 1 e" name="sink" width="0.8m" offset="1.25m" />
 			<furniture wall="1/1 g, 1 g" name="toilet" width="0.6m" offset="0.4m" />
 			<furniture wall="1/1 g, 1 g" name="washing_machine" width="0.6m" offset="1.6m" />
@@ -236,7 +236,7 @@
 			<door wall="2/1 f, 3 f" offset="0.75m" width="0.8m" side="left" />
 			<door wall="2/1 e, 2/1 g" offset="1.25m" width="0.8m" side="left" />
 
-			<furniture wall="2 e, 2/1 e" name="bath" width="1.8m" offset="0.9m" />
+			<furniture wall="2 e, 2/1 e" name="bath" width="1.9m" offset="1m" />
 			<furniture wall="2 f, 2 e" name="sink" width="0.8m" offset="1.25m" />
 			<furniture wall="2/1 g, 2 g" name="washing_machine" width="0.6m" offset="0.4m" />
 			<furniture wall="2/1 g, 2 g" name="toilet" width="0.6m" offset="1.6m" />
@@ -288,7 +288,7 @@
 			<door wall="3 f, 3/1 f" offset="0.75m" width="0.8m" side="left" />
 			<door wall="3/1 g, 3/1 e" offset="2.25m" width="0.8m" side="left" />
 
-			<furniture wall="3/1 e, 4 e" name="bath" width="2m" offset="1m" />
+			<furniture wall="3/1 e, 4 e" name="bath" width="1.9m" offset="0.95m" />
 			<furniture wall="4 e, 4 f" name="sink" width="0.8m" offset="1.25m" />
 			<furniture wall="4 g, 3/1 g" name="toilet" width="0.6m" offset="0.4m" />
 			<furniture wall="4 g, 3/1 g" name="washing_machine" width="0.6m" offset="1.6m" />
@@ -340,7 +340,7 @@
 			<door wall="4/1 f, 5 f" offset="0.75m" width="0.8m" side="left" />
 			<door wall="4/1 e, 4/1 g" offset="1.25m" width="0.8m" side="left" />
 
-			<furniture wall="4 e, 4/1 e" name="bath" width="1.8m" offset="0.9m" />
+			<furniture wall="4 e, 4/1 e" name="bath" width="1.9m" offset="1m" />
 			<furniture wall="4 f, 4 e" name="sink" width="0.8m" offset="1.25m" />
 			<furniture wall="4/1 g, 4 g" name="washing_machine" width="0.6m" offset="0.4m" />
 			<furniture wall="4/1 g, 4 g" name="toilet" width="0.6m" offset="1.6m" />
@@ -392,7 +392,7 @@
 			<door wall="5 f, 5/1 f" offset="0.75m" width="0.8m" side="left" />
 			<door wall="5/1 g, 5/1 e" offset="1.75m" width="0.8m" side="left" />
 
-			<furniture wall="5/1 e, 6 e" name="bath" width="2m" offset="1m" />
+			<furniture wall="5/1 e, 6 e" name="bath" width="1.9m" offset="0.95m" />
 			<furniture wall="6 e, 6 f" name="sink" width="0.8m" offset="1.25m" />
 			<furniture wall="6 g, 5/1 g" name="toilet" width="0.6m" offset="0.4m" />
 			<furniture wall="6 g, 5/1 g" name="washing_machine" width="0.6m" offset="1.6m" />
@@ -444,7 +444,7 @@
 			<door wall="6 g, 6/1 g" offset="1.35m" width="0.8m" side="left" />
 			<door wall="6/1 g, 6/1 e" offset="1.5m" width="0.8m" side="left" />
 
-			<furniture wall="6/1 e, 7 e" name="bath" width="1.8m" offset="1m" />
+			<furniture wall="6/1 e, 7 e" name="bath" width="1.9m" offset="0.95m" />
 			<furniture wall="7 e, 7 f" name="sink" width="0.8m" offset="1.25m" />
 			<furniture wall="7 g, 6/1 g" name="toilet" width="0.6m" offset="0.4m" />
 			<furniture wall="7 g, 6/1 g" name="washing_machine" width="0.6m" offset="1.6m" />
