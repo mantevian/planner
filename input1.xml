@@ -1,11 +1,11 @@
-<plan>
+<plan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="planner.xsd">
 	<defs>
 		<color name="wall" value="black" />
-		<color name="floor" value="gray" />
+		<color name="floor" value="#cccccc" />
 
 		<template name="door" path="door.svg" />
 		<template name="window" path="window.svg" />
-
 		<template name="chair" path="chair.svg" />
 		<template name="closet" path="closet_medium.svg" />
 		<template name="couch" path="couch.svg" />
@@ -24,11 +24,8 @@
 
 	<flat id="1">
 		<features>
-			<window wall="1 a, 2 a" offset="1m" width="0.8m" />
-			<window wall="3 a, 3 b" offset="2m" width="1.2m" />
-
+			<window wall="1 a, 2 a" offset="2m" width="2m" />
 			<door wall="2 c, 2 b" offset="1m" width="0.8m" />
-
 			<furniture wall="1 c, 1 a" name="couch" offset="1.5m" width="1.5m" />
 			<furniture wall="1 c, 1 a" name="closet" offset="3.5m" width="1.5m" />
 			<furniture wall="1 c, 1 a" name="chair" offset="3.5m" offset_normal="2m" width="0.7m" />

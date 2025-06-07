@@ -39,8 +39,8 @@
 
 	<xs:complexType name="defs">
 		<xs:sequence>
-			<xs:element name="color" type="color" maxOccurs="unbounded" />
-			<xs:element name="template" type="template" maxOccurs="unbounded" />
+			<xs:element name="color" type="color" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="template" type="template" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 
@@ -62,7 +62,7 @@
 
 	<xs:complexType name="axes">
 		<xs:sequence>
-			<xs:element name="axis" type="axis" maxOccurs="unbounded" />
+			<xs:element name="axis" type="axis" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 
@@ -82,7 +82,7 @@
 	<xs:complexType name="flat">
 		<xs:sequence>
 			<xs:element name="features" type="features" minOccurs="0" maxOccurs="1" />
-			<xs:element name="room" type="room" maxOccurs="unbounded" />
+			<xs:element name="room" type="room" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 
 		<xs:attribute name="id" type="xs:string" />
@@ -90,13 +90,13 @@
 
 	<xs:complexType name="room">
 		<xs:sequence>
-			<xs:element name="walls" type="walls" maxOccurs="1" />
+			<xs:element name="walls" type="walls" minOccurs="0" maxOccurs="1" />
 		</xs:sequence>
 	</xs:complexType>
 
 	<xs:complexType name="walls">
 		<xs:sequence>
-			<xs:element name="wall" type="wall" maxOccurs="unbounded" />
+			<xs:element name="wall" type="wall" minOccurs="1" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 
@@ -108,9 +108,9 @@
 
 	<xs:complexType name="features">
 		<xs:sequence>
-			<xs:element name="window" type="window" maxOccurs="unbounded" />
-			<xs:element name="door" type="door" maxOccurs="unbounded" />
-			<xs:element name="furniture" type="furniture" maxOccurs="unbounded" />
+			<xs:element name="window" type="window" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="door" type="door" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="furniture" type="furniture" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 
