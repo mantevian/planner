@@ -134,18 +134,6 @@ g.flat {
 	transition: opacity 0.3s ease;
 }
 
-g.flat:not(#flat-999) {
-	cursor: pointer;
-}
-
-g.flat:not(#flat-999):hover .floor {
-	fill: #ffffff;
-}
-
-g.flat:not(#flat-999):hover text.area {
-	fill: black;
-}
-
 #flat-999 .floor {
 	fill: #fafafa;
 }
@@ -154,16 +142,8 @@ g.flat:not(#flat-999):hover text.area {
 	display: none;
 }
 
-svg:has(g.flat:not(#flat-999):hover) g.flat:not(:hover) {
-	opacity: 0.5;
-}
-
 use {
 	transition: opacity 0.3s ease;
-}
-
-svg:has(g.flat:not(#flat-999):hover) g.flat:not(:hover) use {
-	opacity: 0.25;
 }
 
 p[data-plan-error-level="note"] {

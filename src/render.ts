@@ -514,6 +514,14 @@ function initAxes(ctx: PlanContext) {
 
 	ctx.limits.maxX = maxX;
 	ctx.limits.maxY = maxY;
+
+	for (const axis of ctx.plan.axes[0].axis) {
+		switch (axis.type) {
+			case "horizontal":
+				ctx.axes.y.set(axis.id, ctx.limits.maxY - ctx.axes.y.get(axis.id)!);
+				break;
+		}
+	}
 }
 
 function drawAxes(ctx: PlanContext) {
@@ -588,6 +596,25 @@ function drawAxes(ctx: PlanContext) {
 			classes: ["axis-label"],
 			parent: axesG,
 			innerHTML: id
+		});
+	});
+
+	ctx.axes.x.forEach((offsetX, idX) => {
+		ctx.axes.y.forEach((offsetY, idY) => {
+			Util.create({
+				name: "rect",
+				attributes: {
+					x: offsetX - 15,
+					y: offsetY - 15,
+					width: 30,
+					height: 30,
+					fill: "blue",
+					"data-idx": idX,
+					"data-idy": idY,
+				},
+				parent: axesG,
+				classes: ["axes-intersection-button"]
+			});
 		});
 	});
 }

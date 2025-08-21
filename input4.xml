@@ -1,0 +1,486 @@
+<plan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="planner.xsd">
+	<defs>
+		<color name="wall" value="#444444" />
+		<color name="floor" value="#ffefef" />
+
+		<template name="door" path="door.svg" />
+		<template name="window" path="window.svg" />
+		<template name="bath" path="bath.svg" />
+		<template name="bed_double" path="bed_double.svg" />
+		<template name="chair" path="chair.svg" />
+		<template name="closet_medium" path="closet_medium.svg" />
+		<template name="closet_small" path="closet_small.svg" />
+		<template name="computer" path="computer.svg" />
+		<template name="cooking" path="cooking.svg" />
+		<template name="couch" path="couch.svg" />
+		<template name="fridge" path="fridge.svg" />
+		<template name="kitchen_sink" path="kitchen_sink.svg" />
+		<template name="sink" path="sink.svg" />
+		<template name="table_rectangle" path="table_rectangle.svg" />
+		<template name="table_square" path="table_square.svg" />
+		<template name="television" path="television.svg" />
+		<template name="toilet" path="toilet.svg" />
+		<template name="washing_machine" path="washing_machine.svg" />
+	</defs>
+
+	<axes>
+		<axis id="1" type="vertical" />
+		<axis id="1/1" type="vertical" offset="2m" />
+		<axis id="2" type="vertical" offset="4m" />
+		<axis id="2/1" type="vertical" offset="6m" />
+		<axis id="3" type="vertical" offset="8.5m" />
+		<axis id="3/1" type="vertical" offset="10.5m" />
+		<axis id="4" type="vertical" offset="12.5m" />
+		<axis id="4/1" type="vertical" offset="14.5m" />
+		<axis id="5" type="vertical" offset="16.5m" />
+		<axis id="5/1" type="vertical" offset="19m" />
+		<axis id="6" type="vertical" offset="21m" />
+		<axis id="6/1" type="vertical" offset="23m" />
+		<axis id="7" type="vertical" offset="25m" />
+
+		<axis id="a" type="horizontal" />
+		<axis id="b" type="horizontal" offset="3m" />
+		<axis id="c" type="horizontal" offset="5m" />
+		<axis id="d" type="horizontal" offset="7m" />
+		<axis id="e" type="horizontal" offset="9m" />
+		<axis id="f" type="horizontal" offset="11.5m" />
+		<axis id="g" type="horizontal" offset="12.5m" />
+		<axis id="h" type="horizontal" offset="15.5m" />
+	</axes>
+
+	<flat id="999">
+		<room>
+			<walls>
+				<wall from="1 d" to="1 e" thickness="0.25m" />
+				<wall to="7 e" thickness="0.15m" />
+				<wall to="7 d" thickness="0.25m" />
+				<wall to="6/1 d" thickness="0.15m" />
+				<wall to="6/1 c" thickness="0.15m" />
+				<wall to="5 c" thickness="0.15m" />
+				<wall to="5 a" thickness="0.15m" />
+				<wall to="3 a" thickness="0.3m" />
+				<wall to="3 c" thickness="0.15m" />
+				<wall to="1/1 c" thickness="0.15m" />
+				<wall to="1/1 d" thickness="0.15m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="1">
+		<features>
+			<window wall="1 a, 2 a" offset="1m" width="1m" />
+			<window wall="1 a, 2 a" offset="3m" width="1m" />
+			<window wall="2 a, 3 a" offset="2.25m" width="2.5m" />
+
+			<door wall="2 a, 2 b" offset="2m" width="0.8m" />
+			<door wall="1/1 c, 2 c" offset="0.75m" width="0.8m" />
+			<door wall="2 b, 2 c" offset="0.7m" width="0.8m" />
+
+			<furniture wall="3 c, 2 c" name="bath" width="1.8m" offset="0.95m" />
+			<furniture wall="3 c, 2 c" name="sink" width="0.8m" offset="2.5m" />
+			<furniture wall="3 c, 2 c" name="washing_machine" width="0.6m" offset="3.5m" />
+			<furniture wall="3 b, 3 c" name="toilet" width="0.8m" offset="0.45m" />
+
+			<furniture wall="1/1 d, 1 d" name="kitchen_sink" width="0.7m" offset="0.4m" />
+			<furniture wall="1/1 d, 1 d" name="cooking" width="0.7m" offset="1.5m" />
+			<furniture wall="1 d, 1 a" name="table_rectangle" width="1.4m" offset="2m" />
+			<furniture wall="1 d, 1 a" name="couch" width="1.4m" offset="5m" />
+
+			<furniture wall="3 b, 2 b" name="closet_medium" width="1.1m" offset="3m"
+				offset_normal="0.05m" />
+			<furniture wall="3 a, 3 b" name="bed_double" width="2m" offset="1.2m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="1 a" to="2 a" thickness="0.3m" />
+				<wall to="2 c" thickness="0.08m" />
+				<wall to="1/1 c" thickness="0.15m" />
+				<wall to="1/1 d" thickness="0.15m" />
+				<wall to="1 d" thickness="0.15m" />
+				<wall thickness="0.25m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2 a" to="3 a" thickness="0.3m" />
+				<wall to="3 b" thickness="0.15m" />
+				<wall to="2 b" thickness="0.15m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2 b" to="3 b" thickness="0.08m" />
+				<wall to="3 c" thickness="0.15m" />
+				<wall to="2 c" thickness="0.15m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="2">
+		<features>
+			<window wall="7 a, 6 a" offset="1m" width="1m" />
+			<window wall="7 a, 6 a" offset="3m" width="1m" />
+			<window wall="6 a, 5 a" offset="2.25m" width="2.5m" />
+
+			<door wall="6 b, 6 a" offset="1m" width="0.8m" />
+			<door wall="6 c, 6/1 c" offset="1.2m" width="0.8m" />
+			<door wall="6 c, 6 b" offset="1.3m" width="0.8m" />
+
+			<furniture wall="5 b, 6 b" name="bath" width="1.8m" offset="1m" />
+			<furniture wall="6 c, 5 c" name="sink" width="0.8m" offset="1.5m" />
+			<furniture wall="6 c, 5 c" name="washing_machine" width="0.6m" offset="0.7m" />
+			<furniture wall="5 c, 5 b" name="toilet" width="0.8m" offset="0.5m" />
+
+			<furniture wall="7 d, 6/1 d" name="kitchen_sink" width="0.7m" offset="1.5m" />
+			<furniture wall="7 d, 6/1 d" name="cooking" width="0.7m" offset="0.6m" />
+			<furniture wall="7 a, 7 d" name="table_rectangle" width="1.4m" offset="5m" />
+			<furniture wall="7 a, 7 d" name="couch" width="1.4m" offset="2m" />
+
+			<furniture wall="6 b, 5 b" name="closet_medium" width="1.1m" offset="2m"
+				offset_normal="0.05m" />
+			<furniture wall="5 b, 5 a" name="bed_double" width="2m" offset="1.8m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="7 a" to="6 a" thickness="0.3m" />
+				<wall to="6 c" thickness="0.08m" />
+				<wall to="6/1 c" thickness="0.15m" />
+				<wall to="6/1 d" thickness="0.15m" />
+				<wall to="7 d" thickness="0.15m" />
+				<wall thickness="0.25m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="6 a" to="5 a" thickness="0.3m" />
+				<wall to="5 b" thickness="0.15m" />
+				<wall to="6 b" thickness="0.15m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="6 b" to="5 b" thickness="0.08m" />
+				<wall to="5 c" thickness="0.15m" />
+				<wall to="6 c" thickness="0.15m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="3">
+		<features>
+			<window wall="1 h, 2 h" offset="1m" width="1m" />
+			<window wall="1 h, 2 h" offset="3m" width="1m" />
+
+			<door wall="2 e, 1/1 e" offset="0.75m" width="0.8m" />
+			<door wall="1/1 g, 2 g" offset="0.75m" width="0.8m" side="left" />
+			<door wall="1/1 e, 1/1 g" offset="1.5m" width="0.8m" side="left" />
+
+			<furniture wall="1 e, 1/1 e" name="bath" width="1.9m" offset="1m" />
+			<furniture wall="1 f, 1 e" name="sink" width="0.8m" offset="1.25m" />
+			<furniture wall="1/1 g, 1 g" name="toilet" width="0.6m" offset="0.4m" />
+			<furniture wall="1/1 g, 1 g" name="washing_machine" width="0.6m" offset="1.6m" />
+
+			<furniture wall="2 g, 2 h" name="kitchen_sink" width="0.7m" offset="0.4m" />
+			<furniture wall="2 g, 2 h" name="cooking" width="0.7m" offset="1.1m" />
+			<furniture wall="2 g, 2 h" name="table_rectangle" width="1.4m" offset="2.2m" />
+
+			<furniture wall="1 h, 1 g" name="bed_double" width="2m" offset="1.2m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="1 g" to="1 h" thickness="0.25m" />
+				<wall to="2 h" thickness="0.3m" />
+				<wall to="2 g" thickness="0.15m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="1 e" to="1 g" thickness="0.25m" />
+				<wall to="1/1 g" thickness="0.08m" />
+				<wall to="1/1 e" thickness="0.08m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="1/1 e" to="2 e" thickness="0.15m" />
+				<wall to="2 g" thickness="0.15m" />
+				<wall to="1/1 g" thickness="0.08m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="4">
+		<features>
+			<window wall="2 h, 3 h" offset="1m" width="1m" />
+			<window wall="2 h, 3 h" offset="3m" width="1m" />
+
+			<door wall="3 e, 2/1 e" offset="0.75m" width="0.8m" />
+			<door wall="2/1 f, 3 f" offset="0.75m" width="0.8m" side="left" />
+			<door wall="2/1 e, 2/1 g" offset="1.25m" width="0.8m" side="left" />
+
+			<furniture wall="2 e, 2/1 e" name="bath" width="1.9m" offset="1m" />
+			<furniture wall="2 f, 2 e" name="sink" width="0.8m" offset="1.25m" />
+			<furniture wall="2/1 g, 2 g" name="washing_machine" width="0.6m" offset="0.4m" />
+			<furniture wall="2/1 g, 2 g" name="toilet" width="0.6m" offset="1.6m" />
+
+			<furniture wall="3 f, 3 h" name="kitchen_sink" width="0.7m" offset="1m" />
+			<furniture wall="3 f, 3 h" name="cooking" width="0.7m" offset="1.8m" />
+			<furniture wall="3 f, 3 h" name="table_rectangle" width="1.4m" offset="2.9m" />
+
+			<furniture wall="2 g, 2/1 g" name="closet_medium" width="1.1m" offset="0.8m" />
+			<furniture wall="2 h, 2 g" name="bed_double" width="2m" offset="1.2m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="2 g" to="2/1 g" thickness="0.08m" />
+				<wall to="2/1 f" thickness="0.08m" />
+				<wall to="3 f" thickness="0.08m" />
+				<wall to="3 h" thickness="0.15m" />
+				<wall to="2 h" thickness="0.3m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2 e" to="2 g" thickness="0.15m" />
+				<wall to="2/1 g" thickness="0.08m" />
+				<wall to="2/1 e" thickness="0.08m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2/1 e" to="3 e" thickness="0.15m" />
+				<wall to="3 f" thickness="0.15m" />
+				<wall to="2/1 f" thickness="0.08m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="5">
+		<features>
+			<window wall="3 h, 4 h" offset="1m" width="1m" />
+			<window wall="3 h, 4 h" offset="3m" width="1m" />
+
+			<door wall="3/1 e, 3 e" offset="0.75m" width="0.8m" />
+			<door wall="3 f, 3/1 f" offset="0.75m" width="0.8m" side="left" />
+			<door wall="3/1 g, 3/1 e" offset="2.25m" width="0.8m" side="left" />
+
+			<furniture wall="3/1 e, 4 e" name="bath" width="1.9m" offset="0.95m" />
+			<furniture wall="4 e, 4 f" name="sink" width="0.8m" offset="1.25m" />
+			<furniture wall="4 g, 3/1 g" name="toilet" width="0.6m" offset="0.4m" />
+			<furniture wall="4 g, 3/1 g" name="washing_machine" width="0.6m" offset="1.6m" />
+
+			<furniture wall="3 h, 3 f" name="kitchen_sink" width="0.7m" offset="2.9m" />
+			<furniture wall="3 h, 3 f" name="cooking" width="0.7m" offset="2.2m" />
+			<furniture wall="3 h, 3 f" name="table_rectangle" width="1.4m" offset="1.1m" />
+
+			<furniture wall="3/1 g, 4 g" name="closet_medium" width="1.1m" offset="1.2m" />
+			<furniture wall="4 g, 4 h" name="bed_double" width="2m" offset="1.8m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="3 f" to="3/1 f" thickness="0.08m" />
+				<wall to="3/1 g" thickness="0.08m" />
+				<wall to="4 g" thickness="0.08m" />
+				<wall to="4 h" thickness="0.15m" />
+				<wall to="3 h" thickness="0.3m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="3 e" to="3 f" thickness="0.15m" />
+				<wall to="3/1 f" thickness="0.08m" />
+				<wall to="3/1 e" thickness="0.08m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="3/1 e" to="4 e" thickness="0.15m" />
+				<wall to="4 g" thickness="0.15m" />
+				<wall to="3/1 g" thickness="0.08m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="6">
+		<features>
+			<window wall="4 h, 5 h" offset="1m" width="1m" />
+			<window wall="4 h, 5 h" offset="3m" width="1m" />
+
+			<door wall="5 e, 4/1 e" offset="0.75m" width="0.8m" />
+			<door wall="4/1 f, 5 f" offset="0.75m" width="0.8m" side="left" />
+			<door wall="4/1 e, 4/1 g" offset="1.25m" width="0.8m" side="left" />
+
+			<furniture wall="4 e, 4/1 e" name="bath" width="1.9m" offset="1m" />
+			<furniture wall="4 f, 4 e" name="sink" width="0.8m" offset="1.25m" />
+			<furniture wall="4/1 g, 4 g" name="washing_machine" width="0.6m" offset="0.4m" />
+			<furniture wall="4/1 g, 4 g" name="toilet" width="0.6m" offset="1.6m" />
+
+			<furniture wall="5 f, 5 h" name="kitchen_sink" width="0.7m" offset="1m" />
+			<furniture wall="5 f, 5 h" name="cooking" width="0.7m" offset="1.8m" />
+			<furniture wall="5 f, 5 h" name="table_rectangle" width="1.4m" offset="2.9m" />
+
+			<furniture wall="4 g, 4/1 g" name="closet_medium" width="1.1m" offset="0.8m" />
+			<furniture wall="4 h, 4 g" name="bed_double" width="2m" offset="1.2m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="4 g" to="4/1 g" thickness="0.08m" />
+				<wall to="4/1 f" thickness="0.08m" />
+				<wall to="5 f" thickness="0.08m" />
+				<wall to="5 h" thickness="0.15m" />
+				<wall to="4 h" thickness="0.3m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="4 e" to="4 g" thickness="0.15m" />
+				<wall to="4/1 g" thickness="0.08m" />
+				<wall to="4/1 e" thickness="0.08m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="4/1 e" to="5 e" thickness="0.15m" />
+				<wall to="5 f" thickness="0.15m" />
+				<wall to="4/1 f" thickness="0.08m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="7">
+		<features>
+			<window wall="5 h, 6 h" offset="1m" width="1m" />
+			<window wall="5 h, 6 h" offset="3m" width="1m" />
+
+			<door wall="5/1 e, 5 e" offset="0.75m" width="0.8m" />
+			<door wall="5 f, 5/1 f" offset="0.75m" width="0.8m" side="left" />
+			<door wall="5/1 g, 5/1 e" offset="1.75m" width="0.8m" side="left" />
+
+			<furniture wall="5/1 e, 6 e" name="bath" width="1.9m" offset="0.95m" />
+			<furniture wall="6 e, 6 f" name="sink" width="0.8m" offset="1.25m" />
+			<furniture wall="6 g, 5/1 g" name="toilet" width="0.6m" offset="0.4m" />
+			<furniture wall="6 g, 5/1 g" name="washing_machine" width="0.6m" offset="1.6m" />
+
+			<furniture wall="5 h, 5 f" name="kitchen_sink" width="0.7m" offset="2.9m" />
+			<furniture wall="5 h, 5 f" name="cooking" width="0.7m" offset="2.2m" />
+			<furniture wall="5 h, 5 f" name="table_rectangle" width="1.4m" offset="1.1m" />
+
+			<furniture wall="5/1 g, 6 g" name="closet_medium" width="1.1m" offset="1.2m" />
+			<furniture wall="6 g, 6 h" name="bed_double" width="2m" offset="1.8m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="5 f" to="5/1 f" thickness="0.08m" />
+				<wall to="5/1 g" thickness="0.08m" />
+				<wall to="6 g" thickness="0.08m" />
+				<wall to="6 h" thickness="0.15m" />
+				<wall to="5 h" thickness="0.3m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="5 e" to="5 f" thickness="0.15m" />
+				<wall to="5/1 f" thickness="0.08m" />
+				<wall to="5/1 e" thickness="0.08m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="5/1 e" to="6 e" thickness="0.15m" />
+				<wall to="6 g" thickness="0.15m" />
+				<wall to="5/1 g" thickness="0.08m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+	</flat>
+
+	<flat id="8">
+		<features>
+			<window wall="6 h, 7 h" offset="1m" width="1m" />
+			<window wall="6 h, 7 h" offset="3m" width="1m" />
+
+			<door wall="6/1 e, 6 e" offset="0.75m" width="0.8m" />
+			<door wall="6 g, 6/1 g" offset="1.35m" width="0.8m" side="left" />
+			<door wall="6/1 g, 6/1 e" offset="1.5m" width="0.8m" side="left" />
+
+			<furniture wall="6/1 e, 7 e" name="bath" width="1.9m" offset="0.95m" />
+			<furniture wall="7 e, 7 f" name="sink" width="0.8m" offset="1.25m" />
+			<furniture wall="7 g, 6/1 g" name="toilet" width="0.6m" offset="0.4m" />
+			<furniture wall="7 g, 6/1 g" name="washing_machine" width="0.6m" offset="1.6m" />
+
+			<furniture wall="6 h, 6 f" name="kitchen_sink" width="0.7m" offset="2.6m" />
+			<furniture wall="6 h, 6 f" name="cooking" width="0.7m" offset="1.9m" />
+			<furniture wall="6 h, 6 f" name="table_rectangle" width="1.4m" offset="0.8m" />
+
+			<furniture wall="7 g, 7 h" name="bed_double" width="2m" offset="1.8m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="7 g" to="7 h" thickness="0.25m" />
+				<wall to="6 h" thickness="0.3m" />
+				<wall to="6 g" thickness="0.15m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="7 e" to="7 g" thickness="0.25m" />
+				<wall to="6/1 g" thickness="0.08m" />
+				<wall to="6/1 e" thickness="0.08m" />
+				<wall thickness="0.15m" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="6/1 e" to="6 e" thickness="0.15m" />
+				<wall to="6 g" thickness="0.15m" />
+				<wall to="6/1 g" thickness="0.08m" />
+				<wall thickness="0.08m" />
+			</walls>
+		</room>
+	</flat>
+</plan>

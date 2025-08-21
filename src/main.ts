@@ -1,3 +1,4 @@
+import createPanZoom from "panzoom";
 import { PlannerOptions, render } from "./render";
 
 main();
@@ -47,8 +48,22 @@ async function main() {
 }
 
 function updateOutput(options: PlannerOptions) {
+	const output: HTMLElement = document.querySelector("#output")!;
+
 	render(options).then(ctx => {
-		document.querySelector("#output")!.replaceChildren(ctx.svg);
+		output.replaceChildren(ctx.svg);
+
+		createPanZoom(output, {
+			bounds: true,
+			boundsPadding: 0
+		});
+
+		output.querySelectorAll(".axes-intersection-button").forEach(button => {
+			button.addEventListener("click", () => {
+				console.log(button.getAttribute("data-idx"), button.getAttribute("data-idy"));
+			});
+		});
+
 		document.querySelector("#output-errors")!.innerHTML = ctx.errors.filter(e => options.showErrorLevels.includes(e.level)).map(e => `
 				<p data-plan-error-level="${e.level}">[${e.level}] ${e.message}</p>
 			`).join("");
