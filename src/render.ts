@@ -10,6 +10,7 @@ import Window from "./types/Window";
 import Util from "./util";
 import parseElement from "./xml_to_js";
 import * as xmllint from 'xmllint-wasm/index-browser';
+import polylabel from "polylabel";
 
 type PlanContext = {
 	plan: Plan;
@@ -39,7 +40,10 @@ type PlanContext = {
 export type PlannerOptions = {
 	input: string;
 	viewFlatId?: string;
-	debugMode: boolean;
+	debug: {
+		showAxes: boolean,
+		axesButtons: boolean
+	};
 	showErrorLevels: ("note" | "warn" | "error")[];
 	xsd?: string;
 };
@@ -97,7 +101,7 @@ export async function render(options: PlannerOptions) {
 		createFlat(ctx, flat);
 	}
 
-	if (options.debugMode) {
+	if (options.debug.showAxes) {
 		drawAxes(ctx);
 	}
 
@@ -213,6 +217,7 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 	});
 
 	const wallPoints: Vec[] = [];
+	const innerPoints: Vec[] = [];
 	const doors: SVGUseElement[] = [];
 	const windows: SVGUseElement[] = [];
 	const furnitures: SVGUseElement[] = [];
@@ -271,6 +276,8 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 
 		wallPath += Util.polyline([intersectionInnerPrevCurr, intersectionOuterPrevCurr, intersectionOuterCurrNext, intersectionInnerCurrNext]);
 
+		innerPoints.push(intersectionInnerPrevCurr);
+
 		if (!flat.features || flat.features.length == 0) {
 			continue;
 		}
@@ -322,23 +329,23 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 		children: [...doors, ...windows, ...furnitures]
 	});
 
-	const area = Util.polygonArea(wallPoints);
+	const area = Util.polygonArea(innerPoints);
 	const areaMeters = Util.round(area / 1000000, 2);
 
-	const roomCenter = Util.polygonCenter(wallPoints);
-	let areaTextPosition = new Vec(roomCenter.x, roomCenter.y);
+	const roomCenter = polylabel([ innerPoints.map(p => [p.x, p.y]) ], 0.1);
+	let areaTextPosition = new Vec(roomCenter[0], roomCenter[1]);
 
 	Util.create({
 		name: "text",
 		attributes: {
 			x: areaTextPosition.x,
 			y: areaTextPosition.y,
-			"font-size": "200",
+			"font-size": "300",
 			"text-anchor": "middle"
 		},
 		classes: ["area"],
 		parent: g,
-		innerHTML: `${areaMeters} м²`
+		innerHTML: `${areaMeters.toLocaleString("ru-RU")}`
 	});
 }
 
@@ -531,15 +538,13 @@ function drawAxes(ctx: PlanContext) {
 		parent: ctx.svg
 	});
 
-	if (ctx.options.debugMode) {
-		// ctx.viewPadding = 1000;
+	// ctx.viewPadding = 1000;
 
-		ctx.style += `
-			.wall-cutout {
-				fill: #ff0000;
-			}
-		`;
-	}
+	ctx.style += `
+		.wall-cutout {
+			fill: #ff0000;
+		}
+	`;
 
 	ctx.axes.y.forEach((offset, id) => {
 		Util.create({
@@ -599,22 +604,24 @@ function drawAxes(ctx: PlanContext) {
 		});
 	});
 
-	ctx.axes.x.forEach((offsetX, idX) => {
-		ctx.axes.y.forEach((offsetY, idY) => {
-			Util.create({
-				name: "rect",
-				attributes: {
-					x: offsetX - 15,
-					y: offsetY - 15,
-					width: 30,
-					height: 30,
-					fill: "blue",
-					"data-idx": idX,
-					"data-idy": idY,
-				},
-				parent: axesG,
-				classes: ["axes-intersection-button"]
+	if (ctx.options.debug.axesButtons) {
+		ctx.axes.x.forEach((offsetX, idX) => {
+			ctx.axes.y.forEach((offsetY, idY) => {
+				Util.create({
+					name: "rect",
+					attributes: {
+						x: offsetX - 15,
+						y: offsetY - 15,
+						width: 30,
+						height: 30,
+						fill: "blue",
+						"data-idx": idX,
+						"data-idy": idY,
+					},
+					parent: axesG,
+					classes: ["axes-intersection-button"]
+				});
 			});
 		});
-	});
+	}
 }

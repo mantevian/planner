@@ -15,7 +15,10 @@ async function main() {
 
 	let options: PlannerOptions = {
 		input: input,
-		debugMode: debugModeInput.checked,
+		debug: {
+			showAxes: debugModeInput.checked,
+			axesButtons: true,
+		},
 		showErrorLevels: ["note", "warn", "error"],
 		xsd: xsd
 	};
@@ -34,7 +37,7 @@ async function main() {
 	});
 
 	debugModeInput.addEventListener("input", () => {
-		options.debugMode = debugModeInput.checked;
+		options.debug.showAxes = debugModeInput.checked;
 		updateOutput(options);
 	});
 
