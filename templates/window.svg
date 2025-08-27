@@ -1,8 +1,2 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="56.733" height="11.555" viewBox="88.443 112.611 15.01 3.057">
-	<path d="M88.509 112.677h14.878v2.925H88.509Z"
-		style="fill:#ededed;stroke:#000;stroke-width:.132293;stroke-miterlimit:10;stroke-dasharray:none" />
-	<path d="M88.51 113.782h14.877v.567H88.51Z"
-		style="fill:#fff;stroke:#000;stroke-width:.132293;stroke-miterlimit:10;stroke-dasharray:none" />
-	<path d="M95.963 113.782v.588"
-		style="fill:none;stroke:#000;stroke-width:.132293;stroke-miterlimit:10;stroke-dasharray:none" />
-</svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8.9092 24.4901 22.11 4.1" width="22.11px" height="4.1px"><defs><clipPath id="clip0_41_2"><rect width="100" height="50" fill="white"/></clipPath></defs><g clip-path="url(#clip0_41_2)" id="object-0" style="transform-origin: 4.3974px 25.0978px;" transform="matrix(0, -1, 1, 0, 15.5667758, 1.44228983)"><path d="M 2.3947 36.0976 L 6.3756 36.0976 L 6.3756 14.0785 L 2.3947 14.0785 L 2.3947 36.0976 Z" style="stroke-width: 1; paint-order: fill; fill: rgb(255, 255, 255);"/><path d="M 2.3474 36.1528 L 6.4474 36.1528 L 6.4474 14.0428 L 2.3474 14.0428 L 2.3474 36.1528 Z M 2.4474 36.0626 L 2.4474 14.133 L 6.3474 14.133 L 6.3474 36.0626 L 2.4474 36.0626 Z" fill="#1D2132"/><path d="M 3.3474 14.7428 L 4.3474 14.7428 L 4.3474 36.1282 L 3.3474 36.1282 L 3.3474 14.7428 Z" fill="#1D2132" style=""/><path d="M 3.4474 14.7428 L 4.2474 14.7428 L 4.2474 36.1097 L 3.4474 36.1097 L 3.4474 14.7428 Z" fill="white" style=""/><path d="M 3.4474 34.2428 L 4.3474 34.2428 M 3.4474 15.8428 L 4.3474 15.8428 M 3.8345 15.8139 L 3.8474 25.7428 M 3.8474 25.6428 L 3.8474 34.2428" stroke="#1D2132" stroke-width="0.1" stroke-miterlimit="10"/><path style="fill: rgb(29, 33, 50);" d="M 2.3985 14.6365 L 4.3447 14.8719 L 4.3464 14.0925 L 2.3941 14.0865 L 2.3985 14.6365 Z"/><path style="fill: rgb(29, 33, 50); stroke-width: 1; transform-origin: 3.3721px 35.755px;" d="M 2.4004 35.5977 L 4.3466 35.3623 L 4.3483 36.1417 L 2.396 36.1477 L 2.4004 35.5977 Z"/></g></svg>

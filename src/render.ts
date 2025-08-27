@@ -5,12 +5,19 @@ import Plan from "./types/Plan";
 import planErrors, { PlanError } from "./types/PlanError";
 import Template from "./types/Template";
 import Vec from "./types/Vec";
-import { getAxesFromWall, getAxesFromWallString } from "./types/Wall";
+import Wall, { getAxesFromWall, getAxesFromWallString } from "./types/Wall";
 import Window from "./types/Window";
 import Util from "./util";
 import parseElement from "./xml_to_js";
 import * as xmllint from 'xmllint-wasm/index-browser';
 import polylabel from "polylabel";
+
+type WallPoints = {
+	p1Inner: Vec;
+	p1Outer: Vec;
+	p2Inner: Vec;
+	p2Outer: Vec;
+};
 
 type PlanContext = {
 	plan: Plan;
@@ -35,6 +42,10 @@ type PlanContext = {
 	viewPadding: number;
 	style: string;
 	errors: PlanError[];
+	outerWalls: {
+		points: WallPoints,
+		thickness: number;
+	}[];
 };
 
 export type PlannerOptions = {
@@ -42,7 +53,7 @@ export type PlannerOptions = {
 	viewFlatId?: string;
 	debug: {
 		showAxes: boolean,
-		axesButtons: boolean
+		axesButtons: boolean;
 	};
 	showErrorLevels: ("note" | "warn" | "error")[];
 	xsd?: string;
@@ -68,7 +79,8 @@ export async function render(options: PlannerOptions) {
 		templates: {},
 		viewPadding: 500,
 		style: "",
-		errors: []
+		errors: [],
+		outerWalls: []
 	};
 
 	try {
@@ -97,6 +109,27 @@ export async function render(options: PlannerOptions) {
 		return ctx;
 	}
 
+	const outerWallPoints = getWallPoints(ctx, ctx.plan.walls[0].wall);
+
+	const outerWalls = [];
+
+	for (let i = 0; i < outerWallPoints.length; i++) {
+		const thickness = Util.getWrapped(ctx.plan.walls[0].wall, i).thickness;
+
+		console.log(ctx.plan.walls[0].wall[i]);
+
+		outerWalls.push({
+			points: getWallOutlinePoints(
+				Util.getWrapped(outerWallPoints, i),
+				Util.getWrapped(outerWallPoints, i + 1),
+				thickness
+			),
+			thickness
+		});
+	}
+
+	ctx.outerWalls = outerWalls;
+
 	for (const flat of ctx.plan.flat) {
 		createFlat(ctx, flat);
 	}
@@ -113,6 +146,8 @@ export async function render(options: PlannerOptions) {
 		parent: ctx.svg,
 		innerHTML: ctx.style
 	});
+
+	console.log(ctx);
 
 	return ctx;
 }
@@ -185,7 +220,7 @@ function createFlat(ctx: PlanContext, flat: Flat) {
 	}
 }
 
-function getWallPoints(c1: Vec, c2: Vec, thickness: number) {
+function getWallOutlinePoints(c1: Vec, c2: Vec, thickness: number): WallPoints {
 	const t = thickness / 2;
 
 	const v = new Vec(c2.x - c1.x, c2.y - c1.y);
@@ -197,6 +232,55 @@ function getWallPoints(c1: Vec, c2: Vec, thickness: number) {
 		p2Inner: new Vec(c2.x + n.x * -t, c2.y + n.y * -t),
 		p2Outer: new Vec(c2.x + n.x * t, c2.y + n.y * t)
 	};
+}
+
+function getWallOutlinePointsPointsSeparateThickness(c1: Vec, c2: Vec, thicknessInner: number, thicknessOuter: number) {
+	const v = new Vec(c2.x - c1.x, c2.y - c1.y);
+	const n = new Vec(v.y, -v.x).normalized();
+
+	return {
+		p1Inner: new Vec(c1.x + n.x * -thicknessInner, c1.y + n.y * -thicknessInner),
+		p1Outer: new Vec(c1.x + n.x * thicknessOuter, c1.y + n.y * thicknessOuter),
+		p2Inner: new Vec(c2.x + n.x * -thicknessInner, c2.y + n.y * -thicknessInner),
+		p2Outer: new Vec(c2.x + n.x * thicknessOuter, c2.y + n.y * thicknessOuter)
+	};
+}
+
+function getWallOutlinePointsWithOuterWalls(ctx: PlanContext, c1: Vec, c2: Vec, wall: Wall) {
+	const points = getWallOutlinePoints(c1, c2, wall.thickness);
+	const center = Util.polygonCenter(Object.values(points));
+
+	let addThickness = 0;
+
+	for (const w of ctx.outerWalls) {
+		if (Util.isPointInPolygon(center, Object.values(w.points))) {
+			addThickness = w.thickness;
+			break;
+		}
+	}
+
+	return getWallOutlinePointsPointsSeparateThickness(c1, c2, wall.thickness / 2, wall.thickness / 2 + addThickness);
+}
+
+function getWallPoints(ctx: PlanContext, walls: Wall[]) {
+	const wallPoints: Vec[] = [];
+
+	for (const wall of walls) {
+		const wallAxes = getAxesFromWall(wall);
+		let x = ctx.axes.x.get(wallAxes.from1) ?? ctx.axes.x.get(wallAxes.from2) ?? null;
+		let y = ctx.axes.y.get(wallAxes.from1) ?? ctx.axes.y.get(wallAxes.from2) ?? null;
+		if (x != null && y != null) {
+			wallPoints.push(new Vec(x, y));
+		}
+
+		x = ctx.axes.x.get(wallAxes.to1) ?? ctx.axes.x.get(wallAxes.to2) ?? null;
+		y = ctx.axes.y.get(wallAxes.to1) ?? ctx.axes.y.get(wallAxes.to2) ?? null;
+		if (x != null && y != null) {
+			wallPoints.push(new Vec(x, y));
+		}
+	}
+
+	return wallPoints;
 }
 
 function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup: SVGGElement) {
@@ -216,26 +300,11 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 		parent: flatGroup
 	});
 
-	const wallPoints: Vec[] = [];
+	const wallPoints: Vec[] = getWallPoints(ctx, room.walls[0].wall);
 	const innerPoints: Vec[] = [];
 	const doors: SVGUseElement[] = [];
 	const windows: SVGUseElement[] = [];
 	const furnitures: SVGUseElement[] = [];
-
-	for (const wall of room.walls[0].wall) {
-		const wallAxes = getAxesFromWall(wall);
-		let x = ctx.axes.x.get(wallAxes.from1) ?? ctx.axes.x.get(wallAxes.from2) ?? null;
-		let y = ctx.axes.y.get(wallAxes.from1) ?? ctx.axes.y.get(wallAxes.from2) ?? null;
-		if (x != null && y != null) {
-			wallPoints.push(new Vec(x, y));
-		}
-
-		x = ctx.axes.x.get(wallAxes.to1) ?? ctx.axes.x.get(wallAxes.to2) ?? null;
-		y = ctx.axes.y.get(wallAxes.to1) ?? ctx.axes.y.get(wallAxes.to2) ?? null;
-		if (x != null && y != null) {
-			wallPoints.push(new Vec(x, y));
-		}
-	}
 
 	const wallCount = room.walls[0].wall.length ?? 0;
 
@@ -263,9 +332,9 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 		};
 
 		const points = {
-			prev: getWallPoints(Util.getWrapped(wallPoints, i - 1), Util.getWrapped(wallPoints, i), walls.prev.thickness),
-			curr: getWallPoints(Util.getWrapped(wallPoints, i), Util.getWrapped(wallPoints, i + 1), walls.curr.thickness),
-			next: getWallPoints(Util.getWrapped(wallPoints, i + 1), Util.getWrapped(wallPoints, i + 2), walls.next.thickness)
+			prev: getWallOutlinePointsWithOuterWalls(ctx, Util.getWrapped(wallPoints, i - 1), Util.getWrapped(wallPoints, i), walls.prev),
+			curr: getWallOutlinePointsWithOuterWalls(ctx, Util.getWrapped(wallPoints, i), Util.getWrapped(wallPoints, i + 1), walls.curr),
+			next: getWallOutlinePointsWithOuterWalls(ctx, Util.getWrapped(wallPoints, i + 1), Util.getWrapped(wallPoints, i + 2), walls.next)
 		};
 
 		const intersectionInnerPrevCurr = Util.intersectionABandCD(points.prev.p1Inner, points.prev.p2Inner, points.curr.p1Inner, points.curr.p2Inner) ?? points.curr.p1Inner;
@@ -332,7 +401,7 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 	const area = Util.polygonArea(innerPoints);
 	const areaMeters = Util.round(area / 1000000, 2);
 
-	const roomCenter = polylabel([ innerPoints.map(p => [p.x, p.y]) ], 0.1);
+	const roomCenter = polylabel([innerPoints.map(p => [p.x, p.y])], 0.1);
 	let areaTextPosition = new Vec(roomCenter[0], roomCenter[1]);
 
 	Util.create({
@@ -349,7 +418,7 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 	});
 }
 
-function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: Door | Window | Furniture): null | {
+function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: { prev: WallPoints, curr: WallPoints, next: WallPoints; }, f: Door | Window | Furniture): null | {
 	element: SVGUseElement,
 	cutoutPath: string;
 } {
@@ -375,6 +444,8 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: 
 	const pCenter = new Vec(wallP1.x + wallV.x * center / wallLength, wallP1.y + wallV.y * center / wallLength);
 	const isFeatureOnThisWall = Util.isPointInPolygon(pCenter, [points.curr.p1Inner, points.curr.p1Outer, points.curr.p2Outer, points.curr.p2Inner]);
 
+	const wallThickness = Util.distance(points.curr.p1Inner, points.curr.p1Outer);
+
 	if (!isFeatureOnThisWall) {
 		return null;
 	}
@@ -385,6 +456,7 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: 
 		totalOffsetNormal = f.offset_normal ?? 0;
 	}
 	const ct = walls.curr.thickness * 0.5 + totalOffsetNormal;
+	console.log(ct, wallThickness / 2);
 	const [nx, ny] = [n.x * ct, n.y * ct];
 
 	const pStart = new Vec(wallP1.x + wallV.x * start / wallLength, wallP1.y + wallV.y * start / wallLength);
@@ -420,7 +492,7 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: any, f: 
 	}
 
 	if (f._name == "window") {
-		useHeight = ct * 2;
+		useHeight = wallThickness;
 	}
 
 	if (f._name == "furniture") {

@@ -169,7 +169,7 @@ const Util = {
 			const xRot = x * cosAngle - y * sinAngle;
 			const yRot = x * sinAngle + y * cosAngle;
 
-			return new Vec(c.x + xRot, c.y + yRot)
+			return new Vec(c.x + xRot, c.y + yRot);
 		});
 
 		return rotatedCorners;
@@ -210,6 +210,10 @@ const Util = {
 
 		return array[wrappedIndex];
 	},
+
+	distance(v1: Vec, v2: Vec): number {
+		return Math.sqrt((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y));
+	}
 };
 
 export default Util;
