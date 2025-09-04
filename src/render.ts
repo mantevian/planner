@@ -57,6 +57,7 @@ export type PlannerOptions = {
 	};
 	showErrorLevels: ("note" | "warn" | "error")[];
 	xsd?: string;
+	mmPerPx: number;
 };
 
 export async function render(options: PlannerOptions) {
@@ -77,7 +78,7 @@ export async function render(options: PlannerOptions) {
 		},
 		options,
 		templates: {},
-		viewPadding: 500,
+		viewPadding: 500 / options.mmPerPx,
 		style: "",
 		errors: [],
 		outerWalls: []
@@ -85,7 +86,7 @@ export async function render(options: PlannerOptions) {
 
 	try {
 		const doc = new DOMParser().parseFromString(options.input, "application/xml");
-		ctx.plan = parseElement(doc.documentElement);
+		ctx.plan = parseElement(doc.documentElement, 1 / ctx.options.mmPerPx);
 	} catch {
 		ctx.errors.push(planErrors.cant_parse_xml_input());
 	}
@@ -399,7 +400,7 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 	});
 
 	const area = Util.polygonArea(innerPoints);
-	const areaMeters = Util.round(area / 1000000, 2);
+	const areaMeters = Util.round(area * ctx.options.mmPerPx * ctx.options.mmPerPx / 1000000, 2);
 
 	const roomCenter = polylabel([innerPoints.map(p => [p.x, p.y])], 0.1);
 	let areaTextPosition = new Vec(roomCenter[0], roomCenter[1]);
@@ -409,7 +410,7 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 		attributes: {
 			x: areaTextPosition.x,
 			y: areaTextPosition.y,
-			"font-size": "300",
+			"font-size": "30",
 			"text-anchor": "middle"
 		},
 		classes: ["area"],
@@ -627,7 +628,7 @@ function drawAxes(ctx: PlanContext) {
 				x2: 1000000,
 				y2: offset,
 				stroke: "#ff000055",
-				"stroke-width": "10"
+				"stroke-width": `${10 / ctx.options.mmPerPx}`
 			},
 			parent: axesG
 		});
@@ -635,9 +636,9 @@ function drawAxes(ctx: PlanContext) {
 		Util.create({
 			name: "text",
 			attributes: {
-				x: -300,
-				y: offset - 100,
-				"font-size": "200",
+				x: -300 / ctx.options.mmPerPx,
+				y: offset - 100 / ctx.options.mmPerPx,
+				"font-size": `${200 / ctx.options.mmPerPx}`,
 				"text-anchor": "middle",
 				fill: "red"
 			},
@@ -656,7 +657,7 @@ function drawAxes(ctx: PlanContext) {
 				x2: offset,
 				y2: 1000000,
 				stroke: "#ff000055",
-				"stroke-width": "10",
+				"stroke-width": `${10 / ctx.options.mmPerPx}`,
 			},
 			parent: axesG
 		});
@@ -664,9 +665,9 @@ function drawAxes(ctx: PlanContext) {
 		Util.create({
 			name: "text",
 			attributes: {
-				x: offset - 100,
-				y: -300,
-				"font-size": "200",
+				x: offset - 100 / ctx.options.mmPerPx,
+				y: -300 / ctx.options.mmPerPx,
+				"font-size": `${200 / ctx.options.mmPerPx}`,
 				"text-anchor": "middle",
 				fill: "red"
 			},
@@ -682,10 +683,10 @@ function drawAxes(ctx: PlanContext) {
 				Util.create({
 					name: "rect",
 					attributes: {
-						x: offsetX - 15,
-						y: offsetY - 15,
-						width: 30,
-						height: 30,
+						x: offsetX - 15 / ctx.options.mmPerPx,
+						y: offsetY - 15 / ctx.options.mmPerPx,
+						width: 30 / ctx.options.mmPerPx,
+						height: 30 / ctx.options.mmPerPx,
 						fill: "blue",
 						"data-idx": idX,
 						"data-idy": idY,

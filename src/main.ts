@@ -20,7 +20,8 @@ async function main() {
 			axesButtons: true,
 		},
 		showErrorLevels: ["note", "warn", "error"],
-		xsd: xsd
+		xsd: xsd,
+		mmPerPx: 10
 	};
 
 	updateOutput(options);

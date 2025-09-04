@@ -1,9 +1,9 @@
-export default function parseElement(element: Element) {
+export default function parseElement(element: Element, multiplier: number) {
 	let result: any = {};
 
 	if (element.tagName.toLowerCase() != "point") {
-		parseCoordinatesToVec(element, "pos", "x", "y", result);
-		parseCoordinatesToVec(element, "size", "w", "h", result);
+		parseCoordinatesToVec({ element, attrName: "pos", xName: "x", yName: "y", result, multiplier });
+		parseCoordinatesToVec({ element, attrName: "size", xName: "w", yName: "h", result, multiplier });
 	}
 
 	result["_name"] = element.tagName.toLowerCase();
@@ -18,7 +18,7 @@ export default function parseElement(element: Element) {
 		}
 
 		if (isNumber) {
-			result[attr] = parseNumberUnit(value);
+			result[attr] = parseNumberUnit(value, multiplier);
 		} else {
 			result[attr] = value;
 		}
@@ -33,7 +33,7 @@ export default function parseElement(element: Element) {
 					result[name] = [];
 				}
 
-				result[name].push(parseElement(child as Element));
+				result[name].push(parseElement(child as Element, multiplier));
 				break;
 
 			case 3:
@@ -50,11 +50,14 @@ export default function parseElement(element: Element) {
 	return result;
 }
 
-function parseCoordinatesToVec(element: Element, attrName: string, xName: string, yName: string, result: any) {
+function parseCoordinatesToVec(
+	{ element, attrName, xName, yName, result, multiplier }:
+		{ element: Element, attrName: string, xName: string, yName: string, result: any, multiplier: number; }
+) {
 	if (element.hasAttribute(xName) && element.hasAttribute(yName)) {
 		result[attrName] = {
-			x: parseNumberUnit(element.getAttribute(xName) ?? "0"),
-			y: parseNumberUnit(element.getAttribute(yName) ?? "0")
+			x: parseNumberUnit(element.getAttribute(xName) ?? "0", multiplier),
+			y: parseNumberUnit(element.getAttribute(yName) ?? "0", multiplier)
 		};
 	}
 }
@@ -72,7 +75,7 @@ function isNum(input: string): boolean {
 	return match != null && match.groups != null;
 }
 
-function parseNumberUnit(input: string): number | null {
+function parseNumberUnit(input: string, multiplier: number): number | null {
 	const match = input.match(regex);
 
 	if (!match || !match.groups) {
@@ -90,5 +93,5 @@ function parseNumberUnit(input: string): number | null {
 		m: 1000
 	};
 
-	return n * units[unit];
+	return n * units[unit] * multiplier;
 }
