@@ -6,6 +6,8 @@
 
 		<template name="door" path="door.svg" />
 		<template name="window" path="window.svg" />
+		<template name="toilet" path="toilet.svg" />
+		<template name="bath_sink" path="bath_sink.svg" />
 	</defs>
 
 	<axes>
@@ -196,64 +198,6 @@
 		<wall thickness="350mm" />
 	</walls>
 
-	<flat id="07">
-		<features>
-			<window wall="1 Ж/5, 1 Ж" offset="1.5m" width="1840mm" />
-			<window wall="1 К, 1 Ж/5" offset="1.8m" width="1840mm" />
-
-			<door wall="3 Ж/2, 3 И/1" offset="0.5m" width="1.0m" />
-			<door wall="2/8 Ж/2, 2/1! Ж/2" offset="0.5m" width="0.9m" side="left" />
-			<door wall="2/1 Ж/5, 2/4 Ж/5" offset="0.5m" width="0.9m" side="left" />
-			<door wall="2/1 Ж/5, 2/1 Ж/3" offset="0.5m" width="0.9m" />
-		</features>
-
-		<room>
-			<walls>
-				<wall from="1 К" to="2 К" thickness="200mm" />
-				<wall to="2 К+1" thickness="200mm" />
-				<wall to="2/1! К+1" thickness="200mm" />
-				<wall to="2/1! Ж/5" thickness="200mm" />
-				<wall to="1 Ж/5" thickness="80mm" />
-				<wall thickness="200mm" />
-			</walls>
-		</room>
-
-		<room>
-			<walls>
-				<wall from="1 Ж/5" to="2/1 Ж/5" thickness="80mm" />
-				<wall to="2/1 Ж/3" thickness="80mm" />
-				<wall to="2/3 Ж/3" thickness="80mm" />
-				<wall to="2/3 Ж" thickness="80mm" />
-				<wall to="1 Ж" thickness="200mm" />
-				<wall thickness="200mm" />
-			</walls>
-		</room>
-
-		<room>
-			<walls>
-				<wall from="2/1 Ж/5" to="2/1! Ж/5" thickness="80mm" />
-				<wall to="2/1! И/1" thickness="200mm" />
-				<wall to="3 И/1" thickness="200mm" />
-				<wall to="3 Ж/2" thickness="200mm" />
-				<wall to="2/7 Ж/2" thickness="80mm" />
-				<wall to="2/7 Ж/3" thickness="80mm" />
-				<wall to="2/1 Ж/3" thickness="80mm" />
-				<wall thickness="80mm" />
-			</walls>
-		</room>
-
-		<room>
-			<walls>
-				<wall from="2/3 Ж/3" to="2/7 Ж/3" thickness="80mm" />
-				<wall to="2/7 Ж/2" thickness="80mm" />
-				<wall to="3 Ж/2" thickness="80mm" />
-				<wall to="3 Ж" thickness="200mm" />
-				<wall to="2/3 Ж" thickness="200mm" />
-				<wall thickness="80mm" />
-			</walls>
-		</room>
-	</flat>
-
 	<flat id="08">
 		<features>
 			<window wall="5 М, 2 М" offset="1.5m" width="1690mm" />
@@ -269,6 +213,9 @@
 			<door wall="3/2 К/1, 4/1 К/1" offset="0.9m" width="0.9m" side="left" />
 			<door wall="3/2 И, 3/2 К/1" offset="1.5m" width="0.9m" />
 			<door wall="2/4 М, 2/4 К" offset="0.8m" width="0.9m" />
+
+			<furniture name="toilet" wall="3 И/1, 2/1! И/1" width="0.4m" offset="1m" />
+			<furniture name="toilet" wall="4/2 И, 4/2 И/3" width="0.4m" offset="1m" />
 		</features>
 
 		<room>
@@ -336,6 +283,66 @@
 		</room>
 	</flat>
 
+	<flat id="07">
+		<features>
+			<window wall="1 Ж/5, 1 Ж" offset="1.5m" width="1840mm" />
+			<window wall="1 К, 1 Ж/5" offset="1.8m" width="1840mm" />
+
+			<door wall="3 Ж/2, 3 И/1" offset="0.5m" width="1.0m" />
+			<door wall="2/8 Ж/2, 2/1! Ж/2" offset="0.5m" width="0.9m" side="left" />
+			<door wall="2/1 Ж/5, 2/4 Ж/5" offset="0.5m" width="0.9m" side="left" />
+			<door wall="2/1 Ж/5, 2/1 Ж/3" offset="0.5m" width="0.9m" />
+
+			<furniture name="toilet" wall="3 Ж, 2/3 Ж" width="0.4m" offset="1m" />
+		</features>
+
+		<room>
+			<walls>
+				<wall from="1 К" to="2 К" thickness="200mm" />
+				<wall to="2 К+1" thickness="200mm" />
+				<wall to="2/1! К+1" thickness="200mm" />
+				<wall to="2/1! Ж/5" thickness="200mm" />
+				<wall to="1 Ж/5" thickness="80mm" />
+				<wall thickness="200mm" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="1 Ж/5" to="2/1 Ж/5" thickness="80mm" />
+				<wall to="2/1 Ж/3" thickness="80mm" />
+				<wall to="2/3 Ж/3" thickness="80mm" />
+				<wall to="2/3 Ж" thickness="80mm" />
+				<wall to="1 Ж" thickness="200mm" />
+				<wall thickness="200mm" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2/1 Ж/5" to="2/1! Ж/5" thickness="80mm" />
+				<wall to="2/1! И/1" thickness="200mm" />
+				<wall to="3 И/1" thickness="200mm" />
+				<wall to="3 Ж/2" thickness="200mm" />
+				<wall to="2/7 Ж/2" thickness="80mm" />
+				<wall to="2/7 Ж/3" thickness="80mm" />
+				<wall to="2/1 Ж/3" thickness="80mm" />
+				<wall thickness="80mm" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="2/3 Ж/3" to="2/7 Ж/3" thickness="80mm" />
+				<wall to="2/7 Ж/2" thickness="80mm" />
+				<wall to="3 Ж/2" thickness="80mm" />
+				<wall to="3 Ж" thickness="200mm" />
+				<wall to="2/3 Ж" thickness="200mm" />
+				<wall thickness="80mm" />
+			</walls>
+		</room>
+	</flat>
+
 	<flat id="06">
 		<features>
 			<window wall="1 Ж, 1 Е" offset="2.1m" width="1840mm" />
@@ -343,6 +350,8 @@
 			<door wall="3 Е/1, 3 Ж" offset="0.6m" width="1.0m" />
 			<door wall="2/6 Е/1, 2/6 Ж" offset="0.6m" width="0.9m" side="left" />
 			<door wall="2/6 Е/1, 3 Е/1" offset="1.1m" width="0.9m" side="left" />
+
+			<furniture name="toilet" wall="3 Е/1, 3 Е" width="0.4m" offset="1m" />
 		</features>
 
 		<room>
@@ -382,6 +391,8 @@
 			<door wall="3 Г/3, 3 Г" offset="0.6m" width="1.0m" side="left" />
 			<door wall="2/6 Г/3, 2/6 Г" offset="0.6m" width="0.9m" />
 			<door wall="2/6 Г/3, 3 Г/3" offset="1.1m" width="0.9m" />
+
+			<furniture name="toilet" wall="3 Е, 3 Г/3" width="0.4m" offset="1m" />
 		</features>
 
 		<room>
@@ -424,6 +435,8 @@
 			<door wall="2/2 Б/4, 2/2 Б/1" offset="0.8m" width="0.9m" />
 			<door wall="2/2 Б/1, 2/7 Б/1" offset="0.5m" width="0.9m" />
 			<door wall="2/4 Б/4, 3 Б/4" offset="1m" width="0.9m" />
+
+			<furniture name="toilet" wall="3 Г, 3 Б/4" width="0.4m" offset="1m" />
 		</features>
 
 		<room>
@@ -480,6 +493,8 @@
 			<door wall="4 А/2, 4/3 А/2" offset="0.8m" width="0.9m" />
 			<door wall="4/3 В, 4/3 А/2" offset="0.6m" width="0.9m" />
 			<door wall="3/1 Б, 3/1 А" offset="1m" width="0.9m" />
+
+			<furniture name="toilet" wall="4/3 В, 5/1 В" width="0.4m" offset="1m" />
 		</features>
 
 		<room>
@@ -530,6 +545,8 @@
 			<door wall="6/1 Ж/1!, 7/1 Ж/1!" offset="0.6m" width="1.0m" side="left" />
 			<door wall="7/1 Ж/1!, 7/1 Е/3" offset="0.8m" width="0.9m" />
 			<door wall="6/1 Ж/1!, 6/1 Е/3" offset="1.5m" width="0.9m" />
+
+			<furniture name="toilet" wall="8 Ж/1!, 8 Е/3" width="0.4m" offset="1m" />
 		</features>
 
 		<room>
@@ -576,13 +593,16 @@
 			<window wall="9 М, 7 М" offset="4.6m" width="1690mm" />
 
 			<door wall="7/2 Ж/1!, 7/2 Ж/6" offset="0.6m" width="1.0m" side="left" />
-			<door wall="8 Ж, 8/1 Ж" offset="0.8m" width="0.9m" />
-			<door wall="7/2 И/2, 7/3 И/2" offset="0.5m" width="0.9m" />
-			<door wall="7/3 И/2, 8/1 И/2" offset="0.5m" width="0.9m" />
-			<door wall="8/1 Ж/6, 8/1 И/2" offset="0.5m" width="0.9m" />
-			<door wall="8/1 И/2, 8/1 И/5" offset="0.5m" width="0.9m" />
-			<door wall="8/1 Ж/6, 8/1 Ж/3" offset="0.5m" width="0.9m" />
-			<door wall="8/1 Ж/3, 8/1 Ж" offset="0.5m" width="0.9m" />
+			<door wall="8 Ж, 8/1 Ж" offset="0.8m" width="0.9m" side="left" />
+			<door wall="7/2 И/2, 7/3 И/2" offset="0.6m" width="0.9m" side="left" />
+			<door wall="7/3 И/2, 8/1 И/2" offset="0.6m" width="0.9m" side="left" />
+			<door wall="8/1 Ж/6, 8/1 И/2" offset="0.6m" width="0.9m" side="left" />
+			<door wall="8/1 И/5, 8/1 И/2" offset="1.3m" width="0.9m" />
+			<door wall="8/1 Ж/6, 8/1 Ж/3" offset="0.6m" width="0.9m" />
+			<door wall="8/1 Ж/3, 8/1 Ж" offset="0.6m" width="0.9m" />
+
+			<furniture name="toilet" wall="8/1 Ж/3, 9 Ж/3" width="0.4m" offset="1m" />
+			<furniture name="toilet" wall="9 И/2, 8/1 И/2" width="0.4m" offset="1m" />
 		</features>
 
 		<room>

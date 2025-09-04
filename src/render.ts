@@ -52,12 +52,13 @@ export type PlannerOptions = {
 	input: string;
 	viewFlatId?: string;
 	debug: {
-		showAxes: boolean,
+		showAxes: boolean;
 		axesButtons: boolean;
 	};
 	showErrorLevels: ("note" | "warn" | "error")[];
 	xsd?: string;
 	mmPerPx: number;
+	fractionDigits: number;
 };
 
 export async function render(options: PlannerOptions) {
@@ -116,8 +117,6 @@ export async function render(options: PlannerOptions) {
 
 	for (let i = 0; i < outerWallPoints.length; i++) {
 		const thickness = Util.getWrapped(ctx.plan.walls[0].wall, i).thickness;
-
-		console.log(ctx.plan.walls[0].wall[i]);
 
 		outerWalls.push({
 			points: getWallOutlinePoints(
@@ -415,7 +414,10 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 		},
 		classes: ["area"],
 		parent: g,
-		innerHTML: `${areaMeters.toLocaleString("ru-RU")}`
+		innerHTML: `${areaMeters.toLocaleString("ru-RU", {
+			minimumFractionDigits: ctx.options.fractionDigits,
+			maximumFractionDigits: ctx.options.fractionDigits
+		})}`
 	});
 }
 
@@ -457,7 +459,6 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: { prev: 
 		totalOffsetNormal = f.offset_normal ?? 0;
 	}
 	const ct = walls.curr.thickness * 0.5 + totalOffsetNormal;
-	console.log(ct, wallThickness / 2);
 	const [nx, ny] = [n.x * ct, n.y * ct];
 
 	const pStart = new Vec(wallP1.x + wallV.x * start / wallLength, wallP1.y + wallV.y * start / wallLength);

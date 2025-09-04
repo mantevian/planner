@@ -21,7 +21,8 @@ async function main() {
 		},
 		showErrorLevels: ["note", "warn", "error"],
 		xsd: xsd,
-		mmPerPx: 10
+		mmPerPx: 10,
+		fractionDigits: 2
 	};
 
 	updateOutput(options);
