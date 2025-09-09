@@ -8,9 +8,10 @@ import Vec from "./types/Vec";
 import Wall, { getAxesFromWall, getAxesFromWallString } from "./types/Wall";
 import Window from "./types/Window";
 import Util from "./util";
-import parseElement from "./xml_to_js";
+import parseElement, { objToXML } from "./xml";
 import * as xmllint from 'xmllint-wasm/index-browser';
 import polylabel from "polylabel";
+import invertAxes from "./meta/invertAxes";
 
 type WallPoints = {
 	p1Inner: Vec;
@@ -19,7 +20,7 @@ type WallPoints = {
 	p2Outer: Vec;
 };
 
-type PlanContext = {
+export type PlanContext = {
 	plan: Plan;
 	svg: SVGSVGElement;
 	axes: {
@@ -105,6 +106,10 @@ export async function render(options: PlannerOptions) {
 
 	await initDefs(ctx);
 	initAxes(ctx);
+
+	console.log(objToXML(invertAxes({
+		ctx, invertX: true, invertY: false
+	}), 10).outerHTML);
 
 	if (!ctx.plan.flat || ctx.plan.flat.length == 0) {
 		ctx.errors.push(planErrors.no_flats());

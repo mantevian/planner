@@ -1,10 +1,7 @@
+const doc = new Document();
+
 export default function parseElement(element: Element, multiplier: number) {
 	let result: any = {};
-
-	if (element.tagName.toLowerCase() != "point") {
-		parseCoordinatesToVec({ element, attrName: "pos", xName: "x", yName: "y", result, multiplier });
-		parseCoordinatesToVec({ element, attrName: "size", xName: "w", yName: "h", result, multiplier });
-	}
 
 	result["_name"] = element.tagName.toLowerCase();
 
@@ -50,18 +47,6 @@ export default function parseElement(element: Element, multiplier: number) {
 	return result;
 }
 
-function parseCoordinatesToVec(
-	{ element, attrName, xName, yName, result, multiplier }:
-		{ element: Element, attrName: string, xName: string, yName: string, result: any, multiplier: number; }
-) {
-	if (element.hasAttribute(xName) && element.hasAttribute(yName)) {
-		result[attrName] = {
-			x: parseNumberUnit(element.getAttribute(xName) ?? "0", multiplier),
-			y: parseNumberUnit(element.getAttribute(yName) ?? "0", multiplier)
-		};
-	}
-}
-
 /** match a string that is exactly of structure `<num><unit>?`, where `<num>` is any float decimal number and optional `<unit>` is one of `mm`, `cm`, `dm`, `m`
  * 
  * for example `1234`, `1234mm`, `123cm`, `12dm`, `1.2m` */
@@ -94,4 +79,22 @@ function parseNumberUnit(input: string, multiplier: number): number | null {
 	};
 
 	return n * units[unit] * multiplier;
+}
+
+export function objToXML(obj: any, multiplier: number): Element {
+	const el: Element = doc.createElement(obj["_name"]);
+
+	for (const [k, v] of Object.entries(obj)) {
+		if (Array.isArray(v)) {
+			for (const child of v) {
+				el.appendChild(objToXML(child, multiplier));
+			}
+		} else if (typeof v == "number") {
+			el.setAttribute(k, String(v * multiplier) + "mm");
+		} else if (k != "_name") {
+			el.setAttribute(k, String(v));
+		}
+	}
+
+	return el;
 }
