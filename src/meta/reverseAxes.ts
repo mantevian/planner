@@ -1,7 +1,7 @@
 import { PlanContext } from "../render";
 import PlanDocElement from "../types/PlanDocElement";
 
-export default function invertAxes({ ctx: planContext, invertX, invertY }: {
+export default function reverseAxes({ ctx: planContext, invertX, invertY }: {
 	ctx: PlanContext,
 	invertX: boolean,
 	invertY: boolean
@@ -29,7 +29,7 @@ type InvertAxesCtx = {
 	invertY: boolean;
 };
 
-function invert(axis: string, ctx: InvertAxesCtx): string {
+function reverse(axis: string, ctx: InvertAxesCtx): string {
 	const xi = ctx.x.findIndex(a => a == axis);
 	const yi = ctx.y.findIndex(a => a == axis);
 
@@ -43,8 +43,7 @@ function invert(axis: string, ctx: InvertAxesCtx): string {
 
 	return axis;
 }
-// 0 1 2 3 4 5 6 7
-// * +         + *
+
 function parseElement(el: PlanDocElement, ctx: InvertAxesCtx) {
 	if (typeof el != "object") {
 		return;
@@ -56,12 +55,12 @@ function parseElement(el: PlanDocElement, ctx: InvertAxesCtx) {
 		if (typeof v == "string") {
 			if (k == "wall") {
 				const axes = v.split(/[\,\s]/).filter(Boolean);
-				(el as any)["wall"] = `${invert(axes[0], ctx)} ${invert(axes[1], ctx)}, ${invert(axes[2], ctx)} ${invert(axes[3], ctx)}`;
+				(el as any)["wall"] = `${reverse(axes[0], ctx)} ${reverse(axes[1], ctx)}, ${reverse(axes[2], ctx)} ${reverse(axes[3], ctx)}`;
 			}
 
 			if (k == "from" || k == "to") {
 				const axes = v.split(/[\,\s]/).filter(Boolean);
-				(el as any)[k] = `${invert(axes[0], ctx)} ${invert(axes[1], ctx)}`;
+				(el as any)[k] = `${reverse(axes[0], ctx)} ${reverse(axes[1], ctx)}`;
 			}
 		}
 

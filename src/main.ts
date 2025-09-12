@@ -1,5 +1,6 @@
 import createPanZoom from "panzoom";
 import { PlannerOptions, render } from "./render";
+import reverseWalls from "./meta/reverseWalls";
 
 main();
 
@@ -49,6 +50,11 @@ async function main() {
 
 	document.querySelector("#download-current")?.addEventListener("click", () => {
 		downloadFile(`plan_${options.viewFlatId!}.svg`, output.innerHTML);
+	});
+
+	document.querySelector("#invert-room-walls")?.addEventListener("click", () => {
+		const input: HTMLInputElement = document.querySelector("input[name='invert-room-walls']")!;
+		console.log(reverseWalls(input.value));
 	});
 }
 

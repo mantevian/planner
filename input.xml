@@ -68,7 +68,7 @@
 		<axis type="vertical" id="9/1" offset="24520mm" />
 
 		<axis type="vertical" id="10" offset="25780mm" />
-		
+
 
 		<axis type="vertical" id="10/2" offset="27170mm" />
 
@@ -221,7 +221,7 @@
 
 			<furniture name="toilet" wall="3 И/1, 2/1! И/1" width="0.4m" offset="0.75m" />
 			<furniture name="toilet" wall="4/2 И, 4/2 И/3" width="0.4m" offset="1.5m" />
-			
+
 			<furniture name="bath_sink" wall="2/1! И/1, 2/1! И/4" width="0.6m" offset="1.35m" />
 
 			<furniture name="bath" wall="2/1! И/4, 3/2 И/4" width="1.7m" offset="0.9m" />
@@ -736,67 +736,73 @@
 			<door wall="14 К/1, 13/1! К/1" offset="900mm" width="900mm" side="left" />
 			<door wall="14 И, 14 К/1" offset="1500mm" width="900mm" />
 			<door wall="15/5 М, 15/5 К" offset="800mm" width="900mm" />
-			
+
 			<furniture name="toilet" wall="15 И/1, 15/1! И/1" width="400mm" offset="750mm" />
 			<furniture name="toilet" wall="13/2 И, 13/2 И/3" width="400mm" offset="1500mm" />
 			<furniture name="bath_sink" wall="15/1! И/1, 15/1! И/4" width="600mm" offset="1350mm" />
 			<furniture name="bath" wall="15/1! И/4, 14 И/4" width="1700mm" offset="900mm" />
 		</features>
+
 		<room>
 			<walls>
-				<wall from="16 М" to="15/5 М" thickness="200mm" />
-				<wall to="15/5 К" thickness="80mm" />
-				<wall to="16 К" thickness="200mm" />
+				<wall thickness="200mm" from="16 К" to="15/5 К" />
+				<wall thickness="80mm" to="15/5 М" />
+				<wall thickness="200mm" to="16 М" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/5 М" to="13/3 М" thickness="200mm" />
-				<wall to="13/3 К/1" thickness="80mm" />
-				<wall to="14 К/1" thickness="80mm" />
-				<wall to="14 И/4" thickness="80mm" />
-				<wall to="15/1! И/4" thickness="80mm" />
-				<wall to="15/1! К" thickness="200mm" />
-				<wall to="15/5 К" thickness="200mm" />
+				<wall thickness="200mm" from="15/5 К" to="15/1! К" />
+				<wall thickness="200mm" to="15/1! И/4" />
+				<wall thickness="80mm" to="14 И/4" />
+				<wall thickness="80mm" to="14 К/1" />
+				<wall thickness="80mm" to="13/3 К/1" />
+				<wall thickness="80mm" to="13/3 М" />
+				<wall thickness="200mm" to="15/5 М" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="13/3 М" to="13 М" thickness="200mm" />
-				<wall to="13 И/3" thickness="200mm" />
-				<wall to="13/1! И/3" thickness="80mm" />
-				<wall to="13/1! К/1" thickness="80mm" />
-				<wall to="13/3 К/1" thickness="80mm" />
+				<wall thickness="80mm" from="13/3 К/1" to="13/1! К/1" />
+				<wall thickness="80mm" to="13/1! И/3" />
+				<wall thickness="80mm" to="13 И/3" />
+				<wall thickness="200mm" to="13 М" />
+				<wall thickness="200mm" to="13/3 М" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/1! И/4" to="14 И/4" thickness="80mm" />
-				<wall to="14 И" thickness="80mm" />
-				<wall to="15 И" thickness="200mm" />
-				<wall to="15 И/1" thickness="200mm" />
-				<wall to="15/1! И/1" thickness="200mm" />
+				<wall thickness="200mm" from="15/1! И/1" to="15 И/1" />
+				<wall thickness="200mm" to="15 И" />
+				<wall thickness="200mm" to="14 И" />
+				<wall thickness="80mm" to="14 И/4" />
+				<wall thickness="80mm" to="15/1! И/4" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="13 И/3" to="13 И" thickness="200mm" />
-				<wall to="13/2 И" thickness="200mm" />
-				<wall to="13/2 И/3" thickness="80mm" />
+				<wall thickness="80mm" from="13/2 И/3" to="13/2 И" />
+				<wall thickness="200mm" to="13 И" />
+				<wall thickness="200mm" to="13 И/3" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="14 К/1" to="13/1! К/1" thickness="80mm" />
-				<wall to="13/1! И/3" thickness="80mm" />
-				<wall to="13/2 И/3" thickness="80mm" />
-				<wall to="13/2 И" thickness="80mm" />
-				<wall to="14 И" thickness="200mm" />
+				<wall thickness="200mm" from="14 И" to="13/2 И" />
+				<wall thickness="80mm" to="13/2 И/3" />
+				<wall thickness="80mm" to="13/1! И/3" />
+				<wall thickness="80mm" to="13/1! К/1" />
+				<wall thickness="80mm" to="14 К/1" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
@@ -814,45 +820,49 @@
 			<furniture name="bath_sink" wall="15 Ж/01, 15/6 Ж/01" width="600mm" offset="1800mm" />
 			<furniture name="bath" wall="15/6 Ж/01, 15/6 Ж/3" width="1700mm" offset="950mm" />
 		</features>
+
 		<room>
 			<walls>
-				<wall from="17 К" to="16 К" thickness="200mm" />
-				<wall to="16 К+1" thickness="200mm" />
-				<wall to="15/1! К+1" thickness="200mm" />
-				<wall to="15/1! Ж/5" thickness="200mm" />
-				<wall to="17 Ж/5" thickness="80mm" />
+				<wall thickness="80mm" from="17 Ж/5" to="15/1! Ж/5" />
+				<wall thickness="200mm" to="15/1! К" />
+				<wall thickness="200mm" to="16 К" />
+				<wall thickness="200mm" to="16 К+1" />
+				<wall thickness="200mm" to="17 К+1" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="17 Ж/5" to="15/8 Ж/5" thickness="80mm" />
-				<wall to="15/8 Ж/3" thickness="80mm" />
-				<wall to="15/6 Ж/3" thickness="80mm" />
-				<wall to="15/6 Ж" thickness="80mm" />
-				<wall to="17 Ж" thickness="200mm" />
+				<wall thickness="200mm" from="17 Ж" to="15/6 Ж" />
+				<wall thickness="80mm" to="15/6 Ж/3" />
+				<wall thickness="80mm" to="15/8 Ж/3" />
+				<wall thickness="80mm" to="15/8 Ж/5" />
+				<wall thickness="80mm" to="17 Ж/5" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/8 Ж/5" to="15/1! Ж/5" thickness="80mm" />
-				<wall to="15/1! И/1" thickness="200mm" />
-				<wall to="15 И/1" thickness="200mm" />
-				<wall to="15 Ж/2" thickness="200mm" />
-				<wall to="15/2 Ж/2" thickness="80mm" />
-				<wall to="15/2 Ж/3" thickness="80mm" />
-				<wall to="15/8 Ж/3" thickness="80mm" />
+				<wall thickness="80mm" from="15/8 Ж/3" to="15/2 Ж/3" />
+				<wall thickness="80mm" to="15/2 Ж/2" />
+				<wall thickness="80mm" to="15 Ж/2" />
+				<wall thickness="200mm" to="15 И/1" />
+				<wall thickness="200mm" to="15/1! И/1" />
+				<wall thickness="200mm" to="15/1! Ж/5" />
+				<wall thickness="80mm" to="15/8 Ж/5" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/6 Ж/3" to="15/2 Ж/3" thickness="80mm" />
-				<wall to="15/2 Ж/2" thickness="80mm" />
-				<wall to="15 Ж/2" thickness="80mm" />
-				<wall to="15 Ж/01" thickness="200mm" />
-				<wall to="15/6 Ж/01" thickness="200mm" />
+				<wall thickness="200mm" from="15/6 Ж/01" to="15 Ж/01" />
+				<wall thickness="200mm" to="15 Ж/2" />
+				<wall thickness="80mm" to="15/2 Ж/2" />
+				<wall thickness="80mm" to="15/2 Ж/3" />
+				<wall thickness="80mm" to="15/6 Ж/3" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
@@ -868,29 +878,32 @@
 			<furniture name="bath_sink" wall="15/4 Е, 15/4 Е/1" width="600mm" offset="1500mm" />
 			<furniture name="shower" wall="15/4 Е, 15/4 Е/1" width="900mm" offset="550mm" />
 		</features>
+
 		<room>
 			<walls>
-				<wall from="17 Ж" to="15/3 Ж" thickness="200mm" />
-				<wall to="15/3 Е/1" thickness="80mm" />
-				<wall to="15/4 Е/1" thickness="80mm" />
-				<wall to="15/4 Е" thickness="200mm" />
-				<wall to="17 Е" thickness="200mm" />
+				<wall thickness="200mm" from="17 Е" to="15/4 Е" />
+				<wall thickness="200mm" to="15/4 Е/1" />
+				<wall thickness="80mm" to="15/3 Е/1" />
+				<wall thickness="80mm" to="15/3 Ж" />
+				<wall thickness="200mm" to="17 Ж" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/3 Ж" to="15 Ж" thickness="200mm" />
-				<wall to="15 Е/1" thickness="200mm" />
-				<wall to="15/3 Е/1" thickness="80mm" />
+				<wall thickness="80mm" from="15/3 Е/1" to="15 Е/1" />
+				<wall thickness="200mm" to="15 Ж" />
+				<wall thickness="200mm" to="15/3 Ж" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/4 Е/1" to="15 Е/1" thickness="80mm" />
-				<wall to="15 Е" thickness="200mm" />
-				<wall to="15/4 Е" thickness="200mm" />
+				<wall thickness="200mm" from="15/4 Е" to="15 Е" />
+				<wall thickness="200mm" to="15 Е/1" />
+				<wall thickness="80mm" to="15/4 Е/1" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
@@ -906,29 +919,32 @@
 			<furniture name="bath_sink" wall="15/4 Г/3, 15/4 Е" width="600mm" offset="500mm" />
 			<furniture name="shower" wall="15/4 Е, 15 Е" width="900mm" offset="550mm" />
 		</features>
+
 		<room>
 			<walls>
-				<wall from="17 Е" to="15/4 Е" thickness="200mm" />
-				<wall to="15/4 Г/3" thickness="200mm" />
-				<wall to="15/3 Г/3" thickness="80mm" />
-				<wall to="15/3 Г" thickness="80mm" />
-				<wall to="17 Г" thickness="200mm" />
+				<wall thickness="200mm" from="17 Г" to="15/3 Г" />
+				<wall thickness="80mm" to="15/3 Г/3" />
+				<wall thickness="80mm" to="15/4 Г/3" />
+				<wall thickness="200mm" to="15/4 Е" />
+				<wall thickness="200mm" to="17 Е" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/3 Г/3" to="15 Г/3" thickness="80mm" />
-				<wall to="15 Г" thickness="200mm" />
-				<wall to="15/3 Г" thickness="200mm" />
+				<wall thickness="200mm" from="15/3 Г" to="15 Г" />
+				<wall thickness="200mm" to="15 Г/3" />
+				<wall thickness="80mm" to="15/3 Г/3" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/4 Е" to="15 Е" thickness="200mm" />
-				<wall to="15 Г/3" thickness="200mm" />
-				<wall to="15/4 Г/3" thickness="80mm" />
+				<wall thickness="80mm" from="15/4 Г/3" to="15 Г/3" />
+				<wall thickness="200mm" to="15 Е" />
+				<wall thickness="200mm" to="15/4 Е" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
@@ -944,7 +960,7 @@
 			<window wall="15/1 А, 12/1 А" offset="4200mm" width="1690mm" />
 			<window wall="15/1 А, 12/1 А" offset="7000mm" width="1690mm" />
 			<window wall="12/1 А/2, 12/1 А" offset="1500mm" width="1840mm" />
-			
+
 			<door wall="15 Б/4, 15 Б" offset="600mm" width="1000mm" side="left" />
 			<door wall="15/7 Б/4, 15/7 Б/1" offset="800mm" width="900mm" />
 			<door wall="15/7 Б/1, 15/2 Б/1" offset="500mm" width="900mm" />
@@ -963,76 +979,83 @@
 			<furniture name="bath_sink" wall="12/1 В, 12/1 А/2" width="600mm" offset="1500mm" />
 			<furniture name="bath" wall="12/1 А/2, 13/1 А/2" width="1700mm" offset="950mm" />
 		</features>
+
 		<room>
 			<walls>
-				<wall from="17 Г" to="15/5 Г" thickness="200mm" />
-				<wall to="15/5 Б/4" thickness="80mm" />
-				<wall to="15/7 Б/4" thickness="80mm" />
-				<wall to="15/7 Б/1" thickness="80mm" />
-				<wall to="16 Б/1" thickness="80mm" />
-				<wall to="16 Б" thickness="80mm" />
-				<wall to="17 Б" thickness="200mm" />
+				<wall thickness="200mm" from="17 Б" to="16 Б" />
+				<wall thickness="80mm" to="16 Б/1" />
+				<wall thickness="80mm" to="15/7 Б/1" />
+				<wall thickness="80mm" to="15/7 Б/4" />
+				<wall thickness="80mm" to="15/5 Б/4" />
+				<wall thickness="80mm" to="15/5 Г" />
+				<wall thickness="200mm" to="17 Г" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/1 Б/1" to="15/1 А" thickness="200mm" />
-				<wall to="16 А" thickness="200mm" />
-				<wall to="16 Б/1" thickness="200mm" />
+				<wall thickness="200mm" from="16 Б/1" to="16 А" />
+				<wall thickness="200mm" to="15/1 А" />
+				<wall thickness="200mm" to="15/1 Б/1" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/5 Г" to="15 Г" thickness="200mm" />
-				<wall to="15 Б/4" thickness="200mm" />
-				<wall to="15/5 Б/4" thickness="80mm" />
+				<wall thickness="80mm" from="15/5 Б/4" to="15 Б/4" />
+				<wall thickness="200mm" to="15 Г" />
+				<wall thickness="200mm" to="15/5 Г" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/7 Б/1" to="15/1 Б/1" thickness="80mm" />
-				<wall to="15/1 Б" thickness="80mm" />
-				<wall to="15 Б" thickness="200mm" />
-				<wall to="15 Б/4" thickness="200mm" />
-				<wall to="15/7 Б/4" thickness="80mm" />
+				<wall thickness="80mm" from="15/7 Б/4" to="15 Б/4" />
+				<wall thickness="200mm" to="15 Б" />
+				<wall thickness="200mm" to="15/1 Б" />
+				<wall thickness="80mm" to="15/1 Б/1" />
+				<wall thickness="80mm" to="15/7 Б/1" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
-		
+
 		<room>
 			<walls>
-				<wall from="14/1 Б" to="13/4 Б" thickness="200mm" />
-				<wall to="13/4 А/2" thickness="80mm" />
-				<wall to="12/1 А/2" thickness="80mm" />
-				<wall to="12/1 А" thickness="200mm" />
-				<wall to="14/1 А" thickness="200mm" />
+				<wall thickness="200mm" from="14/1 А" to="12/1 А" />
+				<wall thickness="200mm" to="12/1 А/2" />
+				<wall thickness="80mm" to="13/4 А/2" />
+				<wall thickness="80mm" to="13/4 Б" />
+				<wall thickness="200mm" to="14/1 Б" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="15/1 Б" to="14/1 Б" thickness="200mm" />
-				<wall to="14/1 А" thickness="80mm" />
-				<wall to="15/1 А" thickness="200mm" />
+				<wall thickness="200mm" from="15/1 А" to="14/1 А" />
+				<wall thickness="80mm" to="14/1 Б" />
+				<wall thickness="200mm" to="15/1 Б" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="13/4 В" to="13/4 А/2" thickness="200mm" />
-				<wall to="13/1 А/2" thickness="80mm" />
-				<wall to="13/1 В" thickness="80mm" />
+				<wall thickness="80mm" from="13/1 В" to="13/1 А/2" />
+				<wall thickness="80mm" to="13/4 А/2" />
+				<wall thickness="200mm" to="13/4 В" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="13/1 В" to="12/1 В" thickness="200mm" />
-				<wall to="12/1 А/2" thickness="200mm" />
-				<wall to="13/1 А/2" thickness="80mm" />
+				<wall thickness="80mm" from="13/1 А/2" to="12/1 А/2" />
+				<wall thickness="200mm" to="12/1 В" />
+				<wall thickness="200mm" to="13/1 В" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
@@ -1050,35 +1073,39 @@
 			<furniture name="bath_sink" wall="10/4 Ж/1!, 10 Ж/1!" width="600mm" offset="1000mm" />
 			<furniture name="bath" wall="10 Е/3, 10/4 Е/3" width="1700mm" offset="950mm" />
 		</features>
+
 		<room>
 			<walls>
-				<wall from="12/1 Д" to="12/1 Е/3" thickness="200mm" />
-				<wall to="10 Е/3" thickness="80mm" />
-				<wall to="10 Д" thickness="200mm" />
+				<wall thickness="200mm" from="10 Д" to="10 Е/3" />
+				<wall thickness="80mm" to="12/1 Е/3" />
+				<wall thickness="200mm" to="12/1 Д" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="12/1 Ж/1!" to="11/1 Ж/1!" thickness="200mm" />
-				<wall to="11/1 Е/3" thickness="80mm" />
-				<wall to="12/1 Е/3" thickness="80mm" />
+				<wall thickness="80mm" from="12/1 Е/3" to="11/1 Е/3" />
+				<wall thickness="80mm" to="11/1 Ж/1!" />
+				<wall thickness="200mm" to="12/1 Ж/1!" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="11/1 Ж/1!" to="10/4 Ж/1!" thickness="200mm" />
-				<wall to="10/4 Е/3" thickness="80mm" />
-				<wall to="11/1 Е/3" thickness="80mm" />
+				<wall thickness="80mm" from="11/1 Е/3" to="10/4 Е/3" />
+				<wall thickness="80mm" to="10/4 Ж/1!" />
+				<wall thickness="200mm" to="11/1 Ж/1!" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
+
 		<room>
 			<walls>
-				<wall from="10/4 Ж/1!" to="10 Ж/1!" thickness="200mm" />
-				<wall to="10 Е/3" thickness="200mm" />
-				<wall to="10/4 Е/3" thickness="80mm" />
+				<wall thickness="80mm" from="10/4 Е/3" to="10 Е/3" />
+				<wall thickness="200mm" to="10 Ж/1!" />
+				<wall thickness="200mm" to="10/4 Ж/1!" />
 				<wall thickness="80mm" />
 			</walls>
 		</room>
@@ -1103,75 +1130,37 @@
 			<furniture name="bath_sink" wall="9 Ж/3, 9 Ж" width="600mm" offset="1000mm" />
 			<furniture name="bath" wall="9/1 И/5, 9 И/5" width="1700mm" offset="900mm" />
 		</features>
+
 		<room>
-			<walls>
-				<wall from="10 Ж" to="9 Ж" thickness="80mm" />
-				<wall to="9 Д" thickness="200mm" />
-				<wall to="10 Д" thickness="200mm" />
-				<wall thickness="200mm" />
-			</walls>
+			<walls><wall thickness="200mm" from="10 Д" to="9 Д"/><wall thickness="200mm" to="9 Ж"/><wall thickness="80mm" to="10 Ж"/><wall thickness="200mm"/></walls>
 		</room>
+
 		<room>
-			<walls>
-				<wall from="9/1 Ж/4" to="9 Ж/4" thickness="80mm" />
-				<wall to="9 Ж" thickness="200mm" />
-				<wall to="9/1 Ж" thickness="80mm" />
-				<wall thickness="80mm" />
-			</walls>
+			<walls><wall thickness="80mm" from="9/1 Ж" to="9 Ж"/><wall thickness="200mm" to="9 Ж/4"/><wall thickness="80mm" to="9/1 Ж/4"/><wall thickness="80mm"/></walls>
 		</room>
+
 		<room>
-			<walls>
-				<wall from="9/1 Ж/6" to="9 Ж/6" thickness="80mm" />
-				<wall to="9 Ж/3" thickness="200mm" />
-				<wall to="9/1 Ж/3" thickness="80mm" />
-				<wall thickness="80mm" />
-			</walls>
+			<walls><wall thickness="80mm" from="9/1 Ж/3" to="9 Ж/3"/><wall thickness="200mm" to="9 Ж/6"/><wall thickness="80mm" to="9/1 Ж/6"/><wall thickness="80mm"/></walls>
 		</room>
+
 		<room>
-			<walls>
-				<wall from="9/1 И/2" to="9 И/2" thickness="80mm" />
-				<wall to="9 Ж/6" thickness="200mm" />
-				<wall to="9/1 Ж/6" thickness="80mm" />
-				<wall thickness="80mm" />
-			</walls>
+			<walls><wall thickness="80mm" from="9/1 Ж/6" to="9 Ж/6"/><wall thickness="200mm" to="9 И/2"/><wall thickness="80mm" to="9/1 И/2"/><wall thickness="80mm"/></walls>
 		</room>
+
 		<room>
-			<walls>
-				<wall from="9/1 И/5" to="9 И/5" thickness="80mm" />
-				<wall to="9 И/2" thickness="200mm" />
-				<wall to="9/1 И/2" thickness="80mm" />
-				<wall thickness="80mm" />
-			</walls>
+			<walls><wall thickness="80mm" from="9/1 И/2" to="9 И/2"/><wall thickness="200mm" to="9 И/5"/><wall thickness="80mm" to="9/1 И/5"/><wall thickness="80mm"/></walls>
 		</room>
+
 		<room>
-			<walls>
-				<wall from="10/3 И/2" to="9/1 И/2" thickness="80mm" />
-				<wall to="9/1 Ж" thickness="80mm" />
-				<wall to="10 Ж" thickness="80mm" />
-				<wall to="10 Ж/1!" thickness="200mm" />
-				<wall to="10/3 Ж/1!" thickness="200mm" />
-				<wall thickness="200mm" />
-			</walls>
+			<walls><wall thickness="200mm" from="10/3 Ж/1!" to="10 Ж/1!"/><wall thickness="200mm" to="10 Ж"/><wall thickness="80mm" to="9/1 Ж"/><wall thickness="80mm" to="9/1 И/2"/><wall thickness="80mm" to="10/3 И/2"/><wall thickness="200mm"/></walls>
 		</room>
+
 		<room>
-			<walls>
-				<wall from="10/2 М" to="9 М" thickness="200mm" />
-				<wall to="9 И/5" thickness="200mm" />
-				<wall to="9/1 И/5" thickness="80mm" />
-				<wall to="9/1 И/2" thickness="80mm" />
-				<wall to="10/2 И/2" thickness="80mm" />
-				<wall thickness="80mm" />
-			</walls>
+			<walls><wall thickness="80mm" from="10/2 И/2" to="9/1 И/2"/><wall thickness="80mm" to="9/1 И/5"/><wall thickness="80mm" to="9 И/5"/><wall thickness="200mm" to="9 М"/><wall thickness="200mm" to="10/2 М"/><wall thickness="80mm"/></walls>
 		</room>
+
 		<room>
-			<walls>
-				<wall from="11 М" to="10/2 М" thickness="200mm" />
-				<wall to="10/2 И/2" thickness="80mm" />
-				<wall to="10/3 И/2" thickness="80mm" />
-				<wall to="10/3 Ж/6" thickness="200mm" />
-				<wall to="11 Ж/6" thickness="200mm" />
-				<wall thickness="200mm" />
-			</walls>
+			<walls><wall thickness="200mm" from="11 Ж/6" to="10/3 Ж/6"/><wall thickness="200mm" to="10/3 И/2"/><wall thickness="80mm" to="10/2 И/2"/><wall thickness="80mm" to="10/2 М"/><wall thickness="200mm" to="11 М"/><wall thickness="200mm"/></walls>
 		</room>
 	</flat>
 </plan>
