@@ -724,23 +724,23 @@
 
 	<flat id="66">
 		<features>
-			<window wall="13 М, 16 М" offset="1500mm" width="1690mm" />
-			<window wall="13 М, 16 М" offset="4250mm" width="1690mm" />
-			<window wall="13 М, 16 М" offset="7000mm" width="1690mm" />
-			<window wall="13 М, 16 М" offset="9750mm" width="1690mm" />
-			<window wall="16 М, 16 К" offset="1700mm" width="1840mm" />
+			<window wall="16 М, 13 М" offset="1500mm" width="1690mm" />
+			<window wall="16 М, 13 М" offset="4250mm" width="1690mm" />
+			<window wall="16 М, 13 М" offset="7000mm" width="1690mm" />
+			<window wall="16 М, 13 М" offset="9750mm" width="1690mm" />
+			<window wall="16 М, 13 К" offset="1700mm" width="1840mm" />
 
-			<door wall="14 И, 13/4 И" offset="600mm" width="1000mm" />
-			<door wall="13/1! И/3, 13/1! К/1" offset="500mm" width="900mm" />
-			<door wall="13/2 И/3, 13 И/3" offset="1500mm" width="900mm" side="left" />
-			<door wall="14 К/1, 13/1! К/1" offset="900mm" width="900mm" side="left" />
-			<door wall="14 И, 14 К/1" offset="1500mm" width="900mm" />
-			<door wall="15/5 М, 15/5 К" offset="800mm" width="900mm" />
+			<door wall="14 И, 13/4 И" offset="600mm" width="1000mm" side="left" />
+			<door wall="13/1! И/3, 13/1! К/1" offset="500mm" width="900mm" side="left" />
+			<door wall="13/2 И/3, 13 И/3" offset="1500mm" width="900mm" side="right" />
+			<door wall="14 К/1, 13/1! К/1" offset="900mm" width="900mm" side="right" />
+			<door wall="14 И, 14 К/1" offset="1500mm" width="900mm" side="left" />
+			<door wall="15/5 М, 15/5 К" offset="800mm" width="900mm" side="left" />
 
-			<furniture name="toilet" wall="15 И/1, 15/1! И/1" width="400mm" offset="750mm" />
-			<furniture name="toilet" wall="13/2 И, 13/2 И/3" width="400mm" offset="1500mm" />
-			<furniture name="bath_sink" wall="15/1! И/1, 15/1! И/4" width="600mm" offset="1350mm" />
-			<furniture name="bath" wall="15/1! И/4, 14 И/4" width="1700mm" offset="900mm" />
+			<furniture name="toilet" wall="15/1! И/1, 15 И/1" width="400mm" offset="750mm" />
+			<furniture name="toilet" wall="13/2 И/3, 13/2 И" width="400mm" offset="1500mm" />
+			<furniture name="bath_sink" wall="15/1! И/4, 15/1! И/1" width="600mm" offset="1350mm" />
+			<furniture name="bath" wall="14 И/4, 15/1! И/4" width="1700mm" offset="900mm" />
 		</features>
 
 		<room>
@@ -810,15 +810,17 @@
 
 	<flat id="67">
 		<features>
-			<window wall="17 Ж/5, 17 Ж" offset="1500mm" width="1840mm" />
-			<window wall="17 К, 17 Ж/5" offset="1800mm" width="1840mm" />
-			<door wall="15 Ж/2, 15 И/1" offset="500mm" width="1000mm" />
-			<door wall="15/1 Ж/2, 15/1! Ж/2" offset="500mm" width="900mm" side="left" />
-			<door wall="15/8 Ж/5, 15/5 Ж/5" offset="500mm" width="900mm" side="left" />
-			<door wall="15/8 Ж/5, 15/8 Ж/3" offset="500mm" width="900mm" />
-			<furniture name="toilet" wall="15 Ж/01, 15/6 Ж/01" width="400mm" offset="1000mm" />
-			<furniture name="bath_sink" wall="15 Ж/01, 15/6 Ж/01" width="600mm" offset="1800mm" />
-			<furniture name="bath" wall="15/6 Ж/01, 15/6 Ж/3" width="1700mm" offset="950mm" />
+			<window wall="17 Ж, 17 Ж/5" offset="1500mm" width="1840mm" />
+			<window wall="17 Ж/5, 17 К" offset="1800mm" width="1840mm" />
+
+			<door wall="15 Ж/2, 15 И/1" offset="500mm" width="1000mm" side="left" />
+			<door wall="15/1 Ж/2, 15/1! Ж/2" offset="500mm" width="900mm" side="right" />
+			<door wall="15/8 Ж/5, 15/5 Ж/5" offset="500mm" width="900mm" side="right" />
+			<door wall="15/8 Ж/5, 15/8 Ж/3" offset="500mm" width="900mm" side="left" />
+
+			<furniture name="toilet" wall="15/6 Ж/01, 15 Ж/01" width="400mm" offset="1000mm" />
+			<furniture name="bath_sink" wall="15/6 Ж/01, 15 Ж/01" width="600mm" offset="1800mm" />
+			<furniture name="bath" wall="15/6 Ж/3, 15/6 Ж/01" width="1700mm" offset="950mm" />
 		</features>
 
 		<room>
@@ -870,13 +872,15 @@
 
 	<flat id="68">
 		<features>
-			<window wall="17 Ж, 17 Е" offset="2100mm" width="1840mm" />
-			<door wall="15 Е/1, 15 Ж" offset="600mm" width="1000mm" />
-			<door wall="15/3 Е/1, 15/3 Ж" offset="600mm" width="900mm" side="left" />
-			<door wall="15/3 Е/1, 15 Е/1" offset="1100mm" width="900mm" side="left" />
-			<furniture name="toilet" wall="15 Е/1, 15 Е" width="400mm" offset="1000mm" />
-			<furniture name="bath_sink" wall="15/4 Е, 15/4 Е/1" width="600mm" offset="1500mm" />
-			<furniture name="shower" wall="15/4 Е, 15/4 Е/1" width="900mm" offset="550mm" />
+			<window wall="17 Е, 17 Ж" offset="2100mm" width="1840mm" />
+
+			<door wall="15 Е/1, 15 Ж" offset="600mm" width="1000mm" side="left" />
+			<door wall="15/3 Е/1, 15/3 Ж" offset="600mm" width="900mm" side="right" />
+			<door wall="15/3 Е/1, 15 Е/1" offset="1100mm" width="900mm" side="right" />
+
+			<furniture name="toilet" wall="15 Е, 15 Е/1" width="400mm" offset="1000mm" />
+			<furniture name="bath_sink" wall="15/4 Е/1, 15/4 Е" width="600mm" offset="1500mm" />
+			<furniture name="shower" wall="15/4 Е/1, 15/4 Е" width="900mm" offset="550mm" />
 		</features>
 
 		<room>
@@ -911,13 +915,15 @@
 
 	<flat id="69">
 		<features>
-			<window wall="17 Е, 17 Г" offset="2100mm" width="1840mm" />
-			<door wall="15 Г/3, 15 Г" offset="600mm" width="1000mm" side="left" />
-			<door wall="15/3 Г/3, 15/3 Г" offset="600mm" width="900mm" />
-			<door wall="15/3 Г/3, 15 Г/3" offset="1100mm" width="900mm" />
-			<furniture name="toilet" wall="15 Е, 15 Г/3" width="400mm" offset="1000mm" />
-			<furniture name="bath_sink" wall="15/4 Г/3, 15/4 Е" width="600mm" offset="500mm" />
-			<furniture name="shower" wall="15/4 Е, 15 Е" width="900mm" offset="550mm" />
+			<window wall="17 Г, 17 Е" offset="2100mm" width="1840mm" />
+
+			<door wall="15 Г/3, 15 Г" offset="600mm" width="1000mm" side="right" />
+			<door wall="15/3 Г/3, 15/3 Г" offset="600mm" width="900mm" side="left" />
+			<door wall="15/3 Г/3, 15 Г/3" offset="1100mm" width="900mm" side="left" />
+
+			<furniture name="toilet" wall="15 Г/3, 15 Е" width="400mm" offset="1000mm" />
+			<furniture name="bath_sink" wall="15/4 Е, 15/4 Г/3" width="600mm" offset="500mm" />
+			<furniture name="shower" wall="15 Е, 15/4 Е" width="900mm" offset="550mm" />
 		</features>
 
 		<room>
@@ -952,32 +958,32 @@
 
 	<flat id="70">
 		<features>
-			<window wall="17 Г, 17 Б" offset="2100mm" width="1840mm" />
-			<window wall="16 Б, 16 А" offset="2100mm" width="1840mm" />
-			<window wall="16 А, 15/1 А" offset="2100mm" width="1690mm" />
+			<window wall="17 Б, 17 Г" offset="2100mm" width="1840mm" />
+			<window wall="16 А, 16 Б" offset="2100mm" width="1840mm" />
+			<window wall="15/1 А, 16 А" offset="2100mm" width="1690mm" />
 
-			<window wall="15/1 А, 12/1 А" offset="1400mm" width="1690mm" />
-			<window wall="15/1 А, 12/1 А" offset="4200mm" width="1690mm" />
-			<window wall="15/1 А, 12/1 А" offset="7000mm" width="1690mm" />
-			<window wall="12/1 А/2, 12/1 А" offset="1500mm" width="1840mm" />
+			<window wall="12/1 А, 15/1 А" offset="1400mm" width="1690mm" />
+			<window wall="12/1 А, 15/1 А" offset="4200mm" width="1690mm" />
+			<window wall="12/1 А, 15/1 А" offset="7000mm" width="1690mm" />
+			<window wall="12/1 А, 12/1 А/2" offset="1500mm" width="1840mm" />
 
-			<door wall="15 Б/4, 15 Б" offset="600mm" width="1000mm" side="left" />
-			<door wall="15/7 Б/4, 15/7 Б/1" offset="800mm" width="900mm" />
-			<door wall="15/7 Б/1, 15/2 Б/1" offset="500mm" width="900mm" />
-			<door wall="15/5 Б/4, 15 Б/4" offset="1000mm" width="900mm" />
+			<door wall="15 Б/4, 15 Б" offset="600mm" width="1000mm" side="right" />
+			<door wall="15/7 Б/4, 15/7 Б/1" offset="800mm" width="900mm" side="left" />
+			<door wall="15/7 Б/1, 15/2 Б/1" offset="500mm" width="900mm" side="left" />
+			<door wall="15/5 Б/4, 15 Б/4" offset="1000mm" width="900mm" side="left" />
 
-			<door wall="13/4 В, 13/4 Б" offset="600mm" width="1000mm" />
-			<door wall="13/4 А/2, 13/1 А/2" offset="800mm" width="900mm" />
-			<door wall="13/1 В, 13/1 А/2" offset="600mm" width="900mm" />
-			<door wall="14/1 Б, 14/1 А" offset="1000mm" width="900mm" />
+			<door wall="13/4 В, 13/4 Б" offset="600mm" width="1000mm" side="left" />
+			<door wall="13/4 А/2, 13/1 А/2" offset="800mm" width="900mm" side="left" />
+			<door wall="13/1 В, 13/1 А/2" offset="600mm" width="900mm" side="left" />
+			<door wall="14/1 Б, 14/1 А" offset="1000mm" width="900mm" side="left" />
 
-			<furniture name="toilet" wall="15 Г, 15 Б/4" width="400mm" offset="1000mm" />
-			<furniture name="bath_sink" wall="15/5 Г, 15 Г" width="600mm" offset="1500mm" />
-			<furniture name="bath" wall="15/5 Б/4, 15/5 Г" width="1700mm" offset="950mm" />
+			<furniture name="toilet" wall="15 Б/4, 15 Г" width="400mm" offset="1000mm" />
+			<furniture name="bath_sink" wall="15 Г, 15/5 Г" width="600mm" offset="1500mm" />
+			<furniture name="bath" wall="15/5 Г, 15/5 Б/4" width="1700mm" offset="950mm" />
 
-			<furniture name="toilet" wall="13/1 В, 12/1 В" width="400mm" offset="1000mm" />
-			<furniture name="bath_sink" wall="12/1 В, 12/1 А/2" width="600mm" offset="1500mm" />
-			<furniture name="bath" wall="12/1 А/2, 13/1 А/2" width="1700mm" offset="950mm" />
+			<furniture name="toilet" wall="12/1 В, 13/1 В" width="400mm" offset="1000mm" />
+			<furniture name="bath_sink" wall="12/1 А/2, 12/1 В" width="600mm" offset="1500mm" />
+			<furniture name="bath" wall="13/1 А/2, 12/1 А/2" width="1700mm" offset="950mm" />
 		</features>
 
 		<room>
@@ -1063,15 +1069,17 @@
 
 	<flat id="71">
 		<features>
-			<window wall="12/1 Д, 10 Д" offset="1800mm" width="1690mm" />
-			<window wall="12/1 Д, 10 Д" offset="4600mm" width="1690mm" />
-			<door wall="11/1 Е/3, 10/4 Е/3" offset="500mm" width="900mm" />
-			<door wall="11/1 Ж/1!, 10/4 Ж/1!" offset="600mm" width="1000mm" side="left" />
-			<door wall="10/4 Ж/1!, 10/4 Е/3" offset="800mm" width="900mm" />
-			<door wall="11/1 Ж/1!, 11/1 Е/3" offset="1500mm" width="900mm" />
-			<furniture name="toilet" wall="10 Ж/1!, 10 Е/3" width="400mm" offset="1000mm" />
-			<furniture name="bath_sink" wall="10/4 Ж/1!, 10 Ж/1!" width="600mm" offset="1000mm" />
-			<furniture name="bath" wall="10 Е/3, 10/4 Е/3" width="1700mm" offset="950mm" />
+			<window wall="10 Д, 12/1 Д" offset="1800mm" width="1690mm" />
+			<window wall="10 Д, 12/1 Д" offset="4600mm" width="1690mm" />
+
+			<door wall="11/1 Е/3, 10/4 Е/3" offset="500mm" width="900mm" side="left" />
+			<door wall="11/1 Ж/1!, 10/4 Ж/1!" offset="600mm" width="1000mm" side="right" />
+			<door wall="10/4 Ж/1!, 10/4 Е/3" offset="800mm" width="900mm" side="left" />
+			<door wall="11/1 Ж/1!, 11/1 Е/3" offset="1500mm" width="900mm" side="left" />
+
+			<furniture name="toilet" wall="10 Е/3, 10 Ж/1!" width="400mm" offset="1000mm" />
+			<furniture name="bath_sink" wall="10 Ж/1!, 10/4 Ж/1!" width="600mm" offset="1000mm" />
+			<furniture name="bath" wall="10/4 Е/3, 10 Е/3" width="1700mm" offset="950mm" />
 		</features>
 
 		<room>
@@ -1113,54 +1121,102 @@
 
 	<flat id="72">
 		<features>
-			<window wall="10 Д, 9 Д" offset="1800mm" width="1690mm" />
-			<window wall="9 М, 11 М" offset="1600mm" width="1690mm" />
-			<window wall="9 М, 11 М" offset="4600mm" width="1690mm" />
-			<door wall="10/3 Ж/1!, 10/3 Ж/6" offset="600mm" width="1000mm" side="left" />
-			<door wall="10 Ж, 9/1 Ж" offset="800mm" width="900mm" side="left" />
-			<door wall="10/3 И/2, 10/2 И/2" offset="600mm" width="900mm" side="left" />
-			<door wall="10/2 И/2, 9/1 И/2" offset="600mm" width="900mm" side="left" />
-			<door wall="9/1 Ж/6, 9/1 И/2" offset="600mm" width="900mm" side="left" />
-			<door wall="9/1 И/5, 9/1 И/2" offset="1300mm" width="900mm" />
-			<door wall="9/1 Ж/6, 9/1 Ж/3" offset="600mm" width="900mm" />
-			<door wall="9/1 Ж/3, 9/1 Ж" offset="600mm" width="900mm" />
-			<furniture name="toilet" wall="9/1 Ж/3, 9 Ж/3" width="400mm" offset="1000mm" />
-			<furniture name="toilet" wall="9 И/2, 9/1 И/2" width="400mm" offset="500mm" />
-			<furniture name="bath_sink" wall="9 И/2, 9/1 И/2" width="600mm" offset="1300mm" />
-			<furniture name="bath_sink" wall="9 Ж/3, 9 Ж" width="600mm" offset="1000mm" />
-			<furniture name="bath" wall="9/1 И/5, 9 И/5" width="1700mm" offset="900mm" />
+			<window wall="9 Д, 10 Д" offset="1800mm" width="1690mm" />
+			<window wall="11 М, 9 М" offset="1600mm" width="1690mm" />
+			<window wall="11 М, 9 М" offset="4600mm" width="1690mm" />
+
+			<door wall="10/3 Ж/1!, 10/3 Ж/6" offset="600mm" width="1000mm" side="right" />
+			<door wall="10 Ж, 9/1 Ж" offset="800mm" width="900mm" side="right" />
+			<door wall="10/3 И/2, 10/2 И/2" offset="600mm" width="900mm" side="right" />
+			<door wall="10/2 И/2, 9/1 И/2" offset="600mm" width="900mm" side="right" />
+			<door wall="9/1 Ж/6, 9/1 И/2" offset="600mm" width="900mm" side="right" />
+			<door wall="9/1 И/5, 9/1 И/2" offset="1300mm" width="900mm" side="left" />
+			<door wall="9/1 Ж/6, 9/1 Ж/3" offset="600mm" width="900mm" side="left" />
+			<door wall="9/1 Ж/3, 9/1 Ж" offset="600mm" width="900mm" side="left" />
+
+			<furniture name="toilet" wall="9 Ж/3, 9/1 Ж/3" width="400mm" offset="1000mm" />
+			<furniture name="toilet" wall="9/1 И/2, 9 И/2" width="400mm" offset="500mm" />
+			<furniture name="bath_sink" wall="9/1 И/2, 9 И/2" width="600mm" offset="1300mm" />
+			<furniture name="bath_sink" wall="9 Ж, 9 Ж/3" width="600mm" offset="1000mm" />
+			<furniture name="bath" wall="9 И/5, 9/1 И/5" width="1700mm" offset="900mm" />
 		</features>
 
 		<room>
-			<walls><wall thickness="200mm" from="10 Д" to="9 Д"/><wall thickness="200mm" to="9 Ж"/><wall thickness="80mm" to="10 Ж"/><wall thickness="200mm"/></walls>
+			<walls>
+				<wall thickness="200mm" from="10 Д" to="9 Д" />
+				<wall thickness="200mm" to="9 Ж" />
+				<wall thickness="80mm" to="10 Ж" />
+				<wall thickness="200mm" />
+			</walls>
 		</room>
 
 		<room>
-			<walls><wall thickness="80mm" from="9/1 Ж" to="9 Ж"/><wall thickness="200mm" to="9 Ж/4"/><wall thickness="80mm" to="9/1 Ж/4"/><wall thickness="80mm"/></walls>
+			<walls>
+				<wall thickness="80mm" from="9/1 Ж" to="9 Ж" />
+				<wall thickness="200mm" to="9 Ж/4" />
+				<wall thickness="80mm" to="9/1 Ж/4" />
+				<wall thickness="80mm" />
+			</walls>
 		</room>
 
 		<room>
-			<walls><wall thickness="80mm" from="9/1 Ж/3" to="9 Ж/3"/><wall thickness="200mm" to="9 Ж/6"/><wall thickness="80mm" to="9/1 Ж/6"/><wall thickness="80mm"/></walls>
+			<walls>
+				<wall thickness="80mm" from="9/1 Ж/3" to="9 Ж/3" />
+				<wall thickness="200mm" to="9 Ж/6" />
+				<wall thickness="80mm" to="9/1 Ж/6" />
+				<wall thickness="80mm" />
+			</walls>
 		</room>
 
 		<room>
-			<walls><wall thickness="80mm" from="9/1 Ж/6" to="9 Ж/6"/><wall thickness="200mm" to="9 И/2"/><wall thickness="80mm" to="9/1 И/2"/><wall thickness="80mm"/></walls>
+			<walls>
+				<wall thickness="80mm" from="9/1 Ж/6" to="9 Ж/6" />
+				<wall thickness="200mm" to="9 И/2" />
+				<wall thickness="80mm" to="9/1 И/2" />
+				<wall thickness="80mm" />
+			</walls>
 		</room>
 
 		<room>
-			<walls><wall thickness="80mm" from="9/1 И/2" to="9 И/2"/><wall thickness="200mm" to="9 И/5"/><wall thickness="80mm" to="9/1 И/5"/><wall thickness="80mm"/></walls>
+			<walls>
+				<wall thickness="80mm" from="9/1 И/2" to="9 И/2" />
+				<wall thickness="200mm" to="9 И/5" />
+				<wall thickness="80mm" to="9/1 И/5" />
+				<wall thickness="80mm" />
+			</walls>
 		</room>
 
 		<room>
-			<walls><wall thickness="200mm" from="10/3 Ж/1!" to="10 Ж/1!"/><wall thickness="200mm" to="10 Ж"/><wall thickness="80mm" to="9/1 Ж"/><wall thickness="80mm" to="9/1 И/2"/><wall thickness="80mm" to="10/3 И/2"/><wall thickness="200mm"/></walls>
+			<walls>
+				<wall thickness="200mm" from="10/3 Ж/1!" to="10 Ж/1!" />
+				<wall thickness="200mm" to="10 Ж" />
+				<wall thickness="80mm" to="9/1 Ж" />
+				<wall thickness="80mm" to="9/1 И/2" />
+				<wall thickness="80mm" to="10/3 И/2" />
+				<wall thickness="200mm" />
+			</walls>
 		</room>
 
 		<room>
-			<walls><wall thickness="80mm" from="10/2 И/2" to="9/1 И/2"/><wall thickness="80mm" to="9/1 И/5"/><wall thickness="80mm" to="9 И/5"/><wall thickness="200mm" to="9 М"/><wall thickness="200mm" to="10/2 М"/><wall thickness="80mm"/></walls>
+			<walls>
+				<wall thickness="80mm" from="10/2 И/2" to="9/1 И/2" />
+				<wall thickness="80mm" to="9/1 И/5" />
+				<wall thickness="80mm" to="9 И/5" />
+				<wall thickness="200mm" to="9 М" />
+				<wall thickness="200mm" to="10/2 М" />
+				<wall thickness="80mm" />
+			</walls>
 		</room>
 
 		<room>
-			<walls><wall thickness="200mm" from="11 Ж/6" to="10/3 Ж/6"/><wall thickness="200mm" to="10/3 И/2"/><wall thickness="80mm" to="10/2 И/2"/><wall thickness="80mm" to="10/2 М"/><wall thickness="200mm" to="11 М"/><wall thickness="200mm"/></walls>
+			<walls>
+				<wall thickness="200mm" from="11 Ж/6" to="10/3 Ж/6" />
+				<wall thickness="200mm" to="10/3 И/2" />
+				<wall thickness="80mm" to="10/2 И/2" />
+				<wall thickness="80mm" to="10/2 М" />
+				<wall thickness="200mm" to="11 М" />
+				<wall thickness="200mm" />
+			</walls>
 		</room>
 	</flat>
 </plan>
