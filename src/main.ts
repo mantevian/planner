@@ -23,7 +23,8 @@ async function main() {
 		showErrorLevels: ["note", "warn", "error"],
 		xsd: xsd,
 		mmPerPx: 10,
-		fractionDigits: 2
+		fractionDigits: 2,
+		useSvgUseElement: false
 	};
 
 	updateOutput(options);
@@ -45,11 +46,11 @@ async function main() {
 	});
 
 	document.querySelector("#download-full")?.addEventListener("click", () => {
-		downloadFile("plan.svg", output.innerHTML);
+		downloadFile("plan.svg", output.querySelector("svg")!.outerHTML);
 	});
 
 	document.querySelector("#download-current")?.addEventListener("click", () => {
-		downloadFile(`plan_${options.viewFlatId!}.svg`, output.innerHTML);
+		downloadFile(`plan_${options.viewFlatId!}.svg`, output.querySelector("svg")!.outerHTML);
 	});
 
 	document.querySelector("#invert-room-walls")?.addEventListener("click", () => {

@@ -59,6 +59,7 @@ export type PlannerOptions = {
 	xsd?: string;
 	mmPerPx: number;
 	fractionDigits: number;
+	useSvgUseElement: boolean;
 };
 
 export async function render(options: PlannerOptions) {
@@ -302,9 +303,9 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 
 	const wallPoints: Vec[] = getWallPoints(ctx, room.walls[0].wall);
 	const innerPoints: Vec[] = [];
-	const doors: SVGUseElement[] = [];
-	const windows: SVGUseElement[] = [];
-	const furnitures: SVGUseElement[] = [];
+	const doors: SVGElement[] = [];
+	const windows: SVGElement[] = [];
+	const furnitures: SVGElement[] = [];
 
 	const wallCount = room.walls[0].wall.length ?? 0;
 
@@ -422,7 +423,7 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 }
 
 function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: { prev: WallPoints, curr: WallPoints, next: WallPoints; }, f: Door | Window | Furniture): null | {
-	element: SVGUseElement,
+	element: SVGElement,
 	cutoutPath: string;
 } {
 	flat;
@@ -501,22 +502,40 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: { prev: 
 		translate = new Vec(p1Inner.x - pCenter.x, p1Inner.y - pCenter.y);
 	}
 
+	if (ctx.options.useSvgUseElement) {
+		return {
+			element: Util.create({
+				name: "use",
+				classes: [f._name],
+				attributes: {
+					href: `#template-${name}`,
+					x: pCenter.x,
+					y: pCenter.y,
+					width: useWidth,
+					height: useHeight,
+					style: `
+						transform-origin: ${pCenter.x}px ${pCenter.y}px;
+						rotate: ${Math.atan2(vFeature.y, vFeature.x)}rad;
+						translate: ${translate.x}px ${translate.y}px;
+					`.trim()
+				}
+			}),
+			cutoutPath
+		};
+	}
+
 	return {
 		element: Util.create({
-			name: "use",
+			name: "g",
 			classes: [f._name],
 			attributes: {
-				href: `#template-${name}`,
-				x: pCenter.x,
-				y: pCenter.y,
-				width: useWidth,
-				height: useHeight,
-				style: `
-					transform-origin: ${pCenter.x}px ${pCenter.y}px;
-					rotate: ${Math.atan2(vFeature.y, vFeature.x)}rad;
-					translate: ${translate.x}px ${translate.y}px;
-				`.trim()
-			}
+				transform: `
+					translate(${pCenter.x + translate.x}, ${pCenter.y + translate.y}),
+					rotate(${Math.atan2(vFeature.y, vFeature.x) * 57.29578}),
+					scale(${useWidth / parseFloat(template.element.getAttribute("width")!)}, ${useHeight / parseFloat(template.element.getAttribute("height")!)})
+				`
+			},
+			innerHTML: template.element.innerHTML
 		}),
 		cutoutPath
 	};
