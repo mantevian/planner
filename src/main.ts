@@ -62,7 +62,11 @@ function updateOutput(options: PlannerOptions) {
 	const output: HTMLElement = document.querySelector("#output")!;
 
 	render(options).then(ctx => {
-		output.replaceChildren(ctx.svg);
+		const ref = document.createElement("img");
+		ref.src = "ref.svg";
+		ref.id = "ref";
+
+		output.replaceChildren(ctx.svg, ref);
 
 		createPanZoom(output, {
 			bounds: true,
