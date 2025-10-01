@@ -1,4 +1,5 @@
 node_modules
 dist
 ref.svg
+ref*.svg
 flat*.xml

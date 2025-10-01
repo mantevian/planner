@@ -265,12 +265,28 @@ div.markup code {
 	position: relative;
 }
 
-#ref {
+.ref {
 	position: absolute;
+	aspect-ratio: 1;
+	pointer-events: none;
+
+	opacity: 0.5;
+}
+
+#ref2 {
 	top: -554px;
 	left: -296px;
 	width: 2070px;
-	aspect-ratio: 1;
-	opacity: 0;
-	pointer-events: none;
+}
+
+#ref3 {
+	top: -755px;
+	left: -347px;
+	width: 2993px;
+}
+
+#ref10 {
+	top: -781.5px;
+	left: -369.5px;
+	width: 2995px;
 }

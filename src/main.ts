@@ -64,10 +64,13 @@ function updateOutput(options: PlannerOptions) {
 
 	render(options).then(ctx => {
 		const ref = document.createElement("img");
-		ref.src = "ref.svg";
-		ref.id = "ref";
+		ref.src = "ref10.svg";
+		ref.id = "ref10";
+		ref.classList.add("ref");
 
 		output.replaceChildren(ctx.svg, ref);
+
+		const svg = output.querySelector("svg")!;
 
 		createPanZoom(output, {
 			bounds: true,
@@ -78,6 +81,30 @@ function updateOutput(options: PlannerOptions) {
 			button.addEventListener("click", () => {
 				console.log(button.getAttribute("data-idx"), button.getAttribute("data-idy"));
 			});
+		});
+
+		function svgPointFromMouse(element: SVGElement, e: MouseEvent) {
+			const svg = element.ownerSVGElement || (element.nodeName === 'svg' ? element : null) as (SVGSVGElement | null);
+			if (!svg) throw new Error('SVG root not found');
+
+			const pt = svg.createSVGPoint();
+			pt.x = e.clientX;
+			pt.y = e.clientY;
+
+			const ctm = svg.getScreenCTM();
+			if (!ctm) return null;
+
+			const inverseCTM = ctm.inverse();
+			const svgP = pt.matrixTransform(inverseCTM);
+
+			const vb = svg.getAttribute('viewBox');
+			const viewBoxHeight = vb ? Number(vb.split(/\s+/)[3]) : svg.viewBox.baseVal.height;
+
+			return { x: (svgP.x) * ctx.options.mmPerPx, y: (viewBoxHeight - svgP.y - ctx.viewPadding * 2) * ctx.options.mmPerPx };
+		}
+
+		svg.addEventListener("click", e => {
+			// console.log(svgPointFromMouse(svg, e));
 		});
 
 		document.querySelector("#output-errors")!.innerHTML = ctx.errors.filter(e => options.showErrorLevels.includes(e.level)).map(e => `

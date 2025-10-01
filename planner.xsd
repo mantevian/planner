@@ -93,6 +93,12 @@
 		<xs:sequence>
 			<xs:element name="walls" type="walls" minOccurs="0" maxOccurs="1" />
 		</xs:sequence>
+
+		<xs:attribute name="area_override" type="xs:double" default="0.0" />
+		<xs:attribute name="area_offset_x" type="metric-size" default="0mm" />
+		<xs:attribute name="area_offset_y" type="metric-size" default="0mm" />
+		<xs:attribute name="not_living" type="xs:anySimpleType" default="" />
+		<xs:attribute name="balcony" type="xs:anySimpleType" default="" />
 	</xs:complexType>
 
 	<xs:complexType name="walls">
