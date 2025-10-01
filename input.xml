@@ -32,7 +32,7 @@
 
 		<axis type="vertical" id="2/9" offset="5230mm" />
 		<axis type="vertical" id="2/1!" offset="5290mm" />
-		
+
 		<axis type="vertical" id="2/91" offset="6190mm" />
 		<axis type="vertical" id="2/92" offset="6580mm" />
 
@@ -54,6 +54,7 @@
 		<axis type="vertical" id="4/3" offset="11070mm" />
 
 		<axis type="vertical" id="5" offset="12900mm" />
+		<axis type="vertical" id="5/01" offset="13100mm" />
 		<axis type="vertical" id="5/1" offset="13120mm" />
 
 		<axis type="vertical" id="6" offset="13700mm" />
@@ -148,7 +149,7 @@
 
 		<axis type="horizontal" id="Б/3" offset="4960mm" />
 		<axis type="horizontal" id="Б/4" offset="5200mm" />
-		
+
 		<axis type="horizontal" id="Б/5" offset="5800mm" />
 
 		<axis type="horizontal" id="Б/6" offset="6180mm" />
@@ -165,6 +166,8 @@
 
 		<axis type="horizontal" id="Г/3" offset="8990mm" />
 		<axis type="horizontal" id="Д" offset="9150mm" />
+
+		<axis type="horizontal" id="Д/1" offset="10630mm" />
 
 		<axis type="horizontal" id="Е" offset="11050mm" />
 
@@ -184,11 +187,10 @@
 		<axis type="horizontal" id="Ж/1" offset="15380mm" />
 
 		<axis type="horizontal" id="Ж/101" offset="15580mm" />
-		
+
 		<axis type="horizontal" id="Ж/1!" offset="16130mm" />
 
 		<axis type="horizontal" id="Ж/11" offset="16200mm" />
-
 
 		<axis type="horizontal" id="Ж/12" offset="16620mm" />
 
@@ -254,7 +256,7 @@
 
 	<flat id="6">
 		<features>
-			
+
 		</features>
 
 		<room>
@@ -338,7 +340,7 @@
 				<wall thickness="200mm" />
 			</walls>
 		</room>
-		
+
 		<room>
 			<walls>
 				<wall from="2/7 Е/4" to="3 Е/4" thickness="80mm" />
@@ -489,7 +491,7 @@
 				<wall thickness="80mm" />
 			</walls>
 		</room>
-		
+
 		<room not_living="">
 			<walls>
 				<wall from="4/3 В" to="6 В" thickness="200mm" />
@@ -553,10 +555,99 @@
 
 		<room>
 			<walls>
-				<wall from="6/11 Ж/1!" to="7/21 Ж/1!" thickness="200mm" />
-				<wall to="7/21 Е/41" thickness="80mm" />
-				<wall to="6/11 Е/41" thickness="80mm" />
+				<wall thickness="200mm" from="6/11 Ж/1!" to="7/101 Ж/1!" />
+				<wall thickness="80mm" to="7/101 Ж/101" />
+				<wall thickness="80mm" to="7/21 Ж/101" />
+				<wall thickness="80mm" to="7/21 Е/41" />
+				<wall thickness="80mm" to="6/11 Е/41" />
 				<wall thickness="80mm" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall thickness="80mm" from="6/11 Е/41" to="7/111 Е/41" />
+				<wall thickness="80mm" to="7/111 Е/2" />
+				<wall thickness="80mm" to="7/01 Е/2" />
+				<wall thickness="80mm" to="7/01 Д" />
+				<wall thickness="200mm" to="5/01 Д" />
+				<wall thickness="200mm" to="5/01 Е/2" />
+				<wall thickness="80mm" to="6/11 Е/2" />
+				<wall thickness="80mm" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="7/01 Е/2" to="8 Е/2" thickness="80mm" />
+				<wall to="8 Д" thickness="200mm" />
+				<wall to="7/01 Д" thickness="200mm" />
+				<wall thickness="80mm" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="5/01 Ж/02" to="6/11 Ж/02" thickness="80mm" />
+				<wall to="6/11 Е/2" thickness="80mm" />
+				<wall to="5/01 Е/2" thickness="80mm" />
+				<wall thickness="200mm" />
+			</walls>
+		</room>
+
+		<room>
+			<walls>
+				<wall from="8 Ж" to="9 Ж" thickness="80mm" />
+				<wall to="9 Д/1" thickness="200mm" />
+				<wall to="8 Д/1" thickness="400mm" />
+				<wall thickness="200mm" />
+			</walls>
+		</room>
+
+		<room balcony="">
+			<walls>
+				<wall from="8 Д/1" to="9 Д/1" thickness="400mm" />
+				<wall to="9 Д" thickness="200mm" />
+				<wall to="8 Д" thickness="200mm" />
+				<wall thickness="200mm" />
+			</walls>
+		</room>
+
+		<room not_living="">
+			<walls>
+				<wall from="8/2 И/01" to="9 И/01" thickness="80mm" />
+				<wall to="9 Ж/12" thickness="200mm" />
+				<wall to="8/11 Ж/12" thickness="80mm" />
+				<wall to="8/11 Ж/4" thickness="80mm" />
+				<wall to="8/2 Ж/4" thickness="80mm" />
+				<wall thickness="80mm" />
+			</walls>
+		</room>
+
+		<room not_living="">
+			<walls>
+				<wall from="7/101 Ж/1!" to="7/21 Ж/1!" thickness="200mm" />
+				<wall to="7/21 Ж/101" thickness="80mm" />
+				<wall to="7/101 Ж/101" thickness="80mm" />
+				<wall thickness="80mm" />
+			</walls>
+		</room>
+
+		<room not_living="">
+			<walls>
+				<wall from="5/01 Ж/1!" to="6/11 Ж/1!" thickness="200mm" />
+				<wall to="6/11 Ж/02" thickness="80mm" />
+				<wall to="5/01 Ж/02" thickness="80mm" />
+				<wall thickness="200mm" />
+			</walls>
+		</room>
+
+		<room balcony="">
+			<walls>
+				<wall from="7 М" to="9 М" thickness="200mm" />
+				<wall to="9 К" thickness="200mm" />
+				<wall to="7 К" thickness="200mm" />
+				<wall thickness="200mm" />
 			</walls>
 		</room>
 	</flat>

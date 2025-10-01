@@ -1,6 +1,8 @@
 import createPanZoom from "panzoom";
 import { PlannerOptions, render } from "./render";
 import reverseWalls from "./meta/reverseWalls";
+import Util from "./util";
+import { objToXML } from "./xml";
 
 main();
 
@@ -77,9 +79,13 @@ function updateOutput(options: PlannerOptions) {
 			boundsPadding: 0
 		});
 
+		const points: string[] = [];
+
 		output.querySelectorAll(".axes-intersection-button").forEach(button => {
 			button.addEventListener("click", () => {
+				points.push(`${button.getAttribute("data-idx")} ${button.getAttribute("data-idy")}`);
 				console.log(button.getAttribute("data-idx"), button.getAttribute("data-idy"));
+				console.log(objToXML(Util.makeWallPath(points), 1).outerHTML);
 			});
 		});
 

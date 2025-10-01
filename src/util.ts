@@ -1,4 +1,5 @@
 import Vec from "./types/Vec";
+import Walls from "./types/Walls";
 
 const Util = {
 	d(action: string, p: Vec): string {
@@ -213,6 +214,35 @@ const Util = {
 
 	distance(v1: Vec, v2: Vec): number {
 		return Math.sqrt((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y));
+	},
+
+	makeWallPath(points: string[]): Walls {
+		const walls: Walls = {
+			_name: "walls",
+			wall: []
+		};
+
+		walls.wall.push({
+			_name: "wall",
+			from: points[0],
+			to: points[1],
+			thickness: 80,
+		});
+
+		for (let i = 2; i < points.length; i++) {
+			walls.wall.push({
+				_name: "wall",
+				to: points[i],
+				thickness: 80,
+			});
+		}
+
+		walls.wall.push({
+			_name: "wall",
+			thickness: 80
+		});
+
+		return walls;
 	}
 };
 
