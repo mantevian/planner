@@ -110,7 +110,7 @@ function updateOutput(options: PlannerOptions) {
 		}
 
 		svg.addEventListener("click", e => {
-			// console.log(svgPointFromMouse(svg, e));
+			console.log(svgPointFromMouse(svg, e));
 		});
 
 		document.querySelector("#output-errors")!.innerHTML = ctx.errors.filter(e => options.showErrorLevels.includes(e.level)).map(e => `
