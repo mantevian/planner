@@ -670,6 +670,13 @@
 
 	<flat id="1">
 		<features>
+			<window wall="9 М, 7 М" offset="1.6m" width="1690mm" />
+			<window wall="9 М, 7 М" offset="4.7m" width="1690mm" />
+
+			<window wall="5/1 Д, 12/1 Д" offset="2200mm" width="1600mm" />
+			<window wall="5/1 Д, 12/1 Д" offset="5000mm" width="1600mm" />
+			<window wall="5/1 Д, 12/1 Д" offset="8000mm" width="1600mm" />
+
 			<door wall="7/12 Ж/6, 7/12 Ж/3" offset="650mm" width="1m" />
 			<door wall="7/21 И/2, 7/3 И/2" offset="650mm" width="0.9m" side="left" mirror="" />
 			<door wall="8/01 И/01, 8/01 Ж/4" offset="550mm" width="0.8m" side="left" />
@@ -683,7 +690,7 @@
 
 		<room>
 			<walls>
-				<wall from="7 К" to="9 К" thickness="200mm" />
+				<wall from="7 М" to="9 М" thickness="200mm" />
 				<wall to="9 И/2" thickness="200mm" />
 				<wall to="7/12 И/2" thickness="80mm" />
 				<wall to="7/12 И/21" thickness="200mm" />
@@ -827,15 +834,6 @@
 				<wall from="7 И/21" to="7/12 И/21" thickness="80mm" />
 				<wall to="7/12 И/1" thickness="200mm" />
 				<wall to="7 И/1" thickness="200mm" />
-				<wall thickness="200mm" />
-			</walls>
-		</room>
-
-		<room balcony="">
-			<walls>
-				<wall from="7 М" to="9 М" thickness="200mm" />
-				<wall to="9 К/1" thickness="320mm" />
-				<wall to="7 К/1" thickness="400mm" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
@@ -1181,6 +1179,13 @@
 
 	<flat id="13">
 		<features>
+			<window wall="11 М, 9 М" offset="1.9m" width="1690mm" />
+			<window wall="11 М, 9 М" offset="5m" width="1690mm" />
+
+			<window wall="5/1 Д, 12/1 Д" offset="10900mm" width="1600mm" />
+			<window wall="5/1 Д, 12/1 Д" offset="13900mm" width="1600mm" />
+			<window wall="5/1 Д, 12/1 Д" offset="16750mm" width="1600mm" />
+
 			<door wall="10/2 Ж/6, 10/2 Ж/3" offset="650mm" width="1m" side="left" mirror="" />
 			<door wall="10/11 И/2, 10/12 И/2" offset="420mm" width="0.9m" side="left" />
 			<door wall="9/2 И/2, 9/2 Ж/4" offset="550mm" width="0.8m" />
@@ -1194,7 +1199,7 @@
 
 		<room>
 			<walls>
-				<wall from="9 К/1" to="11 К/1" thickness="200mm" />
+				<wall from="9 М" to="11 М" thickness="200mm" />
 				<wall to="11 И/21" thickness="200mm" />
 				<wall to="10/2 И/21" thickness="80mm" />
 				<wall to="10/2 И/2" thickness="200mm" />
@@ -1301,15 +1306,6 @@
 				<wall to="10 Д" thickness="200mm" />
 				<wall to="9 Д" thickness="200mm" />
 				<wall thickness="200mm" />
-			</walls>
-		</room>
-
-		<room balcony="">
-			<walls>
-				<wall from="9 М" to="11 М" thickness="200mm" />
-				<wall to="11 К/1" thickness="200mm" />
-				<wall to="9 К/1" thickness="400mm" />
-				<wall thickness="320mm" />
 			</walls>
 		</room>
 

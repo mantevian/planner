@@ -456,8 +456,15 @@
 
 	<flat id="5">
 		<features>
-			<window wall="1/1 А/11, 1/1 К" offset="2250mm" width="2200mm" />
-			<window wall="1/1 А/11, 1/1 К" offset="5750mm" width="2200mm" />
+			<window wall="2 К/1, 5 К/1" offset="2280mm" width="2800mm" />
+			<window wall="2 К/1, 5 К/1" offset="5150mm" width="1690mm" />
+			<window wall="2 К/1, 5 К/1" offset="7520mm" width="1690mm" />
+			<window wall="2 К/1, 5 К/1" offset="9800mm" width="1690mm" />
+
+			<window wall="1/1 А/11, 6 А/11" offset="1950mm" width="1690mm" />
+			<window wall="1/1 А/11, 6 А/11" offset="4680mm" width="1300mm" />
+			<window wall="1/1 А/11, 6 А/11" offset="8100mm" width="1300mm" />
+			<window wall="1/1 А/11, 6 А/11" offset="10850mm" width="1690mm" />
 
 			<door wall="3 Г/3, 3 Г/1" offset="620mm" width="1m" side="left" />
 			<door wall="2/9 Г/3, 2/9 Г/2" offset="650mm" width="0.9m" />
@@ -581,6 +588,10 @@
 
 	<flat id="4">
 		<features>
+			<window wall="5/1 Д, 12/1 Д" offset="2200mm" width="1600mm" />
+			<window wall="5/1 Д, 12/1 Д" offset="4800mm" width="2400mm" />
+			<window wall="5/1 Д, 12/1 Д" offset="7900mm" width="2400mm" />
+
 			<window wall="7 К/1, 11 К/1" offset="2100mm" width="2400mm" />
 			<window wall="7 К/1, 11 К/1" offset="5100mm" width="2400mm" />
 
@@ -755,6 +766,10 @@
 
 	<flat id="3">
 		<features>
+			<window wall="5/1 Д, 12/1 Д" offset="11000mm" width="2400mm" />
+			<window wall="5/1 Д, 12/1 Д" offset="14100mm" width="1600mm" />
+			<window wall="5/1 Д, 12/1 Д" offset="16750mm" width="1600mm" />
+
 			<window wall="7 К/1, 11 К/1" offset="8100mm" width="2400mm" />
 			<window wall="7 К/1, 11 К/1" offset="11100mm" width="2400mm" />
 
@@ -929,6 +944,14 @@
 
 	<flat id="2">
 		<features>
+			<window wall="11/3 А/11, 16/1 А/11" offset="1700mm" width="1690mm" />
+			<window wall="11/3 А/11, 16/1 А/11" offset="4430mm" width="1300mm" />
+			<window wall="11/3 А/11, 16/1 А/11" offset="7850mm" width="1300mm" />
+			<window wall="11/3 А/11, 16/1 А/11" offset="10600mm" width="1690mm" />
+
+			<window wall="16/1 А/11, 16/1 К" offset="2250mm" width="2200mm" />
+			<window wall="16/1 А/11, 16/1 К" offset="5750mm" width="2200mm" />
+
 			<door wall="14 В, 15 В" offset="1000mm" width="1m" side="left" mirror="" />
 			<door wall="15/01 Б/6, 15/01 Б/3" offset="550mm" width="0.9m" side="left" />
 			<door wall="13/3 Б/41, 13/3 Б/2" offset="800mm" width="0.9m" side="left" mirror="" />
@@ -1078,6 +1101,10 @@
 			<window wall="13 К/1, 17 К/1" offset="4100mm" width="1690mm" />
 			<window wall="13 К/1, 17 К/1" offset="6450mm" width="1690mm" />
 			<window wall="13 К/1, 17 К/1" offset="9400mm" width="2800mm" />
+
+			<window wall="16/1 А/11, 16/1 К" offset="9250mm" width="2200mm" />
+			<window wall="16/1 А/11, 16/1 К" offset="12750mm" width="2200mm" />
+			<window wall="16/1 А/11, 16/1 К" offset="16300mm" width="2200mm" />
 
 			<door wall="15/05 Ж/41, 15/05 Ж/2" offset="640mm" width="0.9m" side="left" mirror="" />
 			<door wall="15/05 Ж/001, 15/05 Е/4" offset="520mm" width="0.9m" side="left" mirror="" />
