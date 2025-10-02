@@ -126,6 +126,7 @@
 		<xs:attribute name="offset" type="metric-size" />
 		<xs:attribute name="width" type="metric-size" />
 		<xs:attribute name="side" type="xs:string" />
+		<xs:attribute name="mirror" type="xs:anySimpleType" />
 	</xs:complexType>
 
 	<xs:complexType name="window">

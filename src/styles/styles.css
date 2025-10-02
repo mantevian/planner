@@ -270,7 +270,7 @@ div.markup code {
 	aspect-ratio: 1;
 	pointer-events: none;
 
-	opacity: 0.2;
+	opacity: 0.4;
 }
 
 #ref2 {
@@ -286,13 +286,13 @@ div.markup code {
 }
 
 #ref10 {
-	/* top: -781.5px;
+	top: -781.5px;
 	left: -369.5px;
-	width: 2995px; */
+	width: 2995px;
 
-	top: -772px;
+	/* top: -772px;
 	left: -365px;
-	width: 2959px;
+	width: 2959px; */
 
 	/* top: -778.5px;
 	left: -418.1px;
