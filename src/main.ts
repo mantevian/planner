@@ -4,10 +4,12 @@ import reverseWalls from "./meta/reverseWalls";
 import Util from "./util";
 import { objToXML } from "./xml";
 
+const fileNumber = "10";
+
 main();
 
 async function main() {
-	const input = await (await fetch("./input.xml")).text();
+	const input = await (await fetch(`./input${fileNumber}.xml`)).text();
 	const xsd = await (await fetch("./planner.xsd")).text();
 
 	const viewFlatIdInput: HTMLInputElement = document.querySelector("input[name='view-flat-id']")!;
@@ -66,8 +68,8 @@ function updateOutput(options: PlannerOptions) {
 
 	render(options).then(ctx => {
 		const ref = document.createElement("img");
-		ref.src = "ref10.svg";
-		ref.id = "ref10";
+		ref.src = `ref${fileNumber}.svg`;
+		ref.id = `ref${fileNumber}`;
 		ref.classList.add("ref");
 
 		output.replaceChildren(ctx.svg, ref);

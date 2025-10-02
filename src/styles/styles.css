@@ -275,14 +275,26 @@ div.markup code {
 
 #ref2 {
 	top: -554px;
-	left: -296px;
-	width: 2070px;
+	left: -296.5px;
+	width: 2071px;
 }
 
 #ref3 {
 	top: -755px;
 	left: -347px;
 	width: 2993px;
+}
+
+#ref4 {
+	top: -721px;
+	left: -299px;
+	width: 2995px;
+}
+
+#ref8 {
+	top: -662.5px;
+	left: -338px;
+	width: 2995px;
 }
 
 #ref10 {

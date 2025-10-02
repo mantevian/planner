@@ -1,4 +1,4 @@
-<!-- floor 3 -->
+<!-- floor 4 -->
 <plan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="planner.xsd">
 	<defs>
@@ -760,8 +760,8 @@
 		<room>
 			<walls>
 				<wall from="8 Ж" to="9 Ж" thickness="80mm" />
-				<wall to="9 Д/1" thickness="200mm" />
-				<wall to="8 Д/1" thickness="200mm" />
+				<wall to="9 Д" thickness="200mm" />
+				<wall to="8 Д" thickness="200mm" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
@@ -831,15 +831,6 @@
 				<wall to="7/2 И/2" thickness="80mm" />
 				<wall to="7/2 Ж/6" thickness="200mm" />
 				<wall to="7 Ж/6" thickness="200mm" />
-				<wall thickness="200mm" />
-			</walls>
-		</room>
-
-		<room balcony="">
-			<walls>
-				<wall from="8 Д/1" to="9 Д/1" thickness="400mm" />
-				<wall to="9 Д" thickness="200mm" />
-				<wall to="8 Д" thickness="200mm" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>
@@ -1262,7 +1253,7 @@
 
 		<room>
 			<walls>
-				<wall thickness="200mm" from="10 Д/1" to="9 Д/1" />
+				<wall thickness="200mm" from="10 Д" to="9 Д" />
 				<wall thickness="200mm" to="9 Ж" />
 				<wall thickness="80mm" to="10 Ж" />
 				<wall thickness="200mm" />
@@ -1334,15 +1325,6 @@
 				<wall thickness="80mm" to="10 И/2" />
 				<wall thickness="80mm" to="10 М" />
 				<wall thickness="200mm" to="11 М" />
-				<wall thickness="200mm" />
-			</walls>
-		</room>
-
-		<room balcony="">
-			<walls>
-				<wall from="9 Д/1" to="10 Д/1" thickness="400mm" />
-				<wall to="10 Д" thickness="200mm" />
-				<wall to="9 Д" thickness="200mm" />
 				<wall thickness="200mm" />
 			</walls>
 		</room>

@@ -25,10 +25,10 @@
 		<axis type="vertical" id="2/2" offset="3830mm" />
 		<axis type="vertical" id="2/3" offset="4000mm" />
 
-		<axis type="vertical" id="2/4" offset="4415mm" />
+		<axis type="vertical" id="2/4" offset="4430mm" />
 
-		<axis type="vertical" id="2/5" offset="4630mm" />
-		<axis type="vertical" id="2/6" offset="4750mm" />
+		<axis type="vertical" id="2/5" offset="4660mm" />
+		<axis type="vertical" id="2/6" offset="4780mm" />
 		<axis type="vertical" id="2/7" offset="4830mm" />
 		<axis type="vertical" id="2/8" offset="4930mm" />
 
@@ -42,7 +42,7 @@
 		<axis type="vertical" id="3/01" offset="7210mm" />
 
 		<axis type="vertical" id="3/1" offset="8070mm" />
-		<axis type="vertical" id="3/2" offset="8100mm" />
+		<axis type="vertical" id="3/2" offset="8130mm" />
 
 		<axis type="vertical" id="4" offset="9200mm" />
 
@@ -79,12 +79,12 @@
 		<axis type="vertical" id="7/2" offset="18060mm" />
 		<axis type="vertical" id="7/21" offset="18125mm" />
 
-		<axis type="vertical" id="7/3" offset="19300mm" />
+		<axis type="vertical" id="7/3" offset="19320mm" />
 		<axis type="vertical" id="8" offset="19380mm" />
 
 		<axis type="vertical" id="8/01" offset="19910mm" />
 
-		<axis type="vertical" id="8/1" offset="20720mm" />
+		<axis type="vertical" id="8/1" offset="20700mm" />
 
 		<axis type="vertical" id="8/11" offset="21710mm" />
 
@@ -97,7 +97,7 @@
 
 		<axis type="vertical" id="9/01" offset="24480mm" />
 
-		<axis type="vertical" id="9/1" offset="24520mm" />
+		<axis type="vertical" id="9/1" offset="24500mm" />
 
 		<axis type="vertical" id="9/2" offset="25235mm" />
 
@@ -158,11 +158,11 @@
 		<axis type="vertical" id="15/4" offset="40360mm" />
 		<axis type="vertical" id="15/41" offset="40620mm" />
 
-		<axis type="vertical" id="15/5" offset="40810mm" />
+		<axis type="vertical" id="15/5" offset="40790mm" />
 		<axis type="vertical" id="15/51" offset="40880mm" />
 		<axis type="vertical" id="15/6" offset="41180mm" />
-		<axis type="vertical" id="15/7" offset="41750mm" />
-		<axis type="vertical" id="15/8" offset="42060mm" />
+		<axis type="vertical" id="15/7" offset="41730mm" />
+		<axis type="vertical" id="15/8" offset="42030mm" />
 
 		<axis type="vertical" id="16" offset="43910mm" />
 		<axis type="vertical" id="16/1" offset="44010mm" />
@@ -306,10 +306,14 @@
 
 	<flat id="6">
 		<features>
-			<!-- <window wall="2 К, 5 К" offset="2280mm" width="2800mm" />
-			<window wall="2 К, 5 К" offset="5150mm" width="1690mm" />
-			<window wall="2 К, 5 К" offset="7520mm" width="1690mm" />
-			<window wall="2 К, 5 К" offset="9800mm" width="1690mm" /> -->
+			<window wall="2 К/1, 5 К/1" offset="2280mm" width="2800mm" />
+			<window wall="2 К/1, 5 К/1" offset="5150mm" width="1690mm" />
+			<window wall="2 К/1, 5 К/1" offset="7520mm" width="1690mm" />
+			<window wall="2 К/1, 5 К/1" offset="9800mm" width="1690mm" />
+
+			<window wall="1/1 А/11, 1/1 К" offset="9250mm" width="2200mm" />
+			<window wall="1/1 А/11, 1/1 К" offset="12750mm" width="2200mm" />
+			<window wall="1/1 А/11, 1/1 К" offset="16300mm" width="2200mm" />
 
 			<door wall="2/9 Ж/41, 2/9 Ж/2" offset="640mm" width="0.9m" />
 			<door wall="2/9 Ж/001, 2/9 Е/4" offset="520mm" width="0.9m" />
@@ -452,6 +456,9 @@
 
 	<flat id="5">
 		<features>
+			<window wall="1/1 А/11, 1/1 К" offset="2250mm" width="2200mm" />
+			<window wall="1/1 А/11, 1/1 К" offset="5750mm" width="2200mm" />
+
 			<door wall="3 Г/3, 3 Г/1" offset="620mm" width="1m" side="left" />
 			<door wall="2/9 Г/3, 2/9 Г/2" offset="650mm" width="0.9m" />
 			<door wall="2/1! Г/3, 2/91 Г/3" offset="450mm" width="0.8m" mirror="" />
@@ -574,6 +581,9 @@
 
 	<flat id="4">
 		<features>
+			<window wall="7 К/1, 11 К/1" offset="2100mm" width="2400mm" />
+			<window wall="7 К/1, 11 К/1" offset="5100mm" width="2400mm" />
+
 			<door wall="7/12 Ж/6, 7/12 Ж/3" offset="650mm" width="1m" />
 			<door wall="7/21 И/01, 7/3 И/01" offset="650mm" width="0.9m" side="left" mirror="" />
 			<door wall="8/01 И/01, 8/01 Ж/4" offset="550mm" width="0.8m" side="left" />
@@ -745,6 +755,9 @@
 
 	<flat id="3">
 		<features>
+			<window wall="7 К/1, 11 К/1" offset="8100mm" width="2400mm" />
+			<window wall="7 К/1, 11 К/1" offset="11100mm" width="2400mm" />
+
 			<door wall="10/2 Ж/6, 10/2 Ж/3" offset="650mm" width="1m" side="left" mirror="" />
 			<door wall="10/11 И/01, 10/12 И/01" offset="420mm" width="0.9m" side="left" />
 			<door wall="9/2 И/01, 9/2 Ж/4" offset="550mm" width="0.8m" />
@@ -1061,6 +1074,11 @@
 
 	<flat id="1">
 		<features>
+			<window wall="13 К/1, 17 К/1" offset="1780mm" width="1690mm" />
+			<window wall="13 К/1, 17 К/1" offset="4100mm" width="1690mm" />
+			<window wall="13 К/1, 17 К/1" offset="6450mm" width="1690mm" />
+			<window wall="13 К/1, 17 К/1" offset="9400mm" width="2800mm" />
+
 			<door wall="15/05 Ж/41, 15/05 Ж/2" offset="640mm" width="0.9m" side="left" mirror="" />
 			<door wall="15/05 Ж/001, 15/05 Е/4" offset="520mm" width="0.9m" side="left" mirror="" />
 			<door wall="15/0211 Е/4, 15/1! Е/4" offset="480mm" width="0.9m" side="left" mirror="" />
