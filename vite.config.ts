@@ -5,5 +5,6 @@ export default defineConfig({
 		exclude: [
 			"xmllint-wasm"
 		]
-	}
+	},
+	base: "./"
 });

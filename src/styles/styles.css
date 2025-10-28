@@ -200,13 +200,15 @@ section {
 	padding: 1rem;
 }
 
+section[data-tab='markup'],
 section[data-tab='options'] {
 	display: flex;
 	flex-direction: column;
 	gap: 0.75rem;
 }
 
-section[data-tab='options'] > label {
+section[data-tab='options'] > label,
+section[data-tab='markup'] > label {
 	display: grid;
 	grid-template-columns: 20ch 1fr;
 	align-items: center;
