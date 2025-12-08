@@ -8,5 +8,7 @@ export default class Furniture implements PlanDocElement {
 	offset: number = 0;
 	offset_normal: number = 0;
 	width: number = 0;
+	height?: number = undefined;
 	rotate: number = 0;
+	mirror: boolean = false;
 }

@@ -272,26 +272,27 @@ div.markup code {
 	position: absolute;
 	aspect-ratio: 1;
 	pointer-events: none;
+	object-fit: contain;
 
 	opacity: 0.3;
 }
 
 #ref2 {
-	top: -554px;
-	left: -296.5px;
-	width: 2071px;
+	top: -44.23%;
+	left: -17.36%;
+	width: 136.25%;
 }
 
 #ref3 {
-	top: -755px;
-	left: -347px;
-	width: 2993px;
+	top: -45.02%;
+	left: -17.15%;
+	width: 135.85%;
 }
 
 #ref4 {
-	top: -721px;
-	left: -299px;
-	width: 2995px;
+	top: -47.0%;
+	left: -18.05%;
+	width: 135.7%;
 }
 
 #ref8 {

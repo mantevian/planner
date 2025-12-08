@@ -20,7 +20,13 @@
 
 	<xs:simpleType name="metric-size">
 		<xs:restriction base="xs:string">
-			<xs:pattern value="\d+(\.\d+)?(mm|cm|dm|m)"></xs:pattern>
+			<xs:pattern value="\-?\d+(\.\d+)?(mm|cm|dm|m)"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="metric-area">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d+(\.\d+)?(mm|cm|dm|m)2"></xs:pattern>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -94,7 +100,7 @@
 			<xs:element name="walls" type="walls" minOccurs="0" maxOccurs="1" />
 		</xs:sequence>
 
-		<xs:attribute name="area_override" type="xs:double" default="0.0" />
+		<xs:attribute name="area_override" type="metric-area" default="0mm2" />
 		<xs:attribute name="area_offset_x" type="metric-size" default="0mm" />
 		<xs:attribute name="area_offset_y" type="metric-size" default="0mm" />
 		<xs:attribute name="not_living" type="xs:anySimpleType" default="" />
@@ -125,21 +131,27 @@
 		<xs:attribute name="wall" type="xs:string" />
 		<xs:attribute name="offset" type="metric-size" />
 		<xs:attribute name="width" type="metric-size" />
+		<xs:attribute name="height" type="metric-size" />
 		<xs:attribute name="side" type="xs:string" />
-		<xs:attribute name="mirror" type="xs:anySimpleType" />
+		<xs:attribute name="mirror" type="xs:boolean" />
 	</xs:complexType>
 
 	<xs:complexType name="window">
 		<xs:attribute name="wall" type="xs:string" />
 		<xs:attribute name="offset" type="metric-size" />
 		<xs:attribute name="width" type="metric-size" />
+		<xs:attribute name="height" type="metric-size" />
+		<xs:attribute name="mirror" type="xs:boolean" />
 	</xs:complexType>
 
 	<xs:complexType name="furniture">
 		<xs:attribute name="wall" type="xs:string" />
 		<xs:attribute name="name" type="xs:string" />
 		<xs:attribute name="width" type="metric-size" />
+		<xs:attribute name="height" type="metric-size" />
 		<xs:attribute name="offset" type="metric-size" />
 		<xs:attribute name="offset_normal" type="metric-size" />
+		<xs:attribute name="rotate" type="xs:double" />
+		<xs:attribute name="mirror" type="xs:boolean" />
 	</xs:complexType>
 </xs:schema>

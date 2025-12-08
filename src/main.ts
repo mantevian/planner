@@ -4,20 +4,20 @@ import reverseWalls from "./meta/reverseWalls";
 import Util from "./util";
 import { objToXML } from "./xml";
 
-// const fileNumber = "2";
+const fileNumber = "2";
 
 main();
 
 async function main() {
-	// const input = await (await fetch(`./ref/input${fileNumber}.xml`)).text();
-	let inputPath = "./input.xml";
+	const input = await (await fetch(`./ref/input${fileNumber}.xml`)).text();
+	// let inputPath = "./input.xml";
 
-	const pathInput: HTMLInputElement = document.querySelector("input[name='path']")!;
-	if (pathInput.value) {
-		inputPath = pathInput.value;
-	}
+	// const pathInput: HTMLInputElement = document.querySelector("input[name='path']")!;
+	// if (pathInput.value) {
+	// 	inputPath = pathInput.value;
+	// }
 
-	const input = await (await fetch(inputPath)).text();
+	// const input = await (await fetch(inputPath)).text();
 	const xsd = await (await fetch("./planner.xsd")).text();
 
 	const viewFlatIdInput: HTMLInputElement = document.querySelector("input[name='view-flat-id']")!;
@@ -57,12 +57,12 @@ async function main() {
 		updateOutput(options);
 	});
 
-	pathInput.addEventListener("input", async () => {
-		const newValue = await (await fetch(pathInput.value)).text();
-		planInputElement.value = newValue;
-		options.input = newValue;
-		updateOutput(options);
-	});
+	// pathInput.addEventListener("input", async () => {
+	// 	const newValue = await (await fetch(pathInput.value)).text();
+	// 	planInputElement.value = newValue;
+	// 	options.input = newValue;
+	// 	updateOutput(options);
+	// });
 
 	document.querySelector("#download-full")?.addEventListener("click", () => {
 		downloadFile("plan.svg", output.querySelector("svg")!.outerHTML);
@@ -82,10 +82,10 @@ function updateOutput(options: PlannerOptions) {
 	const output: HTMLElement = document.querySelector("#output")!;
 
 	render(options).then(ctx => {
-		// const ref = document.createElement("img");
-		// ref.src = `/ref/ref${fileNumber}.svg`;
-		// ref.id = `ref${fileNumber}`;
-		// ref.classList.add("ref");
+		const ref = document.createElement("img");
+		ref.src = `/ref/ref${fileNumber}.svg`;
+		ref.id = `ref${fileNumber}`;
+		ref.classList.add("ref");
 
 		// output.replaceChildren(ctx.svg, ref);
 		output.replaceChildren(ctx.svg);

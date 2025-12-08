@@ -6,4 +6,7 @@ export default class Window implements PlanDocElement {
 	wall: string = "";
 	offset: number = 0.0;
 	width: number = 0.0;
+	height?: number = undefined;
+	rotate: number = 0;
+	mirror: boolean = false;
 }

@@ -80,7 +80,7 @@ export async function render(options: PlannerOptions) {
 		},
 		options,
 		templates: {},
-		viewPadding: 500 / options.mmPerPx,
+		viewPadding: 1000 / options.mmPerPx,
 		style: "",
 		errors: [],
 		outerWalls: []
@@ -399,11 +399,19 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 		children: [...doors, ...windows, ...furnitures]
 	});
 
-	const area = Util.polygonArea(innerPoints);
-	const areaMeters = Util.round(area * ctx.options.mmPerPx * ctx.options.mmPerPx / 1000000, 2);
+	let area: number;
+	
+	if (room.area_override) {
+		area = room.area_override;
+		area = area / (ctx.options.mmPerPx * ctx.options.mmPerPx);
+	} else {
+		area = Util.polygonArea(innerPoints);
+		area = area * ctx.options.mmPerPx * ctx.options.mmPerPx / 1000000;
+	}
 
 	const roomCenter = polylabel([innerPoints.map(p => [p.x, p.y])], 0.1);
-	let areaTextPosition = new Vec(roomCenter[0], roomCenter[1]);
+	console.log(room.area_offset_y)
+	let areaTextPosition = new Vec(roomCenter[0] + (room.area_offset_x || 0), roomCenter[1] + (room.area_offset_y || 0));
 
 	Util.create({
 		name: "text",
@@ -415,7 +423,7 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 		},
 		classes: ["area"],
 		parent: g,
-		innerHTML: `${areaMeters.toLocaleString("ru-RU", {
+		innerHTML: `${area.toLocaleString("ru-RU", {
 			minimumFractionDigits: ctx.options.fractionDigits,
 			maximumFractionDigits: ctx.options.fractionDigits
 		})}`
@@ -487,6 +495,10 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: { prev: 
 	let useWidth = featureLength;
 	let useHeight = useWidth / aspectRatio;
 
+	if (f.height) {
+		useHeight = f.height;
+	}
+
 	let translate = new Vec(p1Outer.x - pCenter.x, p1Outer.y - pCenter.y);
 
 	if (f._name == "door" && f.side == "left") {
@@ -530,9 +542,9 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: { prev: 
 			classes: [f._name],
 			attributes: {
 				transform: `
-					translate(${pCenter.x + translate.x}, ${pCenter.y + translate.y}),
+					translate(${pCenter.x + translate.x - (f.mirror ? useWidth : 0)}, ${pCenter.y + translate.y - (f.mirror ? useHeight : 0)}),
 					rotate(${Math.atan2(vFeature.y, vFeature.x) * 57.29578}),
-					scale(${useWidth / parseFloat(template.element.getAttribute("width")!)}, ${useHeight / parseFloat(template.element.getAttribute("height")!)})
+					scale(${(f.mirror ? -1 : 1) * useWidth / parseFloat(template.element.getAttribute("width")!)}, ${(f.mirror ? -1 : 1) * useHeight / parseFloat(template.element.getAttribute("height")!)})
 				`
 			},
 			innerHTML: template.element.innerHTML

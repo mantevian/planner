@@ -50,7 +50,7 @@ export default function parseElement(element: Element, multiplier: number) {
 /** match a string that is exactly of structure `<num><unit>?`, where `<num>` is any float decimal number and optional `<unit>` is one of `mm`, `cm`, `dm`, `m`
  * 
  * for example `1234`, `1234mm`, `123cm`, `12dm`, `1.2m` */
-const regex = /^(?<num>[\d.]+)(?<unit>(mm)|(cm)|(dm)|(m))?$/;
+const regex = /^(?<num>[\d.\-]+)(?<unit>(mm)|(cm)|(dm)|(m))?2?$/;
 
 type MeasureUnit = "mm" | "cm" | "dm" | "m";
 
