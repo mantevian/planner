@@ -87,8 +87,8 @@ function updateOutput(options: PlannerOptions) {
 		ref.id = `ref${fileNumber}`;
 		ref.classList.add("ref");
 
-		// output.replaceChildren(ctx.svg, ref);
-		output.replaceChildren(ctx.svg);
+		output.replaceChildren(ctx.svg, ref);
+		// output.replaceChildren(ctx.svg);
 
 		const svg = output.querySelector("svg")!;
 
