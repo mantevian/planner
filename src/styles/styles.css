@@ -268,49 +268,38 @@ div.markup code {
 	overflow: hidden;
 }
 
+#output > svg {
+	position: absolute;
+}
+
 .ref {
 	position: absolute;
-	aspect-ratio: 1;
 	pointer-events: none;
 	object-fit: contain;
 
 	opacity: 0.3;
+
+	width: 100%;
+	top: 0;
+	left: 0;
 }
 
 #ref2 {
-	top: -43.2%;
-	left: -15.9%;
-	width: 133.3%;
+	scale: 1.335;
+	translate: 0.77% -12.4%;
 }
 
 #ref3 {
-	top: -45.02%;
-	left: -17.15%;
-	width: 135.85%;
-}
-
-#ref4 {
-	top: -47.0%;
-	left: -18.05%;
-	width: 135.7%;
+	scale: 1.335;
+	translate: 0.77% -13.8%;
 }
 
 #ref8 {
-	top: -662.5px;
-	left: -338px;
-	width: 2995px;
+	scale: 1.33;
+	translate: -0.3% -15.7%;
 }
 
 #ref10 {
-	top: -781.5px;
-	left: -369.5px;
-	width: 2995px;
-
-	/* top: -772px;
-	left: -365px;
-	width: 2959px; */
-
-	/* top: -778.5px;
-	left: -418.1px;
-	width: 2959px; */
+	scale: 1.337;
+	translate: -0.6% -10.79%;
 }
