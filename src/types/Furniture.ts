@@ -11,4 +11,5 @@ export default class Furniture implements PlanDocElement {
 	height?: number = undefined;
 	rotate: number = 0;
 	mirror: boolean = false;
+	hide: boolean = false;
 }

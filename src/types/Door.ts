@@ -10,4 +10,6 @@ export default class Door implements PlanDocElement {
 	rotate: number = 0;
 	side: "left" | "right" = "right";
 	mirror: boolean = false;
+	hide: boolean = false;
+	template: string = "";
 }

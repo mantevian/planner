@@ -134,6 +134,8 @@
 		<xs:attribute name="height" type="metric-size" />
 		<xs:attribute name="side" type="xs:string" />
 		<xs:attribute name="mirror" type="xs:boolean" />
+		<xs:attribute name="hide" type="xs:boolean" />
+		<xs:attribute name="template" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="window">
@@ -142,6 +144,7 @@
 		<xs:attribute name="width" type="metric-size" />
 		<xs:attribute name="height" type="metric-size" />
 		<xs:attribute name="mirror" type="xs:boolean" />
+		<xs:attribute name="hide" type="xs:boolean" />
 	</xs:complexType>
 
 	<xs:complexType name="furniture">
@@ -153,5 +156,6 @@
 		<xs:attribute name="offset_normal" type="metric-size" />
 		<xs:attribute name="rotate" type="xs:double" />
 		<xs:attribute name="mirror" type="xs:boolean" />
+		<xs:attribute name="hide" type="xs:boolean" />
 	</xs:complexType>
 </xs:schema>

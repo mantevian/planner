@@ -297,7 +297,7 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 
 	const g = Util.create({
 		name: "g",
-		classes: ["room"],
+		classes: ["room", room.not_living === undefined ? "living" : "not-living"],
 		parent: flatGroup
 	});
 
@@ -357,18 +357,12 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 		for (const f of features) {
 			const { element, cutoutPath: c } = placeFeature(ctx, flat, walls, points, f) ?? { element: null, c: "" };
 
+			if (c) {
+				cutoutPath += c;
+			}
+
 			if (!element) {
 				continue;
-			}
-
-			cutoutPath += c;
-
-			if (f._name == "door") {
-				doors.push(element);
-			}
-
-			if (f._name == "window") {
-				windows.push(element);
 			}
 
 			switch (f._name) {
@@ -399,39 +393,40 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 		children: [...doors, ...windows, ...furnitures]
 	});
 
-	let area: number;
-	
-	if (room.area_override) {
-		area = room.area_override;
-		area = area / (ctx.options.mmPerPx * ctx.options.mmPerPx);
-	} else {
-		area = Util.polygonArea(innerPoints);
-		area = area * ctx.options.mmPerPx * ctx.options.mmPerPx / 1000000;
+	if (room.not_living === undefined) {
+		let area: number;
+		
+		if (room.area_override) {
+			area = room.area_override;
+			area = area / (ctx.options.mmPerPx * ctx.options.mmPerPx);
+		} else {
+			area = Util.polygonArea(innerPoints);
+			area = area * ctx.options.mmPerPx * ctx.options.mmPerPx / 1000000;
+		}
+
+		const roomCenter = polylabel([innerPoints.map(p => [p.x, p.y])], 0.1);
+		let areaTextPosition = new Vec(roomCenter[0] + (room.area_offset_x || 0), roomCenter[1] + (room.area_offset_y || 0));
+
+		Util.create({
+			name: "text",
+			attributes: {
+				x: areaTextPosition.x,
+				y: areaTextPosition.y,
+				"font-size": "30",
+				"text-anchor": "middle"
+			},
+			classes: ["area"],
+			parent: g,
+			innerHTML: `${area.toLocaleString("ru-RU", {
+				minimumFractionDigits: ctx.options.fractionDigits,
+				maximumFractionDigits: ctx.options.fractionDigits
+			})}`
+		});
 	}
-
-	const roomCenter = polylabel([innerPoints.map(p => [p.x, p.y])], 0.1);
-	console.log(room.area_offset_y)
-	let areaTextPosition = new Vec(roomCenter[0] + (room.area_offset_x || 0), roomCenter[1] + (room.area_offset_y || 0));
-
-	Util.create({
-		name: "text",
-		attributes: {
-			x: areaTextPosition.x,
-			y: areaTextPosition.y,
-			"font-size": "30",
-			"text-anchor": "middle"
-		},
-		classes: ["area"],
-		parent: g,
-		innerHTML: `${area.toLocaleString("ru-RU", {
-			minimumFractionDigits: ctx.options.fractionDigits,
-			maximumFractionDigits: ctx.options.fractionDigits
-		})}`
-	});
 }
 
 function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: { prev: WallPoints, curr: WallPoints, next: WallPoints; }, f: Door | Window | Furniture): null | {
-	element: SVGElement,
+	element: SVGElement | null,
 	cutoutPath: string;
 } {
 	flat;
@@ -482,7 +477,12 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: { prev: 
 	let vFeature = new Vec(pEnd.x - pStart.x, pEnd.y - pStart.y);
 	const featureLength = vFeature.length();
 
-	const name = f._name == "furniture" ? f.name : f._name;
+	let name = "";
+
+	switch (f._name) {
+		case "furniture": name = f.name; break;
+		default: name = f.template ? f.template : f._name; break;
+	}
 
 	const template = ctx.templates[name];
 
@@ -537,7 +537,7 @@ function placeFeature(ctx: PlanContext, flat: Flat, walls: any, points: { prev: 
 	}
 
 	return {
-		element: Util.create({
+		element: f.hide ? null : Util.create({
 			name: "g",
 			classes: [f._name],
 			attributes: {
@@ -565,8 +565,12 @@ async function initDefs(ctx: PlanContext) {
 			fill: ${def.color?.find(c => c.name == "wall")?.value ?? "black"};
 		}
 
-		.floor {
+		.living .floor {
 			fill: ${def.color?.find(c => c.name == "floor")?.value ?? "white"};
+		}
+
+		.not-living .floor {
+			fill: ${def.color?.find(c => c.name == "wall")?.value ?? "white"};
 		}
 	`;
 
@@ -647,7 +651,7 @@ function drawAxes(ctx: PlanContext) {
 
 	ctx.style += `
 		.wall-cutout {
-			fill: #ff0000;
+			fill: #ff0000 !important;
 		}
 	`;
 

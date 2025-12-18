@@ -8,4 +8,5 @@ export default class Room implements PlanDocElement {
 	area_offset_x: number = 0;
 	area_offset_y: number = 0;
 	walls: Walls[] = [];
+	not_living?: string = undefined;
 }
