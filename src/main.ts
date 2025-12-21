@@ -4,7 +4,7 @@ import reverseWalls from "./meta/reverseWalls";
 import Util from "./util";
 import { objToXML } from "./xml";
 
-const fileNumber = "2";
+const fileNumber = "8";
 
 main();
 

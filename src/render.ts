@@ -313,10 +313,25 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 		ctx.errors.push(planErrors.room_walls_incorrect(flat.id, roomNumber));
 	}
 
+	const def = ctx.plan.defs[0];
+	const floorColor = def.color?.find(c => c.name == "floor")?.value ?? "white";
+	const wallColor = def.color?.find(c => c.name == "wall")?.value ?? "black";
+
+	let floorFill = floorColor;
+	if (room.not_living !== undefined) {
+		floorFill = wallColor;
+	}
+	if (room.type == "terrace") {
+		floorFill = "url(#h-stripes)";
+	}
+
 	// floor
 	Util.create({
 		name: "path",
-		attributes: { "d": Util.polyline(wallPoints) },
+		attributes: {
+			"d": Util.polyline(wallPoints),
+			"fill": floorFill
+		},
 		classes: ["floor"],
 		parent: g
 	});
@@ -375,14 +390,20 @@ function createRoom(ctx: PlanContext, flat: Flat, roomNumber: number, flatGroup:
 
 	Util.create({
 		name: "path",
-		attributes: { "d": wallPath },
+		attributes: {
+			"d": wallPath,
+			"fill": wallColor
+		},
 		classes: ["wall"],
 		parent: g
 	});
 
 	Util.create({
 		name: "path",
-		attributes: { "d": cutoutPath },
+		attributes: {
+			"d": cutoutPath,
+			"fill": floorFill
+		},
 		classes: ["wall-cutout", "floor"],
 		parent: g
 	});
@@ -560,19 +581,22 @@ async function initDefs(ctx: PlanContext) {
 
 	const def = ctx.plan.defs[0];
 
-	ctx.style += `
-		.wall {
-			fill: ${def.color?.find(c => c.name == "wall")?.value ?? "black"};
-		}
+	const floorColor = def.color?.find(c => c.name == "floor")?.value ?? "white";
+	const wallColor = def.color?.find(c => c.name == "wall")?.value ?? "black";
+	const terraceColor = def.color?.find(c => c.name == "terrace")?.value ?? "gray";
 
-		.living .floor {
-			fill: ${def.color?.find(c => c.name == "floor")?.value ?? "white"};
-		}
+	const pattern = Util.create({
+		name: "pattern",
+		id: "h-stripes",
+		attributes: {
+			patternUnits: "userSpaceOnUse",
+			width: "1",
+			height: "20"
+		},
+		innerHTML: `<rect width="1" height="20" fill="${floorColor}"/><rect y="0" width="1" height="3" fill="${terraceColor}"/>`
+	});
 
-		.not-living .floor {
-			fill: ${def.color?.find(c => c.name == "wall")?.value ?? "white"};
-		}
-	`;
+	defs.appendChild(pattern);
 
 	for (const templ of def.template ?? []) {
 		try {

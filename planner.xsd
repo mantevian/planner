@@ -104,7 +104,7 @@
 		<xs:attribute name="area_offset_x" type="metric-size" default="0mm" />
 		<xs:attribute name="area_offset_y" type="metric-size" default="0mm" />
 		<xs:attribute name="not_living" type="xs:anySimpleType" default="" />
-		<xs:attribute name="balcony" type="xs:anySimpleType" default="" />
+		<xs:attribute name="type" type="xs:string" default="" />
 	</xs:complexType>
 
 	<xs:complexType name="walls">
@@ -145,6 +145,7 @@
 		<xs:attribute name="height" type="metric-size" />
 		<xs:attribute name="mirror" type="xs:boolean" />
 		<xs:attribute name="hide" type="xs:boolean" />
+		<xs:attribute name="template" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="furniture">
